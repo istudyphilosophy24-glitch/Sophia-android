@@ -10,8 +10,8 @@ android {
         applicationId = "com.sophia.philosophy.nativepreview"
         minSdk = 24
         targetSdk = 35
-        versionCode = 2
-        versionName = "4.0-native-migration"
+        versionCode = 3
+        versionName = "5.0-illustrated-academy"
     }
     buildTypes { release { isMinifyEnabled = false } }
     compileOptions {
