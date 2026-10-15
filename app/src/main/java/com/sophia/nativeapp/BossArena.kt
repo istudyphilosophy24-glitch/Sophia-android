@@ -22,7 +22,7 @@ import kotlin.random.Random
 
 /** Native, illustrated four-phase challenge; no generic quiz screen is reused. */
 @Composable fun BossArena(unit:UnitLesson,course:Course,courseIndex:Int,
-    onFinish:(Int,Boolean)->Unit,onExit:()->Unit) {
+    mastery:Mastery7,onFinish:(Int,Boolean)->Unit,onExit:()->Unit) {
     val gold=Color(0xFFFFD482);val forest=Color(0xFF134F3B);val ink=Color(0xFF253629)
     val cc=unit.concepts
     var phase by remember(course.id,unit.name){mutableIntStateOf(0)}
@@ -35,6 +35,18 @@ import kotlin.random.Random
     val phaseNames=listOf("The Claim","The Argument","The Objection","The Revision")
     val attacks=listOf("DISCERNMENT","ARGUMENT FORGE","CRITICAL SHIELD","DIALECTICAL TURN")
     val titles=listOf("Find the strongest thesis","Assemble the premises","Block the weak attacks","Revise without retreating")
+    val philosopherChallenge=when {
+        course.name.contains("Kantian",true)->"Can a condition of experience be confused with a property of things as they are in themselves?"
+        course.name.contains("Hegelian",true)->"Does your negation transform a specific content, or merely reject it?"
+        course.name.contains("Socratic",true)->"Can your definition survive a counterexample offered in dialogue?"
+        course.name.contains("Platonic",true)->"Do your premises explain why knowledge differs from opinion?"
+        course.name.contains("Schopenhauer",true)->"Can you defend the relation between representation, Will, and suffering?"
+        course.name.contains("Buddhist",true)->"Does dependent origination require an independent self?"
+        course.name.contains("Phenomenology",true)->"Can you distinguish description from a psychological hypothesis?"
+        course.name.contains("Positivism",true)->"Can observation alone secure the methodological claims of positivism?"
+        course.name.contains("Aristotelian",true)->"Have you distinguished explanation by cause from mere succession?"
+        else->"Which assumption is indispensable to your thesis, and how could an opponent test it?"
+    }
     val thesis=unit.reading.thesis.ifBlank{"The chapter investigates how ${cc[0].term} and ${cc[1].term} are related."}
     val challenge=unit.reading.objection.ifBlank{"Could a counterexample disprove this interpretation?"}
     val claims=listOf(
@@ -85,7 +97,7 @@ import kotlin.random.Random
             PhilosopherAvatar(courseIndex,Modifier.size(151.dp).align(Alignment.Center).offset(y=((float-.5f)*13).dp))
             Column(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(13.dp),verticalArrangement=Arrangement.spacedBy(6.dp)){
                 Surface(color=Color(0xDE123F31),shape=RoundedCornerShape(13.dp)){
-                    Text("“${when(phase){0->"Define what you are defending.";1->"A claim is not yet an argument.";2->"Can your reasons survive criticism?";else->"Now refine your understanding."}}”",color=Color.White,modifier=Modifier.fillMaxWidth().padding(10.dp),textAlign=TextAlign.Center,fontSize=13.sp)
+                    Text("“${when(phase){0->philosopherChallenge;1->"A claim is not yet an argument.";2->"Can your reasons survive criticism?";else->"Now refine your understanding."}}”",color=Color.White,modifier=Modifier.fillMaxWidth().padding(10.dp),textAlign=TextAlign.Center,fontSize=13.sp)
                 }
                 Row(verticalAlignment=Alignment.CenterVertically){
                     Text("🛡 YOU",color=Color.White,fontSize=11.sp);Spacer(Modifier.width(8.dp))
@@ -118,11 +130,13 @@ import kotlin.random.Random
                             picked=picked+idx
                             if(picked.size==2){
                                 good=picked.count{choices[it].second}==2;locked=true
+                                mastery.record(cc[phase].term,"reconstruction",good)
                                 if(good){score+=2;opponentHp=(opponentHp-25).coerceAtLeast(0)}
                                 else heroHp=(heroHp-25).coerceAtLeast(0)
                             }
                         }else{
                             chosenSingle=idx;good=entry.second;locked=true
+                            mastery.record(cc[phase].term,when(phase){0->"comprehension";2->"criticism";else->"synthesis"},good)
                             if(good){score+=2;opponentHp=(opponentHp-25).coerceAtLeast(0)}
                             else heroHp=(heroHp-25).coerceAtLeast(0)
                         }

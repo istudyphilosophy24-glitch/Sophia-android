@@ -1,4 +1,4 @@
-name: Build SOPHIA 6 Living Academy
+name: Build SOPHIA 7 Dialectical Academy
 on:
   push:
     branches: [main]
@@ -31,12 +31,12 @@ jobs:
         with:
           gradle-version: '8.10.2'
       - name: Validate curriculum and excerpt library
-        run: python3 tools/validate_content.py
+        run: python3 tools/validate_content.py && python3 tools/validate_seven.py
       - name: Compile native APK
         run: gradle :app:assembleDebug --stacktrace --no-daemon
       - name: Publish sideloadable debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: SOPHIA-6-Living-Academy-APK
+          name: SOPHIA-7-Dialectical-Academy-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error

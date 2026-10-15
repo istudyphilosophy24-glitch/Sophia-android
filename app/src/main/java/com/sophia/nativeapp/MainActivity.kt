@@ -89,7 +89,7 @@ class MainActivity:ComponentActivity(){
     override fun onDestroy(){narration.release();tones?.release();super.onDestroy()}
 }
 
-private enum class Page { HOME, COURSES, COURSE, READ, QUIZ, BOSS, REFLECTION, FINISH, ACADEMY, LIBRARY, PRIMARY_READER, READING_DESK, SEMINAR, ARGUMENT, REVIEW, RESEARCH, MASTERY, PROFILE, BACKUP, RADIO, CONSTELLATION, COMMENTARY_INDEX }
+private enum class Page { HOME, COURSES, COURSE, READ, QUIZ, BOSS, REFLECTION, FINISH, ACADEMY, LIBRARY, PRIMARY_READER, READING_DESK, SEMINAR, ARGUMENT, REVIEW, RESEARCH, MASTERY, PROFILE, BACKUP, RADIO, CONSTELLATION, COMMENTARY_INDEX, ATLAS, MINIGAME, DIAGNOSTIC, DOCTORAL, COLLECTION }
 
 @Composable
 private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progress:SophiaProgress,narrator:NarratorController,onSpeak:(String,Float,Float)->Unit,onStop:()->Unit,onTone:(Boolean)->Unit,onShare:(String)->Unit,onExternalReader:(String,String)->Unit,onOpenSource:(String)->Unit) {
@@ -116,23 +116,28 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
     var primaryIndex by remember { mutableIntStateOf(0) }
     val haptic=LocalHapticFeedback.current
     val appContext=androidx.compose.ui.platform.LocalContext.current
+    val mastery=remember { Mastery7(appContext) }
+    var passedChallenge by remember { mutableStateOf<Boolean?>(null) }
     val course=courses[courseIndex]
     val unit=course.units[unitIndex]
     val tier=tierFor(lessonIndex)
     val plan=lessonPlan(course,unitIndex,lessonIndex)
-    val exercises=remember(courseIndex,unitIndex,lessonIndex) { createExercises(course,unitIndex,lessonIndex) }
+    val exercises=remember(courseIndex,unitIndex,lessonIndex) { createExercises(course,unitIndex,lessonIndex).sortedByDescending { it.skill==mastery.recommend() } }
     val isBoss=tier==Tier.BOSS
     val lessonKey=unitKey(course.id,unitIndex,lessonIndex)
-    val due by remember(tick) { mutableStateOf(progress.dueConcepts()) }
+    val due by remember(tick) { mutableStateOf((progress.dueConcepts()+mastery.dueConcepts()).distinct()) }
     fun goBack() {
         page=when(page) {
             Page.COURSE->Page.COURSES
             Page.READ->Page.COURSE
-            Page.QUIZ,Page.BOSS,Page.REFLECTION->Page.READ
+            Page.QUIZ,Page.BOSS,Page.REFLECTION,Page.MINIGAME->Page.READ
             Page.FINISH->Page.COURSE
             Page.PRIMARY_READER->Page.LIBRARY
             Page.RADIO->Page.HOME
-            Page.CONSTELLATION->Page.COURSE
+            Page.CONSTELLATION,Page.DIAGNOSTIC->Page.COURSE
+            Page.ATLAS->Page.ACADEMY
+            Page.DOCTORAL->Page.ACADEMY
+            Page.COLLECTION->Page.PROFILE
             Page.COMMENTARY_INDEX->Page.ACADEMY
             Page.LIBRARY->Page.ACADEMY
             Page.READING_DESK,Page.SEMINAR,Page.ARGUMENT,Page.REVIEW,Page.MASTERY->Page.ACADEMY
@@ -143,6 +148,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
     BackHandler(page!=Page.HOME){goBack()}
     fun endLesson() {
         val pass = !isBoss && tier!=Tier.SYNTHESIS || score>=6
+        passedChallenge=pass
         if(!pass) {page=Page.FINISH;tick++}
         else {progress.finishLesson(course.id,unitIndex,lessonIndex,score,true);tick++;page=Page.FINISH}
     }
@@ -167,6 +173,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                         SmallStat("🏅","${progress.completed.size}","Lessons",Modifier.weight(1f))
                     }
                     DailyQuestBoard(progress.completed.size,progress.streak,progress.xp)
+                    Text("🎯 Suggested intellectual quest: strengthen ${mastery.recommend()} through a new challenge.",color=Pine,fontWeight=FontWeight.SemiBold)
                     Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         Pill("📚 30 courses")
                         Pill("🧠 1,800 concepts")
@@ -175,6 +182,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                     MenuCard("📚","The Academy","Reading library, seminars and logic arena","Study") {page=Page.ACADEMY}
                     MenuCard("🧪","Research Institute","Defend and revise your own philosophical theories","Investigate") {page=Page.RESEARCH}
                     MenuCard("🎧","Philosophical Radio","Hands-free excerpt and commentary listening","Listen") {page=Page.RADIO}
+                    MenuCard("✧","Living Knowledge Atlas","Historical and conceptual links across the thirty traditions","Explore") {page=Page.ATLAS}
                     if(primaryBooks.isNotEmpty()) {
                         val day=java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_YEAR)
                         val b=primaryBooks[day%primaryBooks.size]
@@ -201,6 +209,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                 Page.COURSE->ScrollFrame {
                     CourseWorldHeader(course,courseIndex,progress.completed.count{it.startsWith("${course.id}:")})
                     OutlinedButton(onClick={page=Page.CONSTELLATION},modifier=Modifier.fillMaxWidth()) {Text("✧ Explore this course's concept constellation")}
+                    OutlinedButton(onClick={page=Page.DIAGNOSTIC},modifier=Modifier.fillMaxWidth()){Text("🎓 Take a diagnostic placement trial")}
                     Text(course.description,color=Muted,lineHeight=22.sp)
                     course.units.forEachIndexed{ui,u->
                         IllustratedUnitPath(u,course,ui,
@@ -241,16 +250,25 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                     }
                     OutlinedButton(onClick=onStop,modifier=Modifier.fillMaxWidth()){Text("■ Stop narration")}
                     Button(onClick={
-                        questionIndex=0;selected=null;score=0;writing="";
-                        page=if(isBoss)Page.BOSS else Page.QUIZ
+                        questionIndex=0;selected=null;score=0;writing="";passedChallenge=null;
+                        page=if(isBoss)Page.BOSS else if(lessonIndex in 5..10)Page.MINIGAME else Page.QUIZ
                     },modifier=Modifier.fillMaxWidth().height(54.dp)){
                         Text(if(isBoss)"⚔ ENTER ILLUSTRATED BOSS ARENA" else "✦ START ${plan.mode.uppercase()} CHALLENGE")
                     }
                 }
+                Page.MINIGAME-> androidx.compose.runtime.key(courseIndex,unitIndex,lessonIndex){
+                    DialecticalMiniGame7(course,unit,unitIndex,lessonIndex,primaryBooks,mastery,
+                        onComplete={points->
+                            score=points;val pass=points>=5;passedChallenge=pass
+                            if(pass)progress.finishLesson(course.id,unitIndex,lessonIndex,points,true)
+                            tick++;page=Page.FINISH
+                        },onExit={page=Page.READ})
+                }
+                Page.DIAGNOSTIC->PlacementTrial7(course,mastery,onDone={tick++;page=Page.COURSE})
                 Page.BOSS-> androidx.compose.runtime.key(courseIndex,unitIndex){
-                    BossArena(unit,course,courseIndex,
+                    BossArena(unit,course,courseIndex,mastery,
                         onFinish={points,passed->
-                            score=points
+                            score=points;passedChallenge=passed
                             if(passed)progress.finishLesson(course.id,unitIndex,lessonIndex,points,true)
                             tick++;page=Page.FINISH
                         },onExit={page=Page.READ})
@@ -274,6 +292,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                                         val ok=option==exercise.answer
                                         if(ok)score++
                                         progress.recordAnswer(exercise,ok)
+                                        mastery.record(exercise.concept,exercise.skill,ok)
                                         haptic.performHapticFeedback(if(ok)HapticFeedbackType.LongPress else HapticFeedbackType.TextHandleMove)
                                         if(soundOn)onTone(ok)
                                     }
@@ -305,7 +324,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                 }
                 Page.FINISH->ScrollFrame {
                     RewardCelebration(if(isBoss||tier==Tier.SYNTHESIS)score>=6 else true,score)
-                    val passed= if(isBoss||tier==Tier.SYNTHESIS)score>=6 else true
+                    val passed=passedChallenge ?: if(isBoss||tier==Tier.SYNTHESIS)score>=6 else true
                     Headline(if(passed)"Victory! Intellectual progress earned." else "Your opponent prevailed", "$score / 8 mastery points")
                     if(!passed)Text("Mastery trials require at least six correct answers. Review the reading and try again; no XP or unlock is awarded yet.",color=Ink)
                     else Text("Progress recorded. Revisit this material later for lasting understanding.",color=Ink)
@@ -317,12 +336,15 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                     IllustratedHomeBanner(onExplore={page=Page.COURSES})
                     MenuCard("📜","Great Library","420 primary-source excerpts with interpretive commentary","Read excerpts") {page=Page.LIBRARY}
                     MenuCard("📑","Scholarly Commentaries","300 chapter analyses, objections and interpretive controversies","Study") {page=Page.COMMENTARY_INDEX}
-                    MenuCard("🎙️","Socratic Seminar","Four-stage reflection with a transparent rubric","Enter") {seminarStep=0;seminarText=progress.seminarResponse(course.id,unitIndex,0);page=Page.SEMINAR}
+                    MenuCard("🎙️","Socratic Chamber","Branching examiner and free-form written argument practice","Enter") {page=Page.SEMINAR}
+                    MenuCard("🎓","Doctoral Trial","Five demanding open-ended examination stages","Examine") {page=Page.DOCTORAL}
+                    MenuCard("🧩","Four Philosophical Mini-Games","Forge, architecture, tribunal, textual investigation","Play") {lessonIndex=7;page=Page.MINIGAME}
                     MenuCard("🧩","Argument Architect","Classify inferences and examine counterexamples","Practice") {page=Page.ARGUMENT}
                     MenuCard("🔁","Spaced Review","Revisit concepts scheduled from past performance","Review") {page=Page.REVIEW}
                     MenuCard("📊","Mastery Dashboard","Track six dimensions of your learning","Examine") {page=Page.MASTERY}
                     MenuCard("🎧","Philosophical Radio","Listen continuously to the Great Library","Play") {page=Page.RADIO}
                     MenuCard("✧","Concept Constellations","Discover conceptual relationships in the course","Explore") {page=Page.CONSTELLATION}
+                    MenuCard("🌌","Living Knowledge Atlas","Curated connections between philosophical traditions","Explore") {page=Page.ATLAS}
                     Text("For source-based study, prefer annotated texts and check primary editions. The app does not certify contested interpretations.",color=Muted,fontSize=12.sp)
                 }
                 Page.LIBRARY->PrimaryLibraryIndex(primaryBooks,onOpen={primaryIndex=it;page=Page.PRIMARY_READER},onSource=onOpenSource)
@@ -348,26 +370,10 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                     Text("A connection marks a relationship for inquiry, not a proof of entailment.",color=Muted)
                 }
                 Page.RADIO->PhilosophicalRadioScreen(onBack={page=Page.HOME})
-                Page.SEMINAR->ScrollFrame {
-                    Headline("🎙️ Socratic Seminar","${course.name} · ${unit.name}")
-                    val stages=listOf("Define the thesis","Reconstruct the argument","State a serious objection","Revise and defend")
-                    Text("Stage ${seminarStep+1}/4 — ${stages[seminarStep]}",color=Pine,fontWeight=FontWeight.ExtraBold,fontSize=20.sp)
-                    val prompts=listOf(
-                        "What is the central philosophical problem here? Define your key terms precisely.",
-                        "Provide two premises that support the unit's thesis. Explain how the conclusion follows.",
-                        "Give the strongest objection to a particular premise. Why might a careful philosopher accept it?",
-                        "Revise your thesis to address the objection without merely restating your conclusion."
-                    )
-                    Text(prompts[seminarStep],color=Ink,lineHeight=25.sp)
-                    if(unit.reading.thesis.isNotBlank())Text("Study orientation: ${unit.reading.thesis}",color=Muted,fontSize=13.sp)
-                    OutlinedTextField(value=seminarText,onValueChange={seminarText=it;progress.saveSeminar(course.id,unitIndex,seminarStep,it)},modifier=Modifier.fillMaxWidth().height(200.dp),label={Text("Your answer")})
-                    Text("Examiner's checklist: conceptual clarity • relevance • supporting reasons • objection sensitivity",fontSize=13.sp,color=Muted)
-                    Row(horizontalArrangement=Arrangement.spacedBy(10.dp)) {
-                        OutlinedButton(enabled=seminarStep>0,onClick={seminarStep--;seminarText=progress.seminarResponse(course.id,unitIndex,seminarStep)},modifier=Modifier.weight(1f)) {Text("Previous")}
-                        Button(enabled=seminarText.trim().length>=20,onClick={if(seminarStep<3){seminarStep++;seminarText=progress.seminarResponse(course.id,unitIndex,seminarStep)}else page=Page.ACADEMY},modifier=Modifier.weight(1f)) {Text(if(seminarStep==3)"Finish" else "Next stage")}
-                    }
-                    Text("Offline reflective exercise. No AI semantic grading is claimed.",fontSize=12.sp,color=Muted)
-                }
+                Page.ATLAS->KnowledgeAtlas7(courses,onCourse={courseIndex=it;page=Page.COURSE})
+                Page.DOCTORAL->DoctoralExamination7(course,unit,progress,onExit={page=Page.ACADEMY})
+                Page.COLLECTION->ScrollFrame{ScholarCollection7(courses,progress)}
+                Page.SEMINAR->SocraticChamber7(course,unit,progress,onExit={page=Page.ACADEMY})
                 Page.ARGUMENT->ArgumentArchitect()
                 Page.REVIEW->ScrollFrame {
                     Headline("🔁 Spaced Review","Retrieval practice based on earlier answers")
@@ -378,28 +384,11 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                     }
                     Text("The scheduler uses a simple increasing-interval heuristic, not a validated FSRS model.",fontSize=12.sp,color=Muted)
                 }
-                Page.RESEARCH->ScrollFrame {
-                    Headline("🧪 Research Institute","Construct, criticize and revise a philosophical position")
-                    OutlinedTextField(value=journal,onValueChange={journal=it;progress.saveResearch(it)},label={Text("Your research notebook")},placeholder={Text("Research problem:\nThesis:\nBasic distinctions:\nPremises:\nCounterexamples:\nRival interpretations:\nRevision:" )},modifier=Modifier.fillMaxWidth().height(260.dp))
-                    TitleLine("Methodological audit")
-                    val items=listOf("The thesis is stated clearly","Terms are defined","Conclusions follow from the premises","A serious rival position is considered","Textual evidence is distinguished from interpretation","Unresolved difficulties are acknowledged")
-                    items.forEachIndexed {index,t-> Row(verticalAlignment=Alignment.CenterVertically) { Checkbox(checked=index in researchRubric,onCheckedChange={researchRubric=if(it)researchRubric+index else researchRubric-index});Text(t,color=Ink,fontSize=14.sp) } }
-                    Text("${researchRubric.size} / ${items.size} checks considered — self-reported, not objectively certified",color=Muted)
-                    Text("Your notebook saves automatically on this device.",color=Muted,fontSize=12.sp)
-                }
+                Page.RESEARCH->ResearchLab7(primaryBooks)
                 Page.MASTERY->ScrollFrame {
-                    Headline("📊 Intellectual mastery","Skills are tracked separately")
-                    val dims=listOf("recognition","comprehension","reconstruction","criticism","synthesis","retention")
-                    dims.forEach {skill->
-                        val n=progress.skillPercent(skill)
-                        Column(verticalArrangement=Arrangement.spacedBy(5.dp)) {
-                            Row(verticalAlignment=Alignment.CenterVertically) {Text(skill.replaceFirstChar { it.titlecase() },color=Ink,fontWeight=FontWeight.SemiBold);Spacer(Modifier.weight(1f));Text("$n%",color=Muted)}
-                            LinearProgressIndicator(progress=n/100f,modifier=Modifier.fillMaxWidth().height(9.dp),color=Leaf,trackColor=Border)
-                        }
-                    }
-                    Text("These percentages summarize recorded responses; they are not validated psychometric estimates. Synthesis requires human self-assessment.",fontSize=12.sp,color=Muted)
+                    MasteryDashboard7(mastery,progress.completed.size)
                     TitleLine("Recent learning")
-                    Text("${progress.completed.size} completed lessons • ${progress.dueConcepts().size} concepts scheduled for review",color=Ink)
+                    Text("${progress.completed.size} completed lessons · ${due.size} ideas due for review",color=Ink)
                 }
                 Page.PROFILE->ScrollFrame {
                     Headline("👤 Your philosophical journey","Private, offline, stored on your device")
@@ -410,6 +399,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                     }
                     TitleLine("Achievements")
                     Text(if(progress.badges.isEmpty())"Complete a lesson to earn your first badge." else progress.badges.joinToString(" · ") {"🏅 $it"},color=Ink)
+                    OutlinedButton(onClick={page=Page.COLLECTION},modifier=Modifier.fillMaxWidth()){Text("🏛️ View unlocked philosopher collection")}
                     NarratorSettings(narrator,speakingSpeed,{speakingSpeed=it},speakingPitch,{speakingPitch=it})
                     Row(verticalAlignment=Alignment.CenterVertically) {Switch(checked=soundOn,onCheckedChange={soundOn=it});Spacer(Modifier.width(10.dp));Text("Quiz feedback sounds",color=Ink)}
                     Text("ElevenReader appears as an internal voice only if it exposes an Android TTS engine. To use ElevenReader as an independent reader, share individual lessons or excerpts from their reading screens.",fontSize=12.sp,color=Muted)

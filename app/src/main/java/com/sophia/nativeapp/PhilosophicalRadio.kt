@@ -129,7 +129,38 @@ class PhilosophyRadioService:Service() {
         val recent=(pref.getString("recent","")?:"").split('|').takeLast(20).toSet()
         val ordered=chosen.filter{it.second.id !in recent}+chosen.filter{it.second.id in recent}
         queue.clear()
-        if(mode=="seminar"){
+        if(mode=="program"){
+            val topics=listOf(
+                Triple("The Question of Freedom",listOf("free","will","necessity","cause"),"What would distinguish genuine choice from the appearance of choice?"),
+                Triple("Knowing and Doubting",listOf("knowledge","truth","doubt","perception"),"Can certainty be established without presupposing what is to be proved?"),
+                Triple("Virtue and the Good Life",listOf("virtue","good","moral","happiness"),"Does knowing the good suffice for acting well?"),
+                Triple("Reality and Appearance",listOf("being","appearance","reality","representation"),"What justifies our distinction between how things appear and what they are?"),
+                Triple("Mind and Selfhood",listOf("mind","self","conscious","thought"),"What conditions must hold for an enduring self to be intelligible?")
+            )
+            val chosenTopic=topics[Random(System.currentTimeMillis()).nextInt(topics.size)]
+            val related=ordered.filter{(b,e)->
+                val text=(b.title+" "+e.passage+" "+e.title).lowercase()
+                chosenTopic.second.any{it in text}
+            }
+            val first=related.firstOrNull()?:ordered.firstOrNull()
+            val second=related.firstOrNull{it.first.id!=first?.first?.id}?:related.drop(1).firstOrNull()
+            queue.add(SpokenItem("program:intro",chosenTopic.first,"Opening orientation",
+                "Welcome to SOPHIA's thematic audio seminar. Our problem is: ${chosenTopic.third} You will hear historically sourced passages and commentary, then be invited to think through the question independently."))
+            if(first!=null){
+                val (book,ex)=first
+                queue.add(SpokenItem(ex.id+":q",book.title+" — "+ex.title,"Primary text · "+book.author,ex.passage))
+                queue.add(SpokenItem(ex.id+":c",book.title+" — commentary","SOPHIA original interpretive guide",ex.commentary))
+            }
+            if(second!=null){
+                val (book,ex)=second
+                queue.add(SpokenItem(ex.id+":q",book.title+" — "+ex.title,"Counterpoint · "+book.author,
+                    "Now consider a second text. Compare its assumptions carefully with the first author. "+ex.passage))
+                queue.add(SpokenItem(ex.id+":c",book.title+" — comparison","SOPHIA interpretive questions",
+                    "The two excerpts address an overlapping theme, not necessarily a shared doctrine. "+ex.commentary))
+            }
+            queue.add(SpokenItem("program:reflection",chosenTopic.first,"Reflective conclusion",
+                "This seminar closes with a question. ${chosenTopic.third} Pause your listening if you wish to formulate two premises, an objection, and a revised thesis."))
+        }else if(mode=="seminar"){
             queue.addAll(loadCourses(this).flatMap{course->course.units.map{u->
                 SpokenItem("seminar:${course.id}:${u.name}","${course.name}: ${u.name}","Guided seminar",
                     u.reading.foundation+". "+u.reading.intermediate+". Reflection: "+u.reading.objection)
@@ -218,10 +249,10 @@ class PhilosophyRadioService:Service() {
     }
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),verticalArrangement=Arrangement.spacedBy(13.dp)){
         RadioBanner()
-        Text("The Philosophical Radio",fontSize=26.sp,color=Color(0xFF16533E),fontWeight=FontWeight.ExtraBold)
+        Text("The Philosophical Radio 2.0",fontSize=26.sp,color=Color(0xFF16533E),fontWeight=FontWeight.ExtraBold)
         Text("Hands-free philosophical passages, original interpretations, and reflective seminars. Your Android voice continues while the phone is locked.",color=Color(0xFF506C60),fontSize=14.sp)
         Text("LISTENING FORMAT",fontSize=11.sp,color=Color(0xFFB18E43),fontWeight=FontWeight.Bold)
-        listOf("quotes" to "Random primary passages","commentaries" to "Interpretive commentaries","alternating" to "Passage followed by commentary","seminar" to "Scholarly seminar readings").forEach { (value,label)->
+        listOf("quotes" to "Random primary passages","commentaries" to "Interpretive commentaries","alternating" to "Passage followed by commentary","seminar" to "Scholarly seminar readings","program" to "Thematic Audio Seminar · reading / counterpoint / reflection").forEach { (value,label)->
             Row(verticalAlignment=androidx.compose.ui.Alignment.CenterVertically){RadioButton(selected=mode==value,onClick={mode=value});Text(label,color=Color(0xFF234636))}
         }
         Text("SELECT FROM",fontSize=11.sp,color=Color(0xFFB18E43),fontWeight=FontWeight.Bold)
@@ -247,7 +278,7 @@ class PhilosophyRadioService:Service() {
                 }
             }
         }
-        Text("The queue is randomized, and recently heard passages are avoided until needed again. If no studied, weak, or favorite selections are found, playback falls back to all excerpts. The sleep timer counts wall-clock time, including pauses.",fontSize=12.sp,color=Color.Gray)
+        Text("Thematic programs include an introduction, two source readings when available, commentary and reflective questions. Other queues are randomized, and recently heard passages are avoided until needed again. If no studied, weak, or favorite selections are found, playback falls back to all excerpts. The sleep timer counts wall-clock time, including pauses.",fontSize=12.sp,color=Color.Gray)
         Text("ElevenReader can receive exported passages but does not become SOPHIA’s internal voice unless installed as an Android speech engine.",fontSize=12.sp,color=Color.Gray)
     }
 }

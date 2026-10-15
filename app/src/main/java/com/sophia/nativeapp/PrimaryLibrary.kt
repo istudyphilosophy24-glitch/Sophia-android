@@ -3,6 +3,9 @@ package com.sophia.nativeapp
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -96,6 +99,19 @@ private val bodyInk=Color(0xFF21382C)
     var showNotes by remember { mutableStateOf(false) }
     var reflection by remember(book.id,index){mutableStateOf(prefs.getString("note_"+book.id+"_"+index,"")?:"")}
     var status by remember { mutableStateOf("") }
+    var showParallel by remember(book.id){mutableStateOf(false)}
+    var parallelText by remember(book.id){mutableStateOf(prefs.getString("parallel_"+book.id,"")?:"")}
+    var selectedGlossary by remember {mutableStateOf("")}
+    var argumentNote by remember(book.id,index){mutableStateOf(prefs.getString("argument_"+book.id+"_"+index,"")?:"")}
+    val importer=rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()){uri:Uri?->
+        if(uri!=null)try{
+            val content=context.contentResolver.openInputStream(uri)?.bufferedReader()?.use{it.readText()}?:""
+            parallelText=content.take(18000)
+            prefs.edit().putString("parallel_"+book.id,parallelText).apply()
+            showParallel=true
+            status="Your own lawful translation imported. Align the passage manually: this is not an automatically synchronized critical edition."
+        }catch(_:Exception){status="Cannot read the selected document."}
+    }
     if(book.excerpts.isEmpty()){
         Column(Modifier.padding(18.dp)){Text("No source excerpts are available.");OutlinedButton(onClick={onSource(book.url)}){Text("Source catalog")}}
         return
@@ -127,6 +143,28 @@ private val bodyInk=Color(0xFF21382C)
                 Text(excerpt.passage,color=bodyInk,fontSize=fontSize.sp,lineHeight=(fontSize*1.56f).sp)
             }
         }
+        OutlinedButton(onClick={showParallel=!showParallel},modifier=Modifier.fillMaxWidth()){
+            Text(if(showParallel)"Hide translation comparison" else "📜 Parallel translation / original-language desk")
+        }
+        if(showParallel){
+            Text("Compare the historical text above with a lawful edition you provide. No second translation is bundled without licensing verification.",color=Color.Gray,fontSize=12.sp)
+            OutlinedButton(onClick={importer.launch(arrayOf("text/plain"))},modifier=Modifier.fillMaxWidth()){
+                Text("Import a .txt translation / original-language text")
+            }
+            if(parallelText.isNotBlank()){
+                ElevatedCard(colors=CardDefaults.elevatedCardColors(containerColor=Color(0xFFF4F6EE))){
+                    Column(Modifier.padding(13.dp),verticalArrangement=Arrangement.spacedBy(8.dp)){
+                        Text("USER-IMPORTED PARALLEL EDITION",color=emerald,fontWeight=FontWeight.Bold,fontSize=11.sp)
+                        Text(parallelText,color=bodyInk,fontSize=(fontSize-1).sp,lineHeight=(fontSize*1.47f).sp)
+                    }
+                }
+                Text("Sections are stacked on narrow Android screens rather than squeezed into unreadable columns; manually scroll the imported edition to the relevant section.",color=Color.Gray,fontSize=11.sp)
+            }
+        }
+        Text("🖍 ARGUMENT MARKUP",fontWeight=FontWeight.Bold,color=emerald)
+        Text("Annotate which sentence states the thesis, evidence, qualification, or objection. These classifications are your notes, not an automatic textual analysis.",color=Color.Gray,fontSize=12.sp)
+        OutlinedTextField(value=argumentNote,onValueChange={argumentNote=it;prefs.edit().putString("argument_"+book.id+"_"+index,it).apply()},
+            label={Text("Premise / conclusion / counterexample")},modifier=Modifier.fillMaxWidth().height(105.dp))
         Row(horizontalArrangement=Arrangement.spacedBy(8.dp)){
             OutlinedButton(enabled=index>0,onClick={index--;prefs.edit().putInt("excerpt_"+book.id,index).apply()},modifier=Modifier.weight(1f)){Text("‹ Previous")}
             Button(enabled=index<book.excerpts.size-1,onClick={index++;prefs.edit().putInt("excerpt_"+book.id,index).apply()},modifier=Modifier.weight(1f)){Text("Next ›")}
@@ -145,7 +183,19 @@ private val bodyInk=Color(0xFF21382C)
                 }
             }
         }
-        Text("Glossary: "+excerpt.glossary.joinToString(" • "),fontSize=12.sp,color=Color.Gray)
+        Text("Tap a philosophical term",color=emerald,fontWeight=FontWeight.Bold)
+        Row(Modifier.horizontalScroll(rememberScrollState()),horizontalArrangement=Arrangement.spacedBy(6.dp)){
+            excerpt.glossary.forEach{term->FilterChip(selected=selectedGlossary==term,onClick={selectedGlossary=term},label={Text(term.trim())})}
+        }
+        if(selectedGlossary.isNotBlank()){
+            val key=selectedGlossary.trim().lowercase()
+            val gloss=mapOf("truth" to "A contested epistemic and evaluative ideal; ask whether this work assumes truth's unconditional value.",
+                "reason" to "The faculty or practice of giving accounts and drawing inferences; its role varies among traditions.",
+                "will" to "A concept of striving or volition, not identical across Nietzsche, Kant and Schopenhauer.",
+                "virtue" to "Excellence of character or capacity; examine its relation to action and flourishing.",
+                "knowledge" to "A contested status for cognition, requiring analysis of justification and the possibility of error.")
+            Text("${selectedGlossary.trim()}: ${gloss[key]?:"Examine how this term is defined and used in the cited source; it may not have the same meaning in other traditions."}",fontSize=13.sp,color=bodyInk)
+        }
         OutlinedButton(onClick={showNotes=!showNotes},modifier=Modifier.fillMaxWidth()){Text(if(showNotes)"Hide reading notes" else "✍ Add reading annotations")}
         if(showNotes) OutlinedTextField(value=reflection,onValueChange={reflection=it;prefs.edit().putString("note_"+book.id+"_"+index,it).apply()},modifier=Modifier.fillMaxWidth().height(150.dp),label={Text("Interpretation / objection")})
         Button(onClick={onSpeak(excerpt.passage)},modifier=Modifier.fillMaxWidth()){Text("🔊 Read this excerpt with my selected Android voice")}
