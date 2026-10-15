@@ -59,11 +59,11 @@ data class ThesisDraft7(val claim:String="",val premise1:String="",val premise2:
         LabeledEditor("⑤ Revised response",reply,{reply=it},Color(0xFFF0F8E9))
         LabeledEditor("⑥ Primary-text evidence and bibliographic source",evidence,{evidence=it},Color.White)
         val checks=listOf(
-            "Thesis is specified" to claim.trim().length>=12,
+            "Thesis is specified" to (claim.trim().length>=12),
             "Two distinct supporting reasons are supplied" to (premise1.trim().length>=12&&premise2.trim().length>=12&&premise1.trim()!=premise2.trim()),
-            "A counterposition is articulated" to objection.trim().length>=12,
-            "A response attempts a revision" to reply.trim().length>=12,
-            "Textual source is identified" to evidence.trim().length>=12
+            "A counterposition is articulated" to (objection.trim().length>=12),
+            "A response attempts a revision" to (reply.trim().length>=12),
+            "Textual source is identified" to (evidence.trim().length>=12)
         )
         Text("ARGUMENT AUDIT",fontWeight=FontWeight.ExtraBold,color=Color(0xFF155D42))
         checks.forEach{(statement,ok)->Text((if(ok)"✓ "else "○ ")+statement,color=Color(0xFF314B3A),fontSize=14.sp)}
