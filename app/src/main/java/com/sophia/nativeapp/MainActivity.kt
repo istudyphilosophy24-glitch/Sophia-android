@@ -162,7 +162,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                         SmallStat("🪙","${progress.coins}","Coins",Modifier.weight(1f))
                         SmallStat("🏅","${progress.completed.size}","Lessons",Modifier.weight(1f))
                     }
-                    DailyQuestBoard(progress.completed.size,progress.streak,progress.xp)
+                    DailyQuestBoard(progress.todayLessons,progress.streak,progress.xp)
                     Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         Pill("📚 28 courses")
                         Pill("🧠 1,680 concepts")
