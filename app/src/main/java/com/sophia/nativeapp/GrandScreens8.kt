@@ -42,7 +42,7 @@ private val goldDark=Color(0xFFB78A4A)
 @Composable private fun SmallCaps8(label:String){Text(label.uppercase(),color=goldDark,fontSize=10.sp,fontWeight=FontWeight.Bold,letterSpacing=2.sp)}
 @Composable private fun Serif8(text:String,size:Int=27,color:Color=body){Text(text,fontFamily=FontFamily.Serif,fontSize=size.sp,lineHeight=(size+3).sp,color=color)}
 
-@Composable fun GrandDock8(page:GrandPage8,onNavigate:(GrandPage8)->Unit,onProfile:()->Unit){
+@Composable internal fun GrandDock8(page:GrandPage8,onNavigate:(GrandPage8)->Unit,onProfile:()->Unit){
     Surface(shadowElevation=20.dp,color=night){
         Row(Modifier.fillMaxWidth().height(68.dp).padding(horizontal=6.dp),verticalAlignment=Alignment.CenterVertically){
             val tabs=listOf(Triple(GrandPage8.CAMPUS,"Campus",Icons.Rounded.AccountBalance),Triple(GrandPage8.AUDIO,"Listen",Icons.Rounded.Headphones),Triple(GrandPage8.LIBRARY,"Library",Icons.Rounded.AutoStories),Triple(GrandPage8.ODYSSEY,"Odyssey",Icons.Rounded.Explore))
@@ -197,11 +197,11 @@ private val goldDark=Color(0xFFB78A4A)
         StoryImage8(R.drawable.grand_library,height=202){
             Column(Modifier.align(Alignment.BottomStart).padding(20.dp)){
                 Text("STUDY ENCOUNTER ${lesson+1} / 12",color=oldGold,fontSize=11.sp,fontWeight=FontWeight.Bold,letterSpacing=1.7.sp)
-                Text(plan.label,fontFamily=FontFamily.Serif,fontSize=27.sp,lineHeight=31.sp,color=Color.White)
+                Text(plan.title,fontFamily=FontFamily.Serif,fontSize=27.sp,lineHeight=31.sp,color=Color.White)
             }
         }
         Column(Modifier.padding(horizontal=20.dp,vertical=22.dp),verticalArrangement=Arrangement.spacedBy(16.dp)){
-            SmallCaps8(plan.kind)
+            SmallCaps8(plan.mode)
             Text(plan.objective,fontFamily=FontFamily.Serif,fontSize=22.sp,lineHeight=30.sp,color=evergreen)
             HorizontalDivider(color=Color(0xFFD7DACD))
             Text(plan.introduction,fontSize=17.sp,lineHeight=29.sp,color=body)
@@ -212,7 +212,7 @@ private val goldDark=Color(0xFFB78A4A)
             Surface(color=Color(0xFFE7EAD9),shape=RoundedCornerShape(18.dp)){
                 Column(Modifier.padding(17.dp)){
                     SmallCaps8("Your question")
-                    Text(plan.challenge,fontFamily=FontFamily.Serif,fontSize=19.sp,lineHeight=26.sp,color=evergreen)
+                    Text(plan.task,fontFamily=FontFamily.Serif,fontSize=19.sp,lineHeight=26.sp,color=evergreen)
                 }
             }
             SmallCaps8("A few concepts to carry forward")
