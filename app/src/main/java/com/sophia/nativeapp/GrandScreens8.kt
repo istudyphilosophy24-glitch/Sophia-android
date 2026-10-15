@@ -75,9 +75,9 @@ private val goldDark=Color(0xFFB78A4A)
                 Surface(onClick=onScholar,color=night.copy(alpha=.78f),shape=CircleShape){Icon(Icons.Rounded.AccountCircle,"Profile",Modifier.padding(8.dp).size(25.dp),tint=oldGold)}
             }
             Column(Modifier.align(Alignment.BottomStart).padding(start=22.dp,end=18.dp,bottom=32.dp),verticalArrangement=Arrangement.spacedBy(6.dp)){
-                Text("✦ THE GRAND ACADEMY",color=oldGold,fontWeight=FontWeight.Bold,fontSize=11.sp,letterSpacing=2.5.sp)
+                Text("✦ THE DEFINITIVE ACADEMY",color=oldGold,fontWeight=FontWeight.Bold,fontSize=11.sp,letterSpacing=2.5.sp)
                 Text("SOPHIA",color=Color.White,fontSize=49.sp,fontFamily=FontFamily.Serif,letterSpacing=2.sp)
-                Text("A world of philosophy to explore, read, and hear.",fontSize=15.sp,color=Color(0xFFFAF0D8),lineHeight=22.sp)
+                Text("The final edition · Read. Think. Listen.",fontSize=15.sp,color=Color(0xFFFAF0D8),lineHeight=22.sp)
             }
         }
         Column(Modifier.padding(horizontal=18.dp,vertical=18.dp),verticalArrangement=Arrangement.spacedBy(16.dp)){
@@ -94,7 +94,7 @@ private val goldDark=Color(0xFFB78A4A)
                 }
             }
             SmallCaps8("The academy is alive")
-            FrontFeature8(R.drawable.grand_audio,"Continue listening","Explore curated thematic seminars and hands-free philosophical radio.",onAudio)
+            FrontFeature8(R.drawable.grand_audio,"Continue listening","100+ hours of lectures, guided textual seminars, and reflective listening.",onAudio)
             Row(horizontalArrangement=Arrangement.spacedBy(12.dp)){
                 Box(Modifier.weight(1f)){FrontFeature8(R.drawable.grand_library,"The Library","${books.sumOf{it.excerpts.size}} source excerpts",onLibrary)}
                 Box(Modifier.weight(1f)){FrontFeature8(R.drawable.grand_odyssey,"The Odyssey","30 philosophical worlds",onOdyssey)}
@@ -109,7 +109,7 @@ private val goldDark=Color(0xFFB78A4A)
                     Icon(Icons.Rounded.ChevronRight,null,tint=evergreen)
                 }
             }
-            Text("30 disciplines · 300 chapters · 420 historical excerpts · 20 thematic seminars · 30 course lectures",fontSize=11.sp,color=faint,lineHeight=19.sp)
+            Text("SOPHIA 9.0 · 30 courses · 420 excerpts · 100+ hours of actual listening text",fontSize=11.sp,color=faint,lineHeight=19.sp)
             Spacer(Modifier.height(12.dp))
         }
     }

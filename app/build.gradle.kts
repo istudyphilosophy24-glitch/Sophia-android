@@ -7,11 +7,11 @@ android {
     namespace = "com.sophia.nativeapp"
     compileSdk = 35
     defaultConfig {
-        applicationId = "com.sophia.philosophy.grandacademy8"
+        applicationId = "com.sophia.philosophy.definitive9"
         minSdk = 24
         targetSdk = 35
-        versionCode = 8
-        versionName = "8.0"
+        versionCode = 9
+        versionName = "9.0"
     }
     buildTypes { release { isMinifyEnabled = false } }
     compileOptions {

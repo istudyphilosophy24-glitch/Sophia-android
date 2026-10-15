@@ -6,7 +6,7 @@
   <queries>
     <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>
   </queries>
-  <application android:label="SOPHIA 8 · Grand Academy" android:icon="@drawable/sophia_launcher" android:allowBackup="true" android:supportsRtl="true" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:usesCleartextTraffic="false">
+  <application android:label="SOPHIA 9 · Definitive Academy" android:icon="@drawable/sophia_launcher" android:allowBackup="true" android:supportsRtl="true" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:usesCleartextTraffic="false">
     <provider android:name="androidx.core.content.FileProvider"
       android:authorities="${applicationId}.files" android:exported="false"
       android:grantUriPermissions="true">

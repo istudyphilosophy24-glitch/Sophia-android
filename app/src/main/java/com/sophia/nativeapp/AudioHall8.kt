@@ -42,6 +42,9 @@ private val ivory8=Color(0xFFFAF0DA)
     val context=LocalContext.current
     val programs=remember { AudioCatalog8.load(context) }
     val settings=remember { context.getSharedPreferences("sophia_radio_v6",Context.MODE_PRIVATE) }
+    val audioHours=remember(programs){programs.sumOf{it.words}/125f/60f}
+    val commentaryHours=remember(programs){programs.filter{it.isLecture||it.isSeminar}.sumOf{it.words}/125f/60f}
+    val sourcesHours=remember(programs){programs.filter{it.isTextSeminar}.sumOf{it.words}/125f/60f}
     var filter by remember { mutableStateOf("Seminars") }
     var selected by remember { mutableStateOf(programs.firstOrNull { it.isSeminar }?.id ?: "") }
     var transcript by remember { mutableStateOf(false) }
@@ -58,6 +61,7 @@ private val ivory8=Color(0xFFFAF0DA)
     var search by remember {mutableStateOf("")}
     var updated by remember {mutableIntStateOf(0)}
     val selectedProgram=programs.firstOrNull{it.id==selected}
+    val detail=remember(selected){AudioCatalog8.loadProgram(context,selected)}
     val notificationPermission=rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()){}
     LaunchedEffect(Unit){while(true){
         state=settings.getString("state","stopped")?:"stopped"
@@ -93,13 +97,14 @@ private val ivory8=Color(0xFFFAF0DA)
                         Spacer(Modifier.height(5.dp))
                         Text("The Audio Hall",fontSize=36.sp,lineHeight=38.sp,color=ivory8,fontFamily=FontFamily.Serif)
                         Spacer(Modifier.height(7.dp))
-                        Text("A philosophy to hear, question, and remember.",color=Color(0xFFD3E2DE),fontSize=14.sp)
+                        Text("The Definitive Audio Academy · ${"%.1f".format(audioHours)} hours of listening text",color=Color(0xFFD3E2DE),fontSize=14.sp)
+                        Text("${"%.1f".format(commentaryHours)} h original lectures and seminars · ${"%.1f".format(sourcesHours)} h guided historical readings",color=gold8,fontSize=11.sp,lineHeight=16.sp)
                     }
                 }
             }
             item {
-                Row(Modifier.padding(horizontal=18.dp),horizontalArrangement=Arrangement.spacedBy(7.dp)){
-                    listOf("Seminars","Lectures","Saved","Radio").forEach{tab->
+                Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal=18.dp),horizontalArrangement=Arrangement.spacedBy(7.dp)){
+                    listOf("Seminars","Lectures","Textual study","Saved","Radio").forEach{tab->
                         FilterChip(selected=filter==tab,onClick={filter=tab},label={Text(tab,fontSize=12.sp)},colors=FilterChipDefaults.filterChipColors(selectedContainerColor=gold8,selectedLabelColor=midnight8,labelColor=ivory8))
                     }
                 }
@@ -117,7 +122,7 @@ private val ivory8=Color(0xFFFAF0DA)
                 }
             }
             if(filter!="Radio"){
-                val shown=programs.filter{p->(when(filter){"Lectures"->!p.isSeminar;"Saved"->p.id in saved;else->p.isSeminar}) &&
+                val shown=programs.filter{p->(when(filter){"Lectures"->p.isLecture;"Textual study"->p.isTextSeminar;"Saved"->p.id in saved;else->p.isSeminar}) &&
                     (search.isBlank()||p.title.contains(search,true)||p.authors.contains(search,true)||p.tags.any{it.contains(search,true)})}
                 items(shown,key={it.id}){program->
                     val index=programs.indexOf(program)
@@ -132,17 +137,17 @@ private val ivory8=Color(0xFFFAF0DA)
                                 Icon(Icons.Rounded.Headphones,null,Modifier.align(Alignment.Center),tint=Color.White)
                             }
                             Column(Modifier.weight(1f).padding(start=13.dp),verticalArrangement=Arrangement.spacedBy(4.dp)){
-                                Text(if(program.isSeminar)"THEMATIC SEMINAR" else "COURSE LECTURE",fontSize=9.sp,letterSpacing=1.3.sp,color=gold8)
+                                Text(when{program.isTextSeminar->"HISTORICAL TEXT SEMINAR";program.isSeminar->"THEMATIC SEMINAR";else->"COURSE LECTURE"},fontSize=9.sp,letterSpacing=1.3.sp,color=gold8)
                                 Text(program.title,fontSize=18.sp,fontFamily=FontFamily.Serif,color=ivory8,lineHeight=20.sp)
                                 Text(program.authors,fontSize=11.sp,color=Color(0xFFB2C5C7),maxLines=2)
-                                Text("${program.chapters.size} chapters · ~${program.estimatedMinutes} min narrated script",fontSize=10.sp,color=Color(0xFFA3B2BF))
+                                Text("${program.chaptersTotal} chapters · ~${program.estimatedMinutes} min at 125 wpm",fontSize=10.sp,color=Color(0xFFA3B2BF))
                             }
                             Icon(Icons.Rounded.KeyboardArrowRight,null,tint=gold8)
                         }
                     }
                 }
             }
-            if(selectedProgram!=null){
+            if(selectedProgram!=null && detail!=null){
                 item{
                     Column(Modifier.padding(18.dp),verticalArrangement=Arrangement.spacedBy(10.dp)){
                         HorizontalDivider(color=Color(0xFF405368))
@@ -159,7 +164,7 @@ private val ivory8=Color(0xFFFAF0DA)
                             }){Icon(if(selectedProgram.id in saved)Icons.Rounded.Bookmark else Icons.Rounded.BookmarkBorder,null,tint=gold8)}
                         }
                         Text("CHAPTERS",color=gold8,fontSize=10.sp,letterSpacing=2.sp)
-                        selectedProgram.chapters.forEachIndexed{idx,c->
+                        detail.chapters.forEachIndexed{idx,c->
                             Row(Modifier.fillMaxWidth().clickable{
                                 if(activeId!=selectedProgram.id)action(PhilosophyRadioService.START,selectedProgram.id)
                                 settings.edit().putInt("chapter_${selectedProgram.id}",idx).apply()
@@ -186,7 +191,7 @@ private val ivory8=Color(0xFFFAF0DA)
                         OutlinedButton(onClick={transcript=!transcript},modifier=Modifier.fillMaxWidth()){
                             Icon(Icons.Rounded.Subject,null);Text(if(transcript)" Hide full transcript" else " Read full transcript",color=ivory8)
                         }
-                        if(transcript)selectedProgram.chapters.forEach{c->
+                        if(transcript)detail.chapters.forEach{c->
                             Text(c.name,fontSize=20.sp,fontFamily=FontFamily.Serif,color=gold8)
                             Text(c.body,fontSize=15.sp,lineHeight=24.sp,color=ivory8)
                         }
@@ -199,7 +204,7 @@ private val ivory8=Color(0xFFFAF0DA)
                         Text("NOW PLAYING",color=gold8,fontWeight=FontWeight.SemiBold,fontSize=10.sp,letterSpacing=2.sp)
                         Text(title,color=ivory8,fontFamily=FontFamily.Serif,fontSize=21.sp)
                         Text(subtitle,color=Color(0xFFB2C5C7),fontSize=12.sp)
-                        LinearProgressIndicator(progress={if(activeId.isNotBlank())(chapter+1f)/(programs.firstOrNull{it.id==activeId}?.chapters?.size?:1).coerceAtLeast(1) else 0f},modifier=Modifier.fillMaxWidth(),color=gold8,trackColor=Color(0xFF304C61))
+                        LinearProgressIndicator(progress={if(activeId.isNotBlank())(chapter+1f)/(programs.firstOrNull{it.id==activeId}?.chaptersTotal?:1).coerceAtLeast(1) else 0f},modifier=Modifier.fillMaxWidth(),color=gold8,trackColor=Color(0xFF304C61))
                         Text(if(state=="playing")"Playing · chapter ${chapter+1}" else state.replaceFirstChar{it.uppercase()},color=gold8,fontSize=12.sp)
                         Row(Modifier.fillMaxWidth(),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.SpaceEvenly){
                             IconButton(onClick={action(PhilosophyRadioService.PREVIOUS)}){Icon(Icons.Rounded.SkipPrevious,null,tint=ivory8)}
@@ -211,7 +216,7 @@ private val ivory8=Color(0xFFFAF0DA)
                         }
                     }
                 }
-                Text("Playback uses Android's installed TTS engine. Voice choice is available in Scholar Settings. Pausing resumes at the current speech segment, not an exact millisecond. Program durations estimate the authored script only; longer full seminars will arrive in content updates.",color=Color(0xFFA7B8BF),fontSize=11.sp,lineHeight=17.sp,modifier=Modifier.padding(horizontal=20.dp))
+                Text("SOPHIA 9 contains real offline, audio-ready text rather than prerecorded audio files. Original themed seminars and course lectures are separate from longer guided Project Gutenberg primary-text sessions. Durations are measured from words at 125 wpm and vary with your installed Android TTS voice. Copyright rules differ by jurisdiction.",color=Color(0xFFA7B8BF),fontSize=11.sp,lineHeight=17.sp,modifier=Modifier.padding(horizontal=20.dp))
             }
         }
     }
