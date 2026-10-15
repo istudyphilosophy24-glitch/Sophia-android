@@ -1,0 +1,1871 @@
+[
+ {
+  "id": "seminar-01",
+  "type": "seminar",
+  "title": "Freedom and Necessity",
+  "authors": "Kant · Schopenhauer · Nietzsche",
+  "question": "Can freedom coexist with a world explained through causes?",
+  "tags": [
+   "freedom",
+   "agency",
+   "ethics"
+  ],
+  "sources": "Kant, Critique of Pure Reason; Schopenhauer, The World as Will and Representation; Nietzsche, Beyond Good and Evil",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Can freedom coexist with a world explained through causes? The figures guiding this discussion are Kant · Schopenhauer · Nietzsche. Kant distinguishes a phenomenal order governed by causal laws from the standpoint of practical reason. The difficulty is not solved by declaring human decisions exempt from nature. The critical question is how a person can be regarded as responsible without treating freedom as an observable event among other events."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Schopenhauer radicalizes the challenge. Individual actions can be intelligible through motives while the character manifesting them is not simply chosen at will. His distinction between empirical willing and the deeper Will disrupts the everyday identification of freedom with choosing between alternatives."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Nietzsche interrogates the moral psychology concealed in claims about free will, especially the wish to assign praise, guilt and punishment. His polemic is not identical to Schopenhauer’s metaphysics, and neither thinker simply repeats Kant’s account of autonomy."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Test the meaning of the word free in each position. Does it signify exemption from causes, self-legislation, transparency to one’s motives, or the possibility of assuming responsibility? A solution that shifts between these senses has not yet answered the problem."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Describe an action you regard as free. Identify what a causal explanation could show about it without necessarily settling its moral significance. Return to the central question: Can freedom coexist with a world explained through causes? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-02"
+ },
+ {
+  "id": "seminar-02",
+  "type": "seminar",
+  "title": "The Dialectic of Recognition",
+  "authors": "Hegel · Fichte · Sartre",
+  "question": "Does self-consciousness require another self-consciousness?",
+  "tags": [
+   "recognition",
+   "selfhood",
+   "society"
+  ],
+  "sources": "Hegel, Phenomenology of Spirit; Fichte, Foundations of Natural Right; Sartre, Being and Nothingness",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Does self-consciousness require another self-consciousness? The figures guiding this discussion are Hegel · Fichte · Sartre. In Hegel’s Phenomenology, the encounter with another self-consciousness destabilizes any claim to self-sufficient independence. Recognition cannot be adequately understood as a private psychological feeling. It concerns an intersubjective structure in which one consciousness seeks acknowledgement from another."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "The lordship-and-bondage episode explores the instability of asymmetrical recognition. The dominant figure seeks confirmation from someone treated as dependent, raising the question whether such recognition can possess the authority originally sought."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Fichte’s account of a summons to freedom and Sartre’s description of being seen by another illuminate different dimensions of the problem. One foregrounds reciprocal practical relations; the other can expose conflict, objectification and shame."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Do not reduce this dialectic to a simple social parable or assume that all three thinkers share an identical theory of personhood. Ask which kinds of mutual dependence actually follow from each argument."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Can respect be secured by force? Explain why domination might undermine the very recognition it demands. Return to the central question: Does self-consciousness require another self-consciousness? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-03"
+ },
+ {
+  "id": "seminar-03",
+  "type": "seminar",
+  "title": "Being and the Question of Meaning",
+  "authors": "Heidegger · Aristotle · Husserl",
+  "question": "Why distinguish Being from the entities that are?",
+  "tags": [
+   "being",
+   "phenomenology",
+   "ontology"
+  ],
+  "sources": "Heidegger, Being and Time; Aristotle, Metaphysics; Husserl, Ideas I",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Why distinguish Being from the entities that are? The figures guiding this discussion are Heidegger · Aristotle · Husserl. Heidegger begins from the claim that understanding entities presupposes an often-unexamined familiarity with what it means for something to be. The ontological difference is not a division between two objects: Being is not an additional entity waiting alongside the rest."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "The analysis of Dasein approaches the question through a being for whom its own existence is an issue. The everyday world is initially disclosed through involvement and use, not necessarily through detached theoretical observation."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Aristotle’s investigations of being qua being and Husserl’s phenomenological attention to intentional givenness offer important contexts, yet Heidegger’s question cannot be converted without remainder into classical ontology or a theory of inner consciousness."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "If Being is not another thing, how does philosophical language speak meaningfully about it? A convincing interpretation must avoid the temptation to reify the very condition under investigation."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Choose a familiar tool. Explain how its significance differs when you use it from when you inspect it as a detached object. Return to the central question: Why distinguish Being from the entities that are? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-04"
+ },
+ {
+  "id": "seminar-04",
+  "type": "seminar",
+  "title": "The Problem of Knowledge",
+  "authors": "Plato · Descartes · Hume",
+  "question": "What distinguishes knowledge from a compelling belief?",
+  "tags": [
+   "knowledge",
+   "epistemology",
+   "skepticism"
+  ],
+  "sources": "Plato, Theaetetus; Descartes, Meditations; Hume, Enquiry Concerning Human Understanding",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: What distinguishes knowledge from a compelling belief? The figures guiding this discussion are Plato · Descartes · Hume. Plato’s dialogues examine why true belief may fail to offer a stable account of what is known. Rational justification appears necessary, yet the difficulty lies in specifying which kind of account actually transforms belief into knowledge."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Descartes introduces methodical doubt to test whether a secure foundation can survive skeptical challenges. His search for certainty must be distinguished from the claim that all ordinary experience is useless or always false."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Hume turns attention toward habits of inference, especially the transition from observed conjunctions to claims about necessary connections. The skeptical problem is sharpened because successful prediction alone need not demonstrate rational necessity."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Do not confuse infallibility, justification and empirical reliability. These are different candidate standards, and each encounters its own counterexamples. An account that protects certainty by denying almost all ordinary knowledge may be too restrictive."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. What evidence would you need to say you know that tomorrow will resemble yesterday? Return to the central question: What distinguishes knowledge from a compelling belief? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-05"
+ },
+ {
+  "id": "seminar-05",
+  "type": "seminar",
+  "title": "What Is a Good Life?",
+  "authors": "Aristotle · Epicurus · Stoics",
+  "question": "Is flourishing a feeling, a practice, or a kind of character?",
+  "tags": [
+   "virtue",
+   "happiness",
+   "ethics"
+  ],
+  "sources": "Aristotle, Nicomachean Ethics; Epicurus, Letter to Menoeceus; Marcus Aurelius, Meditations",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Is flourishing a feeling, a practice, or a kind of character? The figures guiding this discussion are Aristotle · Epicurus · Stoics. Aristotle characterizes flourishing through excellent activity rather than a passing sensation. The practical difficulty concerns the cultivation of stable dispositions and the role of luck, community and external goods."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Epicurean reflection seeks freedom from disturbance but is frequently misunderstood as an invitation to unlimited pleasure. Its conception of prudent desire often emphasizes moderation and friendship."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Stoic ethics foregrounds the discipline of judgment and the distinction between what is within our agency and what is not. That focus does not imply that vulnerability or political responsibility simply disappear."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "The traditions disagree about the standing of external conditions. If poverty or illness can seriously obstruct flourishing, is virtue alone sufficient? If virtue is sufficient, what makes another person’s suffering morally urgent?"
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Describe a flourishing life and decide whether your criteria concern feelings, achievements, relationships or exercised virtues. Return to the central question: Is flourishing a feeling, a practice, or a kind of character? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-06"
+ },
+ {
+  "id": "seminar-06",
+  "type": "seminar",
+  "title": "The Will and Its Suffering",
+  "authors": "Schopenhauer · Buddhism · Nietzsche",
+  "question": "Does human desire necessarily involve suffering?",
+  "tags": [
+   "will",
+   "suffering",
+   "desire"
+  ],
+  "sources": "Schopenhauer, The World as Will and Representation; Dhammapada; Nietzsche, The Gay Science",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Does human desire necessarily involve suffering? The figures guiding this discussion are Schopenhauer · Buddhism · Nietzsche. Schopenhauer reads individual striving against a deeper metaphysical background: satisfaction is unstable because the restless Will continually renews desire. He develops this thesis using experience, embodiment and a distinctive reading of Kant."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Buddhist discussions of craving and dependent arising often make suffering intelligible without positing a single metaphysical Will underlying all appearances. Similarity in the diagnosis of craving must not erase fundamental differences in ontology."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Nietzsche contests life-denying evaluations and asks whether struggle can be affirmed rather than simply extinguished. This response cannot be reduced to the optimistic claim that suffering is always beneficial."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Ask whether the experience of wanting is sufficient to prove a universal metaphysical principle. Separate the description of dissatisfaction, the diagnosis of its cause and the proposed mode of release."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Can a project be intrinsically meaningful if completing it never removes the possibility of wanting again? Return to the central question: Does human desire necessarily involve suffering? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-07"
+ },
+ {
+  "id": "seminar-07",
+  "type": "seminar",
+  "title": "Language and the Limits of Thought",
+  "authors": "Wittgenstein · Frege · Heidegger",
+  "question": "Can philosophical confusion arise from how we use words?",
+  "tags": [
+   "language",
+   "logic",
+   "meaning"
+  ],
+  "sources": "Frege, On Sense and Reference; Wittgenstein, Philosophical Investigations; Heidegger, On the Way to Language",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Can philosophical confusion arise from how we use words? The figures guiding this discussion are Wittgenstein · Frege · Heidegger. Frege’s logical investigations distinguish sense and reference, enabling philosophical questions about how expressions contribute to thought. Logical clarification can expose hidden structural differences beneath familiar grammar."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "The earlier Wittgenstein explores the relation between meaningful propositions and the logical representation of facts. His later work shifts attention to practices, forms of life and the plurality of language-games."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Heidegger emphasizes the historical and disclosive character of language in ways not reducible to semantic analysis. These approaches should not be fused into the easy slogan that language creates everything."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "A useful test asks whether a dispute persists after the use of its key terms has been clarified. But there are philosophical disagreements that are not exhausted by linguistic therapy, even when language plays a crucial part."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Find a philosophical question that changes when you distinguish two senses of the same word. Return to the central question: Can philosophical confusion arise from how we use words? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-08"
+ },
+ {
+  "id": "seminar-08",
+  "type": "seminar",
+  "title": "Morality and Its Foundations",
+  "authors": "Kant · Mill · Aristotle",
+  "question": "Can moral demands be grounded in duty, consequences, or character?",
+  "tags": [
+   "morality",
+   "duty",
+   "happiness"
+  ],
+  "sources": "Kant, Groundwork; Mill, Utilitarianism; Aristotle, Nicomachean Ethics",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Can moral demands be grounded in duty, consequences, or character? The figures guiding this discussion are Kant · Mill · Aristotle. Kant’s ethics evaluates the maxim of action in relation to principles that can claim universal validity. The central question concerns rational consistency and respect, not merely obedience to whatever social rule happens to exist."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Mill’s utilitarianism judges conduct by its relation to happiness and suffering. Its sophistication depends upon how consequences are understood and whose interests enter the calculation."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Aristotelian ethics investigates the cultivation of practical wisdom and the formation of character within a human life. Virtuous judgment is not simply another algorithm for maximizing a numerical score."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Consider a truthful statement that predictably causes harm. Consequences, rules and cultivated judgment may recommend different considerations. A fair comparison must specify each tradition’s strongest response."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Can a good intention justify a disastrous result, or should consequences always decide the issue? Return to the central question: Can moral demands be grounded in duty, consequences, or character? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-09"
+ },
+ {
+  "id": "seminar-09",
+  "type": "seminar",
+  "title": "Science, Explanation, and Positivism",
+  "authors": "Comte · Hume · Popper",
+  "question": "What entitles a method to call itself scientific?",
+  "tags": [
+   "science",
+   "positivism",
+   "method"
+  ],
+  "sources": "Comte, Course of Positive Philosophy; Hume, Enquiry; Popper, Logic of Scientific Discovery",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: What entitles a method to call itself scientific? The figures guiding this discussion are Comte · Hume · Popper. Comte’s positivism proposes that mature inquiry attends to regularities accessible to disciplined investigation rather than explanations invoking inaccessible essences. His hierarchy of the sciences carries both methodological and social ambitions."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Hume’s treatment of induction places pressure on any easy identification of repeated observation with a logically necessary law. The challenge survives successful scientific practice."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Popper later emphasizes testability and the critical exposure of conjectures to possible refutation. His position must not be collapsed into either Comte’s historical scheme or the later verificationist doctrines of logical positivism."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Ask whether scientific explanation merely describes regularities or also investigates mechanisms and causal structures. A restrictive account of science risks excluding legitimate inquiry by definition."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Propose an apparently scientific claim and explain what observation would genuinely count against it. Return to the central question: What entitles a method to call itself scientific? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-10"
+ },
+ {
+  "id": "seminar-10",
+  "type": "seminar",
+  "title": "The Subject and the World",
+  "authors": "Husserl · Heidegger · Merleau-Ponty",
+  "question": "Is experience primarily subjective, relational, or embodied?",
+  "tags": [
+   "subjectivity",
+   "consciousness",
+   "phenomenology"
+  ],
+  "sources": "Husserl, Ideas I; Heidegger, Being and Time; Merleau-Ponty, Phenomenology of Perception",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Is experience primarily subjective, relational, or embodied? The figures guiding this discussion are Husserl · Heidegger · Merleau-Ponty. Husserl’s phenomenological reduction redirects attention to the structures through which objects are given to consciousness. Intentionality does not mean that consciousness is a sealed container filled with private images."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Heidegger begins from being-in-the-world, challenging accounts that derive worldly involvement from a detached subject encountering independently posited objects. His analysis foregrounds practical familiarity."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Merleau-Ponty makes embodiment central to perception. The lived body is neither merely a physiological object nor an immaterial observer occupying such an object."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "These projects share a descriptive concern without having identical starting points. The distinction between a condition of disclosure and a psychological cause of perception must be carefully preserved."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. When you reach for a book, what is given before you formulate an explicit judgment about it? Return to the central question: Is experience primarily subjective, relational, or embodied? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-11"
+ },
+ {
+  "id": "seminar-11",
+  "type": "seminar",
+  "title": "Justice and the Ideal City",
+  "authors": "Plato · Aristotle · Rawls",
+  "question": "Can a just society be defined independently of its citizens?",
+  "tags": [
+   "justice",
+   "politics",
+   "ethics"
+  ],
+  "sources": "Plato, Republic; Aristotle, Politics; Rawls, A Theory of Justice",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Can a just society be defined independently of its citizens? The figures guiding this discussion are Plato · Aristotle · Rawls. Plato’s Republic investigates justice through an analogy between the ordering of a soul and the arrangement of a city. The analogy is philosophically contentious rather than a straightforward proof of a political blueprint."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Aristotle approaches political association through practices of citizenship and inquiry into constitutions. His account exposes how purposes and institutional forms matter to practical judgment."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Rawls constructs a device of representation in which principles are selected without privileged knowledge of one’s eventual position. This should not be mistaken for a historical description of an actual contract."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Ask whether justice is chiefly a property of persons, institutions or relationships. A political order may appear orderly while distributing recognition or opportunity unequally."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Could a well-ordered city be unjust to one of its members? Defend your standard. Return to the central question: Can a just society be defined independently of its citizens? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-12"
+ },
+ {
+  "id": "seminar-12",
+  "type": "seminar",
+  "title": "The Self and Its Continuity",
+  "authors": "Buddhism · Hume · Locke",
+  "question": "What, if anything, persists through personal change?",
+  "tags": [
+   "self",
+   "identity",
+   "consciousness"
+  ],
+  "sources": "Dhammapada; Hume, Treatise of Human Nature; Locke, Essay Concerning Human Understanding",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: What, if anything, persists through personal change? The figures guiding this discussion are Buddhism · Hume · Locke. Buddhist analyses of non-self investigate the conditions under which experiences arise, challenging the assumption that experience requires an independent and unchanging owner."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Hume’s introspective investigations do not discover a simple enduring impression of the self. The problem becomes how identity is attributed across succession and association."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Locke connects personal identity with consciousness and memory, raising familiar puzzles concerning forgotten events, duplication and the scope of responsibility."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Do not infer from the denial of a permanent substance that ordinary agency or ethical responsibility must be impossible. Each view must explain what continuity can mean without presupposing what is at issue."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Imagine a person who forgets a formative event. What exactly, if anything, has ceased to persist? Return to the central question: What, if anything, persists through personal change? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-13"
+ },
+ {
+  "id": "seminar-13",
+  "type": "seminar",
+  "title": "Truth, Genealogy, and Suspicion",
+  "authors": "Nietzsche · Marx · Freud",
+  "question": "What can an account of the origins of a belief establish?",
+  "tags": [
+   "truth",
+   "genealogy",
+   "critique"
+  ],
+  "sources": "Nietzsche, Beyond Good and Evil; Marx, German Ideology; Freud, Introductory Lectures",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: What can an account of the origins of a belief establish? The figures guiding this discussion are Nietzsche · Marx · Freud. Nietzsche’s genealogical inquiry interrogates the historical and psychological conditions through which evaluations acquire apparent self-evidence. A genealogy does not automatically refute a claim merely by finding its origins."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Marx’s critique of ideology directs attention to social relations and material interests that influence the production of thought. These claims require substantive historical and economic argument."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Freud’s interpretation of psychic conflict introduces motives that may not be transparent to conscious reflection. This is not a license to diagnose any disagreement as repression."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "The genetic fallacy remains a danger for traditions of suspicion: explaining why a proposition was adopted does not, without further premises, establish whether it is true or false."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Can a morally admirable conviction have an unflattering origin without losing its validity? Return to the central question: What can an account of the origins of a belief establish? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-14"
+ },
+ {
+  "id": "seminar-14",
+  "type": "seminar",
+  "title": "The Infinite and the Absolute",
+  "authors": "Spinoza · Hegel · Schelling",
+  "question": "Can finite differences belong to an intelligible whole?",
+  "tags": [
+   "absolute",
+   "metaphysics",
+   "infinity"
+  ],
+  "sources": "Spinoza, Ethics; Hegel, Science of Logic; Schelling, Philosophical Investigations into Freedom",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Can finite differences belong to an intelligible whole? The figures guiding this discussion are Spinoza · Hegel · Schelling. Spinoza’s substance metaphysics treats finite modes as intelligible through a reality not reducible to their independent existence. His account demands care with notions of necessity and freedom."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Hegel’s discussion of infinity and determination rejects a picture in which the infinite is merely another object beyond the finite. The logical question concerns relations that generate and transform determination."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Schelling’s philosophical development introduces distinctive accounts of identity, nature and freedom, resisting easy assimilation to any single system of the Absolute."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "The temptation is to turn the Absolute into an oversized finite entity. A stronger reconstruction asks what explanatory work the concept does and whether the totality can be articulated without suppressing difference."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Can a whole explain its parts without rendering their individual histories philosophically irrelevant? Return to the central question: Can finite differences belong to an intelligible whole? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-15"
+ },
+ {
+  "id": "seminar-15",
+  "type": "seminar",
+  "title": "Religion and the Limits of Reason",
+  "authors": "Aquinas · Kant · Kierkegaard",
+  "question": "Does faith answer questions reason cannot settle?",
+  "tags": [
+   "religion",
+   "faith",
+   "reason"
+  ],
+  "sources": "Aquinas, Summa Theologiae; Kant, Religion within the Bounds of Bare Reason; Kierkegaard, Fear and Trembling",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Does faith answer questions reason cannot settle? The figures guiding this discussion are Aquinas · Kant · Kierkegaard. Aquinas distinguishes philosophical demonstration from truths known through revelation. His account of reason and faith should not be caricatured as the claim that every article of belief has a proof."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Kant restricts the scope of theoretical claims regarding objects beyond possible experience while reconfiguring questions of religion within practical reason."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Kierkegaard’s pseudonymous investigations challenge the assumption that existential commitment can be captured by detached objective system-building. His literary forms complicate attempts to ascribe every sentence directly to the author."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "If evidence cannot establish a religious commitment, does this make the commitment irrational, supra-rational, or simply of another kind? Distinguish the positions before evaluating them."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. What would count as a misuse of reason in matters of faith, and who decides? Return to the central question: Does faith answer questions reason cannot settle? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-16"
+ },
+ {
+  "id": "seminar-16",
+  "type": "seminar",
+  "title": "Mind and Machine",
+  "authors": "Descartes · Turing · Searle",
+  "question": "Could an artificial system genuinely understand?",
+  "tags": [
+   "mind",
+   "AI",
+   "consciousness"
+  ],
+  "sources": "Descartes, Meditations; Turing, Computing Machinery and Intelligence; Searle, Minds, Brains, and Programs",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Could an artificial system genuinely understand? The figures guiding this discussion are Descartes · Turing · Searle. Descartes distinguishes thinking substance from extended substance in a system that makes consciousness central to knowledge of the self. The mind-body problem cannot simply be read backward into every modern discussion of computation."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Turing proposes an operational discussion of machine intelligence through performances in conversation, shifting away from an inaccessible inspection of inner essences."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Searle’s Chinese-room argument contests the sufficiency of formal symbol manipulation for understanding. Critics dispute the scope of its conclusion and whether an entire system could possess what an individual component lacks."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Differentiate intelligence, consciousness, understanding and linguistic competence. An experiment establishing one may not establish the others. Nor does uncertainty about consciousness imply that all performance is meaningless."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Would a perfectly convincing philosophical interlocutor necessarily understand its own answers? Return to the central question: Could an artificial system genuinely understand? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-17"
+ },
+ {
+  "id": "seminar-17",
+  "type": "seminar",
+  "title": "The Meaning of History",
+  "authors": "Vico · Hegel · Marx",
+  "question": "Can history be intelligible without being predetermined?",
+  "tags": [
+   "history",
+   "dialectic",
+   "society"
+  ],
+  "sources": "Vico, New Science; Hegel, Lectures on the Philosophy of History; Marx, German Ideology",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Can history be intelligible without being predetermined? The figures guiding this discussion are Vico · Hegel · Marx. Vico treats historical understanding as an inquiry into institutions, language and human making. Historical knowledge differs from abstract speculation because practices develop through collective life."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Hegel’s philosophy of history asks how freedom may become intelligible through historically determinate forms. The claim requires careful interpretation and does not license simplistic assertions that every event was justified."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Marx foregrounds forms of production, class relations and material conditions, though the complexity of historical change resists reduction to a one-variable mechanical law."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Distinguish explanation after the fact from prediction before the fact. An account that gives meaning to historical transformations need not possess a reliable formula for future events."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Can an event be historically significant without having been necessary? Return to the central question: Can history be intelligible without being predetermined? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-18"
+ },
+ {
+  "id": "seminar-18",
+  "type": "seminar",
+  "title": "Beauty and Disinterested Judgment",
+  "authors": "Kant · Schopenhauer · Nietzsche",
+  "question": "Why does beauty matter if it serves no immediate purpose?",
+  "tags": [
+   "aesthetics",
+   "beauty",
+   "art"
+  ],
+  "sources": "Kant, Critique of Judgment; Schopenhauer, World as Will and Representation; Nietzsche, Birth of Tragedy",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Why does beauty matter if it serves no immediate purpose? The figures guiding this discussion are Kant · Schopenhauer · Nietzsche. Kant investigates judgments of taste as reflective evaluations that solicit agreement without applying a determinate concept. Disinterestedness is not indifference to whether beauty exists."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Schopenhauer describes aesthetic contemplation as a temporary suspension of ordinary willing, interpreting art in relation to a metaphysics of suffering and release."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Nietzsche develops distinctive accounts of the artistic and affirmative possibilities of life. His later writings cannot simply be mapped onto Schopenhauer’s negative assessment of willing."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Ask whether an artwork is valuable because of the pleasure it affords, the truth it discloses, or its capacity to alter how the viewer lives. These criteria may coincide, but they need not."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. Can an unsettling artwork be beautiful without being pleasurable? Return to the central question: Why does beauty matter if it serves no immediate purpose? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-19"
+ },
+ {
+  "id": "seminar-19",
+  "type": "seminar",
+  "title": "Time and Lived Experience",
+  "authors": "Augustine · Bergson · Husserl",
+  "question": "Is time a sequence of moments or a structure of experience?",
+  "tags": [
+   "time",
+   "memory",
+   "experience"
+  ],
+  "sources": "Augustine, Confessions XI; Bergson, Time and Free Will; Husserl, Lectures on Time-Consciousness",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Is time a sequence of moments or a structure of experience? The figures guiding this discussion are Augustine · Bergson · Husserl. Augustine’s reflections on time reveal the difficulty of identifying past and future as available objects in precisely the way present things appear to be. Memory and expectation transform the problem."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Bergson contrasts lived duration with spatialized measures that divide change into countable units. The distinction is not a rejection of clocks but an inquiry into their explanatory limits."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Husserl’s lectures on internal time-consciousness examine retention, primal impression and protention as a structure through which a temporal object can be experienced as enduring."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "Do not mistake a phenomenology of time for a physical theory of measurement. A plausible account of consciousness must still explain succession without imagining a second internal clock."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. When listening to a melody, why is the note you just heard still relevant to the note sounding now? Return to the central question: Is time a sequence of moments or a structure of experience? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-20"
+ },
+ {
+  "id": "seminar-20",
+  "type": "seminar",
+  "title": "Nature, Ecology, and Responsibility",
+  "authors": "Aristotle · Spinoza · Contemporary ethics",
+  "question": "Does nature have value independently of human interests?",
+  "tags": [
+   "nature",
+   "environment",
+   "ethics"
+  ],
+  "sources": "Aristotle, Physics; Spinoza, Ethics; selected contemporary environmental ethics",
+  "chapters": [
+   {
+    "name": "The central problem",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy. Today we are examining: Does nature have value independently of human interests? The figures guiding this discussion are Aristotle · Spinoza · Contemporary ethics. Aristotle’s teleological investigations approach living beings through characteristic activities and ends. A contemporary ethics of ecosystems cannot be inferred directly from this biological framework."
+   },
+   {
+    "name": "The argument",
+    "kind": "exposition",
+    "body": "Spinoza understands humans as belonging to an intelligible natural order rather than standing outside it. The account of conatus complicates stark oppositions between self-preservation and natural necessity."
+   },
+   {
+    "name": "A philosophical counterpoint",
+    "kind": "comparison",
+    "body": "Modern environmental ethics asks whether moral considerability extends beyond persons, perhaps to sentient creatures, species, habitats or ecological wholes. Different proposals carry different kinds of obligations."
+   },
+   {
+    "name": "The difficulty",
+    "kind": "criticism",
+    "body": "A claim that everything in nature is valuable risks lacking guidance when values conflict. An adequate environmental ethic must confront tragic choices, uncertainty and unequal human vulnerability."
+   },
+   {
+    "name": "Your reflection",
+    "kind": "reflection",
+    "body": "As this seminar concludes, consider the following. If preserving a forest harms an economically dependent community, how should competing responsibilities be assessed? Return to the central question: Does nature have value independently of human interests? Record which premises you would accept, which demand further justification, and what would count as a good objection."
+   }
+  ],
+  "related": "seminar-01"
+ },
+ {
+  "id": "lecture-01",
+  "type": "lecture",
+  "title": "Introducing Pre-Socratic Philosophy",
+  "authors": "Pre-Socratic Philosophy",
+  "question": "What is at stake in From myth to inquiry?",
+  "tags": [
+   "lecture",
+   "pre-socratic philosophy"
+  ],
+  "sources": "Course thematic guide: Pre-Socratic Philosophy — From myth to inquiry; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Pre-Socratic Philosophy. Our opening problem is From myth to inquiry. From myth to inquiry in Pre-Socratic Philosophy brings six concepts into one explanatory problem. Begin by distinguishing Physis, the natural order investigated through reasoned explanation, from Archê, a first principle proposed to account for nature's diversity. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Mythos: traditional narrative explanations of cosmic origin. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Physis: the natural order investigated through reasoned explanation Archê: a first principle proposed to account for nature's diversity Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Logos refers to a rational account capable of being argued about. Compare this with Cosmos, understood here as the ordered world considered as an intelligible whole. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Logos but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Physis does not entail Archê. What supporting premise would be Reconsider the central distinction in Pre-Socratic Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-01"
+ },
+ {
+  "id": "lecture-02",
+  "type": "lecture",
+  "title": "Introducing Socratic Philosophy",
+  "authors": "Socratic Philosophy",
+  "question": "What is at stake in Socrates and the polis?",
+  "tags": [
+   "lecture",
+   "socratic philosophy"
+  ],
+  "sources": "Course thematic guide: Socratic Philosophy — Socrates and the polis; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Socratic Philosophy. Our opening problem is Socrates and the polis. Socrates and the polis in Socratic Philosophy brings six concepts into one explanatory problem. Begin by distinguishing Athenian democracy, political setting of many Socratic conversations, from Socrates, a historical figure encountered through divergent sources. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Socratic problem: the difficulty of recovering the historical Socrates. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Athenian democracy: political setting of many Socratic conversations Socrates: a historical figure encountered through divergent sources Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Agora refers to public environment of civic conversation. Compare this with Plato's dialogues, understood here as literary-philosophical presentations, not transcripts. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Agora but not Plato's"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Athenian democracy does not entail Socrates. What supporting premise would be Reconsider the central distinction in Socratic Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-02"
+ },
+ {
+  "id": "lecture-03",
+  "type": "lecture",
+  "title": "Introducing Platonic Philosophy",
+  "authors": "Platonic Philosophy",
+  "question": "What is at stake in Plato and the dialogues?",
+  "tags": [
+   "lecture",
+   "platonic philosophy"
+  ],
+  "sources": "Course thematic guide: Platonic Philosophy — Plato and the dialogues; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Platonic Philosophy. Our opening problem is Plato and the dialogues. Plato and the dialogues in Platonic Philosophy brings six concepts into one explanatory problem. Begin by distinguishing Dramatic dialogue, philosophical argument staged among characters, from Early dialogues, conventional grouping often stressing aporia. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Middle dialogues: conventional grouping including Forms and Republic. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Dramatic dialogue: philosophical argument staged among characters Early dialogues: conventional grouping often stressing aporia Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Late dialogues refers to grouping associated with critical re-examination. Compare this with Developmental hypothesis, understood here as contested proposal of changes across Plato's work. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Late dialogues but not Developmental"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Dramatic dialogue does not entail Early dialogues. What supporting premise would be Reconsider the central distinction in Platonic Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-03"
+ },
+ {
+  "id": "lecture-04",
+  "type": "lecture",
+  "title": "Introducing Aristotelian Philosophy",
+  "authors": "Aristotelian Philosophy",
+  "question": "What is at stake in Aristotle's method?",
+  "tags": [
+   "lecture",
+   "aristotelian philosophy"
+  ],
+  "sources": "Course thematic guide: Aristotelian Philosophy — Aristotle's method; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Aristotelian Philosophy. Our opening problem is Aristotle's method. Aristotle's method in Aristotelian Philosophy brings six concepts into one explanatory problem. Begin by distinguishing Endoxa, reputable opinions used as starting points, from Dialectical testing, examining appearances and difficulties. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Aporetic method: working through puzzling conflicts. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Endoxa: reputable opinions used as starting points Dialectical testing: examining appearances and difficulties Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Organon refers to traditional grouping of Aristotelian logical treatises. Compare this with Demonstration, understood here as explanation through appropriately grounded inference. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Organon but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Endoxa does not entail Dialectical testing. What supporting premise would be Reconsider the central distinction in Aristotelian Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-04"
+ },
+ {
+  "id": "lecture-05",
+  "type": "lecture",
+  "title": "Introducing Medieval Philosophy",
+  "authors": "Medieval Philosophy",
+  "question": "What is at stake in Late antiquity and Augustine?",
+  "tags": [
+   "lecture",
+   "medieval philosophy"
+  ],
+  "sources": "Course thematic guide: Medieval Philosophy — Late antiquity and Augustine; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Medieval Philosophy. Our opening problem is Late antiquity and Augustine. Late antiquity and Augustine in Medieval Philosophy brings six concepts into one explanatory problem. Begin by distinguishing Inner teacher, Augustinian account of learning and truth, from Illumination, divine grounding of necessary understanding. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Privation theory: evil understood as lack of due good. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Inner teacher: Augustinian account of learning and truth Illumination: divine grounding of necessary understanding Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Time in Confessions refers to distension of the soul across temporal modes. Compare this with Free will, understood here as human responsibility within providential order. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Time in Confessions but not Free"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Inner teacher does not entail Illumination. What supporting premise would be Reconsider the central distinction in Medieval Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-05"
+ },
+ {
+  "id": "lecture-06",
+  "type": "lecture",
+  "title": "Introducing The Scientific Revolution",  "authors": "The Scientific Revolution",
+  "question": "What is at stake in Renaissance astronomy?",
+  "tags": [
+   "lecture",
+   "the scientific revolution"
+  ],
+  "sources": "Course thematic guide: The Scientific Revolution — Renaissance astronomy; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on The Scientific Revolution. Our opening problem is Renaissance astronomy. Renaissance astronomy in The Scientific Revolution brings six concepts into one explanatory problem. Begin by distinguishing Geocentrism, Earth-centered models of celestial motions, from Heliocentrism, Sun-centered arrangement in Copernican astronomy. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Copernicus: author of De revolutionibus. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Geocentrism: Earth-centered models of celestial motions Heliocentrism: Sun-centered arrangement in Copernican astronomy Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Retrograde motion refers to apparent backward planetary movement. Compare this with Epicycles, understood here as geometrical devices in historical planetary models. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Retrograde motion but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Geocentrism does not entail Heliocentrism. What supporting premise would be Reconsider the central distinction in The Scientific Revolution: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-06"
+ },
+ {
+  "id": "lecture-07",
+  "type": "lecture",
+  "title": "Introducing Phenomenology",
+  "authors": "Phenomenology",
+  "question": "What is at stake in Brentano and intentionality?",
+  "tags": [
+   "lecture",
+   "phenomenology"
+  ],
+  "sources": "Course thematic guide: Phenomenology — Brentano and intentionality; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Phenomenology. Our opening problem is Brentano and intentionality. Brentano and intentionality in Phenomenology brings six concepts into one explanatory problem. Begin by distinguishing Intentionality, consciousness directed toward something, from Intentional object, that toward which an experience is directed. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Descriptive psychology: Brentano's investigation of mental phenomena. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Intentionality: consciousness directed toward something Intentional object: that toward which an experience is directed Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Immanent objectivity refers to historically controversial account of object-directedness. Compare this with Presentation, understood here as basic intentional relation in Brentano's classification. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Immanent objectivity but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Intentionality does not entail Intentional object. What supporting premise would be Reconsider the central distinction in Phenomenology: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-07"
+ },
+ {
+  "id": "lecture-08",
+  "type": "lecture",
+  "title": "Introducing Existentialism",
+  "authors": "Existentialism",
+  "question": "What is at stake in Kierkegaard's individual?",
+  "tags": [
+   "lecture",
+   "existentialism"
+  ],
+  "sources": "Course thematic guide: Existentialism — Kierkegaard's individual; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Existentialism. Our opening problem is Kierkegaard's individual. Kierkegaard's individual in Existentialism brings six concepts into one explanatory problem. Begin by distinguishing Subjectivity, existentially involved relation to truth, from Stages of life, aesthetic, ethical, and religious orientations. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Despair: disordered relation of self to itself. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Subjectivity: existentially involved relation to truth Stages of life: aesthetic, ethical, and religious orientations Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Leap refers to non-demonstrative commitment associated with faith. Compare this with Anxiety, understood here as disclosure of possibility and freedom. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Leap but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Subjectivity does not entail Stages of life. What supporting premise would be Reconsider the central distinction in Existentialism: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-08"
+ },
+ {
+  "id": "lecture-09",
+  "type": "lecture",
+  "title": "Introducing Hermeneutics",
+  "authors": "Hermeneutics",
+  "question": "What is at stake in Origins of interpretation?",
+  "tags": [
+   "lecture",
+   "hermeneutics"
+  ],
+  "sources": "Course thematic guide: Hermeneutics — Origins of interpretation; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Hermeneutics. Our opening problem is Origins of interpretation. Origins of interpretation in Hermeneutics brings six concepts into one explanatory problem. Begin by distinguishing Exegesis, interpretation of authoritative texts, from Philology, critical study of language and textual history. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Hermes: mythic namesake associated with mediation. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Exegesis: interpretation of authoritative texts Philology: critical study of language and textual history Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Literal sense refers to attention to linguistic and contextual meaning. Compare this with Allegory, understood here as reading as bearing extended or figurative significance. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Literal sense but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Exegesis does not entail Philology. What supporting premise would be Reconsider the central distinction in Hermeneutics: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-09"
+ },
+ {
+  "id": "lecture-10",
+  "type": "lecture",
+  "title": "Introducing Vedantic Philosophy",
+  "authors": "Vedantic Philosophy",
+  "question": "What is at stake in Upaniṣadic foundations?",
+  "tags": [
+   "lecture",
+   "vedantic philosophy"
+  ],
+  "sources": "Course thematic guide: Vedantic Philosophy — Upaniṣadic foundations; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Vedantic Philosophy. Our opening problem is Upaniṣadic foundations. Upaniṣadic foundations in Vedantic Philosophy brings six concepts into one explanatory problem. Begin by distinguishing Brahman, ultimate reality or ground central to Vedānta traditions, from Ātman, self understood in varied philosophical interpretations. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Śruti: revealed textual authority in orthodox schools. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Brahman: ultimate reality or ground central to Vedānta traditions Ātman: self understood in varied philosophical interpretations Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Mahāvākya refers to major Upaniṣadic sentence used in doctrinal debate. Compare this with Sat, understood here as being or reality discussed in classical texts. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Mahāvākya but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Brahman does not entail Ātman. What supporting premise would be Reconsider the central distinction in Vedantic Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-10"
+ },
+ {
+  "id": "lecture-11",
+  "type": "lecture",
+  "title": "Introducing General Indian Philosophy",
+  "authors": "General Indian Philosophy",
+  "question": "What is at stake in The philosophical landscape?",
+  "tags": [
+   "lecture",
+   "general indian philosophy"
+  ],
+  "sources": "Course thematic guide: General Indian Philosophy — The philosophical landscape; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on General Indian Philosophy. Our opening problem is The philosophical landscape. The philosophical landscape in General Indian Philosophy brings six concepts into one explanatory problem. Begin by distinguishing Darśana, viewpoint or philosophical system, from Āstika, schools traditionally accepting Vedic authority. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Nāstika: schools not accepting Vedic authority. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Darśana: viewpoint or philosophical system Āstika: schools traditionally accepting Vedic authority Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Sūtra refers to aphoristic genre organized for study. Compare this with Puruṣārtha, understood here as aims of human life in classical traditions. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Sūtra but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Darśana does not entail Āstika. What supporting premise would be Reconsider the central distinction in General Indian Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-11"
+ },
+ {
+  "id": "lecture-12",
+  "type": "lecture",
+  "title": "Introducing Kantian Transcendental Philosophy",
+  "authors": "Kantian Transcendental Philosophy",
+  "question": "What is at stake in Awakening of the critical project?",
+  "tags": [
+   "lecture",
+   "kantian transcendental philosophy"
+  ],
+  "sources": "Course thematic guide: Kantian Transcendental Philosophy — Awakening of the critical project; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Kantian Transcendental Philosophy. Our opening problem is Awakening of the critical project. Awakening of the critical project in Kantian Transcendental Philosophy brings six concepts into one explanatory problem. Begin by distinguishing Dogmatism, metaphysical assertion without a critique of reason, from Skepticism, doubt about the reach of human knowledge. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Critical philosophy: inquiry into conditions and limits of cognition. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Dogmatism: metaphysical assertion without a critique of reason Skepticism: doubt about the reach of human knowledge Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Copernican turn refers to objects of experience considered under our cognitive conditions. Compare this with Transcendental, understood here as concerning conditions of possibility of experience. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Copernican turn but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Dogmatism does not entail Skepticism. What supporting premise would be Reconsider the central distinction in Kantian Transcendental Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-12"
+ },
+ {
+  "id": "lecture-13",
+  "type": "lecture",
+  "title": "Introducing Logic",
+  "authors": "Logic",
+  "question": "What is at stake in Arguments and validity?",
+  "tags": [
+   "lecture",
+   "logic"
+  ],
+  "sources": "Course thematic guide: Logic — Arguments and validity; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Logic. Our opening problem is Arguments and validity. Arguments and validity in Logic brings six concepts into one explanatory problem. Begin by distinguishing Premise, proposition offered as a reason for another claim, from Conclusion, proposition purportedly supported by premises. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Validity: no possible case of true premises and false conclusion. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Premise: proposition offered as a reason for another claim Conclusion: proposition purportedly supported by premises Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Soundness refers to valid argument whose premises are true. Compare this with Inference, understood here as transition from premises to conclusion. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Soundness but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Premise does not entail Conclusion. What supporting premise would be Reconsider the central distinction in Logic: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-13"
+ },
+ {
+  "id": "lecture-14",
+  "type": "lecture",
+  "title": "Introducing Aesthetics",
+  "authors": "Aesthetics",
+  "question": "What is at stake in What is the aesthetic?",
+  "tags": [
+   "lecture",
+   "aesthetics"
+  ],
+  "sources": "Course thematic guide: Aesthetics — What is the aesthetic; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Aesthetics. Our opening problem is What is the aesthetic. What is the aesthetic in Aesthetics brings six concepts into one explanatory problem. Begin by distinguishing Aesthetic experience, attention to qualities of appearance and significance, from Beauty, contested value involving pleasure, form, or appreciation. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Taste: capacity for discriminating aesthetic judgment. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Aesthetic experience: attention to qualities of appearance and significance Beauty: contested value involving pleasure, form, or appreciation Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Aesthetic attitude refers to mode of attention often distinguished from utility. Compare this with Formalism, understood here as approach prioritizing formal relations. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Aesthetic attitude but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Aesthetic experience does not entail Beauty. What supporting premise would be Reconsider the central distinction in Aesthetics: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-14"
+ },
+ {
+  "id": "lecture-15",
+  "type": "lecture",
+  "title": "Introducing Psychoanalysis",
+  "authors": "Psychoanalysis",
+  "question": "What is at stake in The psychoanalytic project?",
+  "tags": [
+   "lecture",
+   "psychoanalysis"
+  ],
+  "sources": "Course thematic guide: Psychoanalysis — The psychoanalytic project; consult a verified edition before attributing a passage.",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Psychoanalysis. Our opening problem is The psychoanalytic project. The psychoanalytic project in Psychoanalysis brings six concepts into one explanatory problem. Begin by distinguishing Unconscious, mental processes inaccessible to ordinary awareness, from Freud, founder of psychoanalysis as method and theoretical tradition. Their difference is important precisely because substituting one for the other changes the question being asked. Next consider Free association: inviting unedited speech to explore associations. Ask how this third term qualifies the first distinction, rather than assuming that the three are"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Unconscious: mental processes inaccessible to ordinary awareness Freud: founder of psychoanalysis as method and theoretical tradition Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "In the chapter’s interpretive setting, Resistance refers to opposition arising in analytic work. Compare this with Transference, understood here as patterns of feeling redirected toward an analyst. The relation could be one of support, dependence, tension, or merely historical association. The correct relation must be argued rather than guessed from proximity. Formulate a test case that would require Resistance but not"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "One may object that Unconscious does not entail Freud. What supporting premise would be Reconsider the central distinction in Psychoanalysis: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-15"
+ },
+ {
+  "id": "lecture-16",
+  "type": "lecture",
+  "title": "Introducing Hegelian Philosophy",
+  "authors": "Hegelian Philosophy",
+  "question": "What is at stake in Consciousness and the Problem of Knowing?",
+  "tags": [
+   "lecture",
+   "hegelian philosophy"
+  ],
+  "sources": "G. W. F. Hegel, Phenomenology of Spirit (1807); Science of Logic (1812–1816)",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Hegelian Philosophy. Our opening problem is Consciousness and the Problem of Knowing. In Hegelian Philosophy, the problem of consciousness and the problem of knowing is not settled by memorizing a vocabulary. Hegel begins by rejecting the picture of cognition as a detachable instrument for reaching a reality already fixed outside it. Experience tests consciousness by its own shifting standards, not by a criterion imported from"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Natural consciousness: ordinary consciousness taking its object and its standard as immediately valid In-itself: what consciousness initially takes an object to be independently of its knowing Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "Notice the distinction between Natural consciousness (ordinary consciousness taking its object and its standard as immediately valid) and In-itself (what consciousness initially takes an object to be independently of its knowing). They need not be rivals: explain their relation before asserting incompatibility. A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does For-consciousness require Criterion of truth, or might the two be separable? What textual evidence could"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does For-consciousness require Criterion of truth, or might the two be separable? What textual evidence could Reconsider the central distinction in Hegelian Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-16"
+ },
+ {
+  "id": "lecture-17",
+  "type": "lecture",
+  "title": "Introducing Post-Structuralism",
+  "authors": "Post-Structuralism",
+  "question": "What is at stake in Structures and Their Limits?",
+  "tags": [
+   "lecture",
+   "post-structuralism"
+  ],
+  "sources": "Michel Foucault, The Archaeology of Knowledge (1969); Gilles Deleuze, Difference and Repetition (1968)",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Post-Structuralism. Our opening problem is Structures and Their Limits. In Post-Structuralism, the problem of structures and their limits is not settled by memorizing a vocabulary. Structuralist models explain meanings through relational differences. Post-structuralist approaches explore the instability, history, power, and material practices that complicate a closed"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Structuralism: study of relational systems making signs or practices intelligible Differential meaning: significance established through differences rather than isolated essences Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "Notice the distinction between Structuralism (study of relational systems making signs or practices intelligible) and Differential meaning (significance established through differences rather than isolated essences). They need not be rivals: explain their relation before asserting incompatibility. A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does Post-structuralism require Decentering, or might the two be separable? What textual evidence could"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does Post-structuralism require Decentering, or might the two be separable? What textual evidence could Reconsider the central distinction in Post-Structuralism: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-17"
+ },
+ {
+  "id": "lecture-18",
+  "type": "lecture",
+  "title": "Introducing Postmodern Philosophy",
+  "authors": "Postmodern Philosophy",
+  "question": "What is at stake in The Modern and the Postmodern?",
+  "tags": [
+   "lecture",
+   "postmodern philosophy"
+  ],
+  "sources": "Jean-François Lyotard, The Postmodern Condition (1979); Jean Baudrillard, Simulacra and Simulation (1981)",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Postmodern Philosophy. Our opening problem is The Modern and the Postmodern. In Postmodern Philosophy, the problem of the modern and the postmodern is not settled by memorizing a vocabulary. 'Postmodern' names disputed conditions and styles, not one doctrine. Begin by separating accounts of social change from philosophical claims about reason and"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Modernity: historical formations emphasizing differentiation science and political transformation Postmodernity: contested diagnosis of changing cultural and social conditions Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "Notice the distinction between Modernity (historical formations emphasizing differentiation science and political transformation) and Postmodernity (contested diagnosis of changing cultural and social conditions). They need not be rivals: explain their relation before asserting incompatibility. A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does Postmodernism require Grand narrative, or might the two be separable? What textual evidence could"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does Postmodernism require Grand narrative, or might the two be separable? What textual evidence could Reconsider the central distinction in Postmodern Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-18"
+ },
+ {
+  "id": "lecture-19",
+  "type": "lecture",
+  "title": "Introducing Deconstruction & Derrida",
+  "authors": "Deconstruction & Derrida",
+  "question": "What is at stake in Metaphysics of Presence?",
+  "tags": [
+   "lecture",
+   "deconstruction & derrida"
+  ],
+  "sources": "Jacques Derrida, Of Grammatology (1967); Speech and Phenomena (1967); Limited Inc (1988)",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Deconstruction & Derrida. Our opening problem is Metaphysics of Presence. In Deconstruction & Derrida, the problem of metaphysics of presence is not settled by memorizing a vocabulary. Derrida studies philosophical traditions privileging presence, self-identity, and immediate meaning. Deconstruction reads how such positions depend on what they"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Presence: privileged ideal of direct self-given meaning Logocentrism: privileging an original rational presence behind signs Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "Notice the distinction between Presence (privileged ideal of direct self-given meaning) and Logocentrism (privileging an original rational presence behind signs). They need not be rivals: explain their relation before asserting incompatibility. A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does Phonocentrism require Binary hierarchy, or might the two be separable? What textual evidence could"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does Phonocentrism require Binary hierarchy, or might the two be separable? What textual evidence could Reconsider the central distinction in Deconstruction & Derrida: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-19"
+ },
+ {
+  "id": "lecture-20",
+  "type": "lecture",
+  "title": "Introducing Buddhist Metaphysics",
+  "authors": "Buddhist Metaphysics",
+  "question": "What is at stake in Early Buddhist Accounts of Experience?",
+  "tags": [
+   "lecture",
+   "buddhist metaphysics"
+  ],
+  "sources": "Nāgārjuna, Mūlamadhyamakakārikā; Vasubandhu, Viṃśatikā; Dignāga, Pramāṇasamuccaya",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Buddhist Metaphysics. Our opening problem is Early Buddhist Accounts of Experience. In Buddhist Metaphysics, the problem of early buddhist accounts of experience is not settled by memorizing a vocabulary. Buddhist schools disagree in important ways; it is inaccurate to treat all Buddhist philosophy as a single doctrine. Begin with the analysis of suffering, impermanence, and conditioned"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Dukkha: unsatisfactoriness or suffering in conditioned existence Anicca: impermanence of conditioned phenomena Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "Notice the distinction between Dukkha (unsatisfactoriness or suffering in conditioned existence) and Anicca (impermanence of conditioned phenomena). They need not be rivals: explain their relation before asserting incompatibility. A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does Anatta require Five aggregates, or might the two be separable? What textual evidence could"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "A reasonable objection is to ask whether the interpretation above extends beyond the evidence. In particular, does Anatta require Five aggregates, or might the two be separable? What textual evidence could Reconsider the central distinction in Buddhist Metaphysics: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-20"
+ },
+ {
+  "id": "lecture-21",
+  "type": "lecture",
+  "title": "Introducing Analytic Philosophy",
+  "authors": "Analytic Philosophy",
+  "question": "What is at stake in Frege and the Foundations of Logic?",
+  "tags": [
+   "lecture",
+   "analytic philosophy"
+  ],
+  "sources": "Frege, On Sense and Reference; Russell, On Denoting; Wittgenstein, Philosophical Investigations",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Analytic Philosophy. Our opening problem is Frege and the Foundations of Logic. The central question in Frege and the Foundations of Logic is not merely terminological. Frege argues that logical and mathematical truths cannot be reduced to private psychology. Begin by distinguishing Sense—mode of presentation of a referent—from Reference—object or truth value designated by an expression. An accurate interpretation must say what philosophical problem the distinction addresses and why its author finds the issue"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Sense: mode of presentation of a referent Reference: object or truth value designated by an expression Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "A useful reconstruction begins with the claim: Frege argues that logical and mathematical truths cannot be reduced to private psychology. Ask what assumption would make the conclusion follow, rather than assuming that a memorable label proves it. Then examine whether Concept (unsaturated predicative function in Frege's logical analysis) provides support, a qualification, or a challenge. Compare it with Object (complete argument of a first-level function). A historical position should be distinguished from a contemporary charitable"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Identify a counterexample or a competing interpretation and explain which premise it Reconsider the central distinction in Analytic Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-01"
+ },
+ {
+  "id": "lecture-22",
+  "type": "lecture",
+  "title": "Introducing Philosophy of Language",
+  "authors": "Philosophy of Language",
+  "question": "What is at stake in Meaning and Signification?",
+  "tags": [
+   "lecture",
+   "philosophy of language"
+  ],
+  "sources": "Frege, On Sense and Reference; Austin, How to Do Things with Words; Grice, Logic and Conversation",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Philosophy of Language. Our opening problem is Meaning and Signification. The central question in Meaning and Signification is not merely terminological. Philosophies of meaning must distinguish mental associations from publicly assessable linguistic norms. Begin by distinguishing Meaning—what an expression contributes to understanding and communication—from Sign—unit used to represent or indicate something. An accurate interpretation must say what philosophical problem the distinction addresses and why its author finds the issue"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Meaning: what an expression contributes to understanding and communication Sign: unit used to represent or indicate something Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "A useful reconstruction begins with the claim: Philosophies of meaning must distinguish mental associations from publicly assessable linguistic norms. Ask what assumption would make the conclusion follow, rather than assuming that a memorable label proves it. Then examine whether Signifier (expressive aspect of a linguistic sign) provides support, a qualification, or a challenge. Compare it with Signified (conceptual aspect of a sign in structuralist theory). A historical position should be distinguished from a contemporary charitable"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Identify a counterexample or a competing interpretation and explain which premise it Reconsider the central distinction in Philosophy of Language: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-02"
+ },
+ {
+  "id": "lecture-23",
+  "type": "lecture",
+  "title": "Introducing Epistemology",
+  "authors": "Epistemology",
+  "question": "What is at stake in Knowledge and the Gettier Problem?",
+  "tags": [
+   "lecture",
+   "epistemology"
+  ],
+  "sources": "Gettier, Is Justified True Belief Knowledge?; Pritchard, What Is This Thing Called Knowledge?",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Epistemology. Our opening problem is Knowledge and the Gettier Problem. The central question in Knowledge and the Gettier Problem is not merely terminological. A belief may be true and justified through accident, raising problems for the traditional tripartite analysis. Begin by distinguishing Knowledge—successful epistemic standing exceeding mere true belief—from Belief—attitude of taking a proposition to be true. An accurate interpretation must say what philosophical problem the distinction addresses and why its author finds the issue"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Knowledge: successful epistemic standing exceeding mere true belief Belief: attitude of taking a proposition to be true Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "A useful reconstruction begins with the claim: A belief may be true and justified through accident, raising problems for the traditional tripartite analysis. Ask what assumption would make the conclusion follow, rather than assuming that a memorable label proves it. Then examine whether Truth (condition of a claim matching relevant facts under a truth theory) provides support, a qualification, or a challenge. Compare it with Justification (epistemic support for holding a belief). A historical position should be distinguished from a contemporary charitable"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Identify a counterexample or a competing interpretation and explain which premise it Reconsider the central distinction in Epistemology: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-03"
+ },
+ {
+  "id": "lecture-24",
+  "type": "lecture",
+  "title": "Introducing Philosophy of Mind",
+  "authors": "Philosophy of Mind",
+  "question": "What is at stake in Mind–Body Problems?",
+  "tags": [
+   "lecture",
+   "philosophy of mind"
+  ],
+  "sources": "Nagel, What Is It Like to Be a Bat?; Chalmers, The Conscious Mind; Dennett, Consciousness Explained",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Philosophy of Mind. Our opening problem is Mind–Body Problems. The central question in Mind–Body Problems is not merely terminological. The relationship between conscious experience and the physical world poses distinctive explanatory questions. Begin by distinguishing Substance dualism—view that mind and body are fundamentally different substances—from Physicalism—view that everything mental is ultimately physical. An accurate interpretation must say what philosophical problem the distinction addresses and why its author finds the issue"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Substance dualism: view that mind and body are fundamentally different substances Physicalism: view that everything mental is ultimately physical Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "A useful reconstruction begins with the claim: The relationship between conscious experience and the physical world poses distinctive explanatory questions. Ask what assumption would make the conclusion follow, rather than assuming that a memorable label proves it. Then examine whether Property dualism (view that mental properties differ irreducibly from physical properties) provides support, a qualification, or a challenge. Compare it with Causal interaction (problem of how mind and body influence each other). A historical position should be distinguished from a contemporary charitable"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Identify a counterexample or a competing interpretation and explain which premise it Reconsider the central distinction in Philosophy of Mind: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-04"
+ },
+ {
+  "id": "lecture-25",
+  "type": "lecture",
+  "title": "Introducing Critical Theory",
+  "authors": "Critical Theory",
+  "question": "What is at stake in Marx and Ideology?",
+  "tags": [
+   "lecture",
+   "critical theory"
+  ],
+  "sources": "Horkheimer, Traditional and Critical Theory; Adorno, Negative Dialectics; Habermas, Theory of Communicative Action",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Critical Theory. Our opening problem is Marx and Ideology. The central question in Marx and Ideology is not merely terminological. Critique of ideology investigates how social relations shape what appears natural or inevitable. Begin by distinguishing Ideology—patterns of ideas supporting or obscuring social relations—from Alienation—estrangement from products labor and social powers. An accurate interpretation must say what philosophical problem the distinction addresses and why its author finds the issue"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Ideology: patterns of ideas supporting or obscuring social relations Alienation: estrangement from products labor and social powers Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "A useful reconstruction begins with the claim: Critique of ideology investigates how social relations shape what appears natural or inevitable. Ask what assumption would make the conclusion follow, rather than assuming that a memorable label proves it. Then examine whether Commodity fetishism (appearance that social relations are properties of things) provides support, a qualification, or a challenge. Compare it with Reification (treating social processes as fixed objects). A historical position should be distinguished from a contemporary charitable"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Identify a counterexample or a competing interpretation and explain which premise it Reconsider the central distinction in Critical Theory: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-05"
+ },
+ {
+  "id": "lecture-26",
+  "type": "lecture",
+  "title": "Introducing Philosophy of Science",
+  "authors": "Philosophy of Science",
+  "question": "What is at stake in What Is a Scientific Explanation??",
+  "tags": [
+   "lecture",
+   "philosophy of science"
+  ],
+  "sources": "Popper, The Logic of Scientific Discovery; Kuhn, Structure of Scientific Revolutions; Lakatos, Falsification and the Methodology of Scientific Research Programmes",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Philosophy of Science. Our opening problem is What Is a Scientific Explanation?. The central question in What Is a Scientific Explanation? is not merely terminological. Philosophers distinguish explanation from prediction, description and mere statistical correlation. Begin by distinguishing Deductive-nomological model—explanation subsuming events under laws and conditions—from Explanandum—phenomenon requiring explanation. An accurate interpretation must say what philosophical problem the distinction addresses and why its author finds the issue"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Deductive-nomological model: explanation subsuming events under laws and conditions Explanandum: phenomenon requiring explanation Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "A useful reconstruction begins with the claim: Philosophers distinguish explanation from prediction, description and mere statistical correlation. Ask what assumption would make the conclusion follow, rather than assuming that a memorable label proves it. Then examine whether Explanans (statements proposed to explain a phenomenon) provides support, a qualification, or a challenge. Compare it with Causal explanation (account identifying relevant causes or mechanisms). A historical position should be distinguished from a contemporary charitable"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Identify a counterexample or a competing interpretation and explain which premise it Reconsider the central distinction in Philosophy of Science: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-06"
+ },
+ {
+  "id": "lecture-27",
+  "type": "lecture",
+  "title": "Introducing Chinese Philosophy",
+  "authors": "Chinese Philosophy",
+  "question": "What is at stake in Confucius and Cultivation?",
+  "tags": [
+   "lecture",
+   "chinese philosophy"
+  ],
+  "sources": "Analects; Mencius; Xunzi; Daodejing; Zhuangzi; Mozi",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Chinese Philosophy. Our opening problem is Confucius and Cultivation. The central question in Confucius and Cultivation is not merely terminological. The Analects emphasizes cultivated character within learning, relationships and ritual life. Begin by distinguishing Ren—humaneness or cultivated concern in Confucian ethics—from Li—ritual propriety governing meaningful conduct. An accurate interpretation must say what philosophical problem the distinction addresses and why its author finds the issue"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Ren: humaneness or cultivated concern in Confucian ethics Li: ritual propriety governing meaningful conduct Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "A useful reconstruction begins with the claim: The Analects emphasizes cultivated character within learning, relationships and ritual life. Ask what assumption would make the conclusion follow, rather than assuming that a memorable label proves it. Then examine whether Junzi (exemplary person formed through ethical practice) provides support, a qualification, or a challenge. Compare it with Xiao (filial conduct within family relationships). A historical position should be distinguished from a contemporary charitable"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Identify a counterexample or a competing interpretation and explain which premise it Reconsider the central distinction in Chinese Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-07"
+ },
+ {
+  "id": "lecture-28",
+  "type": "lecture",
+  "title": "Introducing Islamic Philosophy",
+  "authors": "Islamic Philosophy",
+  "question": "What is at stake in The Translation Movement?",
+  "tags": [
+   "lecture",
+   "islamic philosophy"
+  ],
+  "sources": "Avicenna, The Metaphysics of the Healing; al-Ghazali, Incoherence of the Philosophers; Averroes, Decisive Treatise",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Islamic Philosophy. Our opening problem is The Translation Movement. The central question in The Translation Movement is not merely terminological. Philosophical inquiry in Arabic developed through translation, commentary and innovative debate. Begin by distinguishing Bayt al-Hikma—House of Wisdom associated with Abbasid-era translation activity—from Falsafa—tradition of philosophy engaging Greek-derived inquiry. An accurate interpretation must say what philosophical problem the distinction addresses and why its author finds the issue"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Bayt al-Hikma: House of Wisdom associated with Abbasid-era translation activity Falsafa: tradition of philosophy engaging Greek-derived inquiry Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "A useful reconstruction begins with the claim: Philosophical inquiry in Arabic developed through translation, commentary and innovative debate. Ask what assumption would make the conclusion follow, rather than assuming that a memorable label proves it. Then examine whether Kalam (discursive theology using rational argument) provides support, a qualification, or a challenge. Compare it with Aristotle's legacy (transmission and reinterpretation of Aristotelian works). A historical position should be distinguished from a contemporary charitable"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Identify a counterexample or a competing interpretation and explain which premise it Reconsider the central distinction in Islamic Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-08"
+ },
+ {
+  "id": "lecture-29",
+  "type": "lecture",
+  "title": "Introducing Positivism",
+  "authors": "Positivism",
+  "question": "What is at stake in A Positive Philosophy?",
+  "tags": [
+   "lecture",
+   "positivism"
+  ],
+  "sources": "Comte, Course of Positive Philosophy",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Positivism. Our opening problem is A Positive Philosophy. The central problem of A Positive Philosophy is how to justify the claim that positive inquiry seeks laws of phenomena rather than untestable ultimate causes. Its historical setting is Comte, Course of Positive Philosophy. Start with Positive knowledge, meaning knowledge organized by observable relations and lawlike regularities, and contrast it with Metaphysical explanation, meaning appeal to abstract entities or ultimate causes beyond tested relations. These should not be treated as synonyms. The distinction does explanatory work only if it changes what could count as evidence or a"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Positive knowledge: Knowledge organized by observable relations and lawlike regularities Metaphysical explanation: Appeal to abstract entities or ultimate causes beyond tested relations Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "An interpretive reconstruction proceeds in steps. First articulate this chapter’s central thesis: Positive inquiry seeks laws of phenomena rather than untestable ultimate causes. Second, ask what relation between Observable phenomena and Scientific law would support it. Observable phenomena is understood as events accessible in principle to systematic empirical inquiry; by contrast Scientific law refers to a general relation among phenomena that supports expectation and explanation. If one term describes a historical claim and the other a conceptual condition, moving between them requires argument rather than an assumed"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Can science legitimately refuse questions of explanation and Reconsider the central distinction in Positivism: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-09"
+ },
+ {
+  "id": "lecture-30",
+  "type": "lecture",
+  "title": "Introducing Schopenhauerian Philosophy",
+  "authors": "Schopenhauerian Philosophy",
+  "question": "What is at stake in The Principle of Sufficient Reason?",
+  "tags": [
+   "lecture",
+   "schopenhauerian philosophy"
+  ],
+  "sources": "Schopenhauer, On the Fourfold Root of the Principle of Sufficient Reason",
+  "chapters": [
+   {
+    "name": "Why this tradition matters",
+    "kind": "orientation",
+    "body": "Welcome to the Grand Academy course capsule on Schopenhauerian Philosophy. Our opening problem is The Principle of Sufficient Reason. The central problem of The Principle of Sufficient Reason is how to justify the claim that schopenhauer distinguishes forms of explanation while rejecting their extension beyond appearances. Its historical setting is Schopenhauer, On the Fourfold Root of the Principle of Sufficient Reason. Start with Principle of sufficient reason, meaning demand that what occurs or is known stand in an explanatory relation, and contrast it with Becoming, meaning causal relation among empirical changes. These should not be treated as synonyms. The distinction does explanatory work only if it changes what could count as evidence or a"
+   },
+   {
+    "name": "Conceptual distinctions",
+    "kind": "exposition",
+    "body": "Begin with two distinctions. Principle of sufficient reason: Demand that what occurs or is known stand in an explanatory relation Becoming: Causal relation among empirical changes Ask what each idea explains and where the two must not be confused."
+   },
+   {
+    "name": "Competing interpretation",
+    "kind": "comparison",
+    "body": "An interpretive reconstruction proceeds in steps. First articulate this chapter’s central thesis: Schopenhauer distinguishes forms of explanation while rejecting their extension beyond appearances. Second, ask what relation between Knowing and Being would support it. Knowing is understood as grounds linking judgments in inference; by contrast Being refers to relations of time and space ordering particulars. If one term describes a historical claim and the other a conceptual condition, moving between them requires argument rather than an assumed"
+   },
+   {
+    "name": "Challenge and reflection",
+    "kind": "reflection",
+    "body": "Can reasons for cognition be collapsed into causes of Reconsider the central distinction in Schopenhauerian Philosophy: which premise would have to be changed to answer this objection?"
+   }
+  ],
+  "related": "seminar-10"
+ }
+]

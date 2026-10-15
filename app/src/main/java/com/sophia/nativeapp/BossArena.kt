@@ -33,7 +33,7 @@ import kotlin.random.Random
     var good by remember(course.id,unit.name){mutableStateOf(false)}
     var picked by remember(course.id,unit.name){mutableStateOf(setOf<Int>())}
     val phaseNames=listOf("The Claim","The Argument","The Objection","The Revision")
-    val attacks=listOf("DISCERNMENT","ARGUMENT FORGE","CRITICAL SHIELD","DIALECTICAL TURN")
+    val attacks=listOf("DISCERNMENT","REASONING EXAMINATION","CRITICAL SHIELD","DIALECTICAL TURN")
     val titles=listOf("Find the strongest thesis","Assemble the premises","Block the weak attacks","Revise without retreating")
     val philosopherChallenge=when {
         course.name.contains("Kantian",true)->"Can a condition of experience be confused with a property of things as they are in themselves?"

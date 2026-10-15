@@ -1,27 +1,28 @@
-# SOPHIA 7.0 — The Dialectical Academy
+# SOPHIA 8.0 — The Grand Academy
 
-Native Kotlin + Jetpack Compose educational Android game. **Offline-first**, with 30 philosophy courses, 300 units, 3,600 structured lesson paths and 420 edited historical excerpts. This is a genuine native iteration, not a WebView skin.
+Native Android Kotlin / Jetpack Compose philosophy learning and listening application.
 
-## Key changes from 6.0
+## The eighth-generation redesign
 
-1. **Four interactive challenge engines**: Concept Forge (term/definition association), Argument Architect (reorder premises/conclusion), Dialectical Tribunal (multi-step reason/objection/revision), and Interpretive Detective (source-vs-interpretation inference discipline). Lessons 6–11 of each chapter now route through these different interactions rather than repeating one quiz template.
-2. **Dialectical Mastery Engine**: six distinct skill records, weighted performance updates, self-reported confidence support, transparent review intervals, weakest-skill guidance, diagnostic placement questions. These are *heuristics*, not validated psychometrics. Progress is tracked by concept *and* skill, not only by chapter.
-3. **Boss 3.0**: philosopher-specific opening challenges for several traditions plus four visual phases, HP and mastery updates. Existing illustrated assets remain, not all 30 opponents have individually hand-drawn character art or 30 entirely hand-authored branching scripts.
-4. **Socratic Chamber**: a branching offline examiner, written responses, objections and guided feedback. **No offline AI/LLM semantic grading is claimed.** The Doctoral Trial requires five long responses and checklist-based self-evaluation; completion is not academic certification.
-5. **Living Knowledge Atlas**: curated, typed cross-course links (historical encounter, critique, thematic comparison). Links are not logical implications.
-6. **Research Institute 2.0**: separate thesis, two premises, objection, response, and citation fields, visual scaffolding, version snapshots, compare/restore workflow, checklists; remains a research aid, not an automated logical proof checker.
-7. **Great Reader 4.0**: user-imported alternative `.txt` edition/translation comparison, tappable glossary notes, argument annotations. The second translation is **not automatically bundled or text-aligned**; import only materials the user lawfully possesses.
-8. **Radio 2.0**: new themed seminars combining opening, primary source, interpretation, counterpoint and reflection, in addition to the existing hands-free shuffled excerpt modes and Android media controls.
-9. **Scholar collection and analytics**: unlockable course portraits through study rather than purchases; diagnostic assessments, mastery summaries and adaptive question ordering.
+- **Four destination navigation**: immersive Campus, Audio Hall, Great Library, and Odyssey. Full-bleed original painted academy landscapes, premium dark-gold audio treatments, editorial serif typography, illustrated scholars, and a custom dock replace the inherited v5 menu-card home.
+- **Removed mini-games and Argument Architect**. Standard comprehension checks, reflective study, the Socratic Chamber, the Doctoral Examination, scholarly commentary, and the illustrated culminating boss remain.
+- **Audio Hall centerpiece**: 20 individually authored thematic seminar scripts (five chapters each), 30 course-specific capsule lectures (four chapters each), complete readable transcripts, indexable program selection, bookmarks, continuous philosophical radio, chapter jumps, saved progress, Android background playback/MediaSession transport controls, theme-following queue, playback rate and sleep timer.
+- **30 disciplines**, **300 units**, **1,800 curriculum concepts**, **420 curated historical excerpts** retained from SOPHIA 7.
+- **Great Reader**: historical edition credits, bookmarks, markup, user-imported translation comparison, reader TTS and lawful external-reader handoff retained; new illustrated author-browsing screen.
+- **Mastery**: quiz records and concept-level mastery tracking retained. Progress uses same private SharedPreferences keys as earlier editions, although the package ID changes to avoid overwriting 7.
 
-## Educational integrity
+## Editorial limits
 
-The 3,600 lesson *paths* combine curated definitions and variable activities. They are **not** 3,600 independently commissioned textbook chapters. Most chapter-specific commentary remains editorial teaching material and has not been certified through expert peer review. The excerpt library contains 420 selections taken from 13 historical editions, not 420 independently verified modern critical translations. Be mindful of jurisdiction-specific copyright rules.
+The initial twenty curated seminar **scripts are short-form chapters**, not twenty finished 20–60-minute audiobooks. Narration-time estimates are based on word count (~125 wpm) and omit pauses and optional source reading. This version adds the full reusable content and player framework for future 20–60-minute productions, with no invented audio files or prerecorded licensed voices. Similarly, the thirty course lectures are brief guided lessons derived from the existing chapter readings, not separately peer-reviewed university lectures. The commentary remains SOPHIA-authored instructional interpretation.
 
-AI free-text semantic grading, full multi-translation parallel critical apparatus, voice cloning/premium ElevenReader playback, and psychometrically validated adaptive difficulty **are not included**. Android's TTS engines work through their system APIs; ElevenReader can receive exported text but cannot be embedded as an internal TTS voice unless it implements an Android speech engine.
+Audio uses Android's installed TTS engine. ElevenReader is accessible through exporting excerpts to a compatible external app, not embedded as an Android engine unless installed and exposed as one. Speech pause resumes the current ~2,300-character segment, not the exact phoneme. Thematically related programs are linked through editorial IDs rather than automatic claims of agreement between philosophical doctrines. Offline Android TTS availability depends on the installed engine and voices.
 
-## Build & install
+## Build
 
-Github Actions (`.github/workflows/android.yml`) runs static content checks then `gradle :app:assembleDebug`, uploading the debug APK artifact. Min Android 7.0, target API 35. No internet permission or analytics. This debug package uses `com.sophia.philosophy.odyssey7`, so it installs alongside 6.0; **progress is not automatically migrated across the app ID**. Keep the older installation until you have backed up your data. Importing JSON backups requires compatible schemas; the earlier export format is preserved within this project.
+GitHub Actions with Android SDK 35, Gradle 8.10.2, AGP 8.7.3, Kotlin 2.1.20, JDK 17. Run `python3 tools/validate_eight.py` and `gradle :app:assembleDebug`.
 
-Tests: `python3 tools/validate_content.py && python3 tools/validate_seven.py` followed by compilation. App functionality and background audio need physical Android hardware smoke tests in addition to a successful build.
+Debug APK: `app/build/outputs/apk/debug/app-debug.apk`, Android >=7.0 (API 24), application ID `com.sophia.philosophy.grandacademy8`.
+
+## Content roadmap
+
+Next content packs: add longer editorial programs, improve primary-text location checks, align transcripts with generated speech output, extend audio listening history, and support optional pre-rendered offline licensed narration without falsely treating ElevenReader as a built-in TTS engine. Audio marks should distinguish estimate from media-duration.

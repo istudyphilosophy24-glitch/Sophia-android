@@ -35,7 +35,7 @@ class PhilosophyRadioService:Service() {
     companion object {
         const val START="sophia.radio.START";const val PAUSE="sophia.radio.PAUSE"
         const val RESUME="sophia.radio.RESUME";const val NEXT="sophia.radio.NEXT"
-        const val STOP="sophia.radio.STOP"
+        const val STOP="sophia.radio.STOP";const val PREVIOUS="sophia.radio.PREVIOUS";const val SEEK="sophia.radio.SEEK"
     }
     private val handler=Handler(Looper.getMainLooper())
     private lateinit var session:MediaSession
@@ -48,6 +48,7 @@ class PhilosophyRadioService:Service() {
     private var current:SpokenItem?=null
     private val queue=mutableListOf<SpokenItem>()
     private var mode="alternating";private var scope="all"
+    private var programId="";private var followTheme=false;private var segments=emptyList<String>();private var segmentIndex=0
 
     override fun onCreate(){super.onCreate()
         if(Build.VERSION.SDK_INT>=26){
@@ -67,6 +68,7 @@ class PhilosophyRadioService:Service() {
         when(intent?.action){
             START->{
                 mode=intent.getStringExtra("mode")?:"alternating";scope=intent.getStringExtra("scope")?:"all"
+                programId=intent.getStringExtra("programId")?:"";followTheme=intent.getBooleanExtra("follow",false)
                 rate=intent.getFloatExtra("rate",.9f);pitch=intent.getFloatExtra("pitch",1f)
                 val duration=intent.getIntExtra("minutes",30)
                 deadline=if(duration==0)Long.MAX_VALUE else SystemClock.elapsedRealtime()+duration*60_000L
@@ -75,7 +77,9 @@ class PhilosophyRadioService:Service() {
                 playing=true;paused=false;ready=false;errors=0;current=null
                 foreground(note());createQueue();initializeSpeech()
             }
-            NEXT->skip();PAUSE->pauseRadio();RESUME->resumeRadio();STOP->stopRadio()
+            NEXT->skip();PREVIOUS->{if(playing){idx=(idx-1).coerceAtLeast(0);speakItem()}}
+            SEEK->{if(playing){idx=intent.getIntExtra("chapter",0).coerceIn(0,(queue.size-1).coerceAtLeast(0));speakItem()}}
+            PAUSE->pauseRadio();RESUME->resumeRadio();STOP->stopRadio()
         }
         return START_NOT_STICKY
     }
@@ -108,11 +112,25 @@ class PhilosophyRadioService:Service() {
     }
     private fun report(state:String,extra:String=""){
         pref.edit().putString("state",state).putString("title",current?.title?:"SOPHIA Radio")
+            .putString("program",programId).putInt("chapter",idx)
             .putString("detail",extra.ifBlank{current?.subtitle?:""}).apply()
         updateSession()
         if(playing)(getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(NOTIFICATION_ID,note())
     }
     private fun createQueue(){
+        if(mode=="episode" && programId.isNotBlank()){
+            val catalog=AudioCatalog8.load(this)
+            val selected=catalog.firstOrNull{it.id==programId}
+            if(selected!=null){
+                queue.clear()
+                selected.chapters.forEachIndexed{n,c->
+                    queue.add(SpokenItem("${selected.id}:$n",selected.title,"${n+1}/${selected.chapters.size} · ${c.name}",c.body))
+                }
+                idx=pref.getInt("chapter_${selected.id}",0).coerceIn(0,(queue.size-1).coerceAtLeast(0))
+                pref.edit().putString("mode",mode).putString("program",programId).apply()
+                return
+            }
+        }
         val books=loadPrimaryBooks(this);val all=books.flatMap{b->b.excerpts.map{b to it}}
         val fav=getSharedPreferences("sophia_anthology_v6",MODE_PRIVATE).getStringSet("favorites",emptySet())?:emptySet()
         val progress=getSharedPreferences("sophia_native_v4",MODE_PRIVATE)
@@ -185,7 +203,9 @@ class PhilosophyRadioService:Service() {
                     .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build())
                 tts?.setOnUtteranceProgressListener(object:UtteranceProgressListener(){
                     override fun onStart(utteranceId:String?){}
-                    override fun onDone(utteranceId:String?){handler.post{if(utteranceId=="sophia_$token"&&playing&&!paused)skip()}}
+                    override fun onDone(utteranceId:String?){handler.post{if(utteranceId=="sophia_$token"&&playing&&!paused){
+                        if(segmentIndex+1<segments.size){segmentIndex++;speakSegment()}else skip()
+                    }}}
                     @Deprecated("Platform API")
                     override fun onError(utteranceId:String?){handler.post{errors++;if(errors<3)skip() else pauseRadio()}}
                 })
@@ -198,20 +218,36 @@ class PhilosophyRadioService:Service() {
         if(!playing||paused||!ready)return
         if(SystemClock.elapsedRealtime()>=deadline){stopRadio();return}
         if(queue.isEmpty()){stopRadio();return}
-        if(idx>=queue.size)createQueue()
-        current=queue[idx];token++
+        if(idx>=queue.size){
+            if(mode=="episode" && programId.isNotBlank()){
+                val next=AudioCatalog8.load(this).firstOrNull{it.id==programId}?.related
+                if(followTheme && !next.isNullOrBlank() && next!=programId){
+                    programId=next;pref.edit().putInt("chapter_$next",0).apply();createQueue()
+                }else{stopRadio();return}
+            }else createQueue()
+        }
+        current=queue.getOrNull(idx)?:run{stopRadio();return}
+        if(mode=="episode")pref.edit().putInt("chapter_$programId",idx).apply()
         val entry=current?:return
         if(entry.id.endsWith(":q")){
             val recent=((pref.getString("recent","")?:"").split('|').filter{it.isNotBlank()}+entry.id.removeSuffix(":q")).takeLast(20)
             pref.edit().putString("recent",recent.joinToString("|")).apply()
         }
-        if(tts?.speak(entry.text.take(TextToSpeech.getMaxSpeechInputLength()-50),TextToSpeech.QUEUE_FLUSH,null,"sophia_$token")==TextToSpeech.ERROR)
-            {report("error","Your TTS engine failed to read this passage");pauseRadio()}
-        else report("playing")
+        segments=entry.text.chunked(2300)
+        if(segments.isEmpty())segments=listOf("There is no recorded text in this chapter.")
+        segmentIndex=0
+        speakSegment()
+    }
+    private fun speakSegment(){
+        if(!playing||paused||!ready)return
+        token++
+        if(tts?.speak(segments.getOrElse(segmentIndex){""},TextToSpeech.QUEUE_FLUSH,null,"sophia_$token")==TextToSpeech.ERROR){
+            report("error","The selected Android TTS engine could not read this passage");pauseRadio()
+        }else report("playing")
     }
     private fun skip(){if(!playing)return;tts?.stop();token++;paused=false;idx++;speakItem()}
     private fun pauseRadio(){if(!playing)return;tts?.stop();token++;paused=true;report("paused")}
-    private fun resumeRadio(){if(!playing)return;paused=false;speakItem()}
+    private fun resumeRadio(){if(!playing)return;paused=false;if(segments.isNotEmpty())speakSegment() else speakItem()}
     private fun stopRadio(){
         playing=false;paused=false;token++;tts?.stop();sleeper?.let{handler.removeCallbacks(it)}
         report("stopped")
