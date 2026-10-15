@@ -1,4 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <cache-path name="shared_readings" path="reader_shares/" />
-</paths>
+<?xml version="1.0" encoding="utf-8"?><paths xmlns:android="http://schemas.android.com/apk/res/android"><cache-path name="reader_shares" path="reader_shares/" /></paths>

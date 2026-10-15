@@ -1,29 +1,23 @@
-# SOPHIA 4.0 — Native Jetpack Compose Migration
+# SOPHIA 5.0 — The Illustrated Academy (corrected build)
 
-**Native Kotlin UI, no Android WebView.** This repository migrates SOPHIA 4.0's complete **28-course, 280-unit, 1,680-concept** curriculum (including historical readings) into an offline Android app. Twelve lesson paths per unit provide 3,360 checkpoints.
+A genuinely native Kotlin + Jetpack Compose Android game, created from the SOPHIA 4.0 curriculum and the 5.0 Android project. No WebView.
 
-## Implemented
-
-- Three connected areas: Odyssey (courses and unit paths), Academy (three reading depths, annotations, Socratic seminar, logic arena, mastery dashboard, spaced review), and Research Institute (persistent writing and audit rubric).
-- Eight assessed questions per lesson across identification, comprehension, transfer, formal inference, philosophical criticism and earlier-content recall; a written reflection at upper tiers.
-- Mastery trials require 6 correct answers out of 8; ordinary practice has unlimited retries. Streaks, XP, Wisdom Coins and badges are device-local.
-- Six skill signals (recognition, comprehension, reconstruction, criticism, synthesis, retention) and a simple review schedule.
-- Android TextToSpeech with speed and pitch controls, haptic response and synthesized feedback tones. No bundled high-quality neural audio.
-- Native backup export through Android Sharesheet and paste-based restore of **native** progress and saved research/annotations.
+## Repaired in this build
+- 28 courses, 280 units, 3,360 meaningful *stage-defined* lesson paths. Each 12-stage unit focuses on six successive concepts before building comparisons, arguments, criticism, applications and spiral review. These paths are algorithmically scaffolded, **not 3,360 individually written textbook chapters**.
+- Eight multi-style exercises per ordinary lesson: concept recognition, explanation, contrast, application, logic validity, criticism, spaced recall and premise analysis. The upper tier requires a written reflection.
+- Illustrated 4-phase boss arena with animated portrait, scene background, health meters, collectible premise sequence, critical shield and conditional victory. Not an ordinary Q&A screen.
+- A 39-excerpt Great Library with genuine wording from historical Project Gutenberg editions in 13 works, metadata, translation credits, annotations, study prompts, glossary and TTS. Full texts are not bundled.
+- A proper in-app Android TTS engine and voice selector, playback-speed and pitch sliders, preview and persistent preferences. ElevenReader is NOT assumed to be an Android TTS service. Text-file handoff allows import into a compatible reader, or copy/paste into ElevenReader.
+- Bright rendered academy background, painterly philosopher portrait gallery, full graphic course cards, winding nodes, daily quests, XP, badges, streaks and animated rewards.
 
 ## Build
+`.github/workflows/android.yml` builds `app-debug.apk`. Requires Android SDK 35, JDK17, Gradle8.10.2. No network permission used by the application. It will need a compatible Android system TTS service to speak locally.
 
-GitHub Actions automatically runs the debug Android build. Download artifact `SOPHIA-4-Native-Migrated-APK`, extract `app-debug.apk`, sideload on an Android 7+ device. Uses Gradle 8.10.2, Android SDK 35, Kotlin 2.1.20 and Compose BOM 2025.04.01.
+## App ID and progress safety
+Package is `com.sophia.philosophy.odyssey5`, intentionally different from prior debug-signed releases so installing will not destroy or conflict with your existing SOPHIA installation. Progress is stored separately. The production application ID and release signing should be stabilized before a later public release.
 
-## Important limitations
-
-- The complete *curriculum* is migrated, but exercises are still algorithmic variants of 1,680 concepts—not 26,880 hand-written scholarly questions. The 4.0 source often uses simplified expositions; some older units have less detailed advanced readings.
-- The Socratic seminar is a guided writing exercise, **not** an LLM examiner. No AI-based grading, premium neural speech, or valid proof-of-truth certification. The finite formal logic arena uses four patterns.
-- This app is intentionally a separate native app ID (`com.sophia.philosophy.nativepreview`), updating the previous Compose *preview* only. It does **not** automatically read progress from WebView SOPHIA 4.0 (`com.sophia.philosophy`). The backup export/import format is native-specific.
-- GitHub Actions APKs are debug-signed. For stable long-term releases, configure a controlled release keystore outside the repository.
-- The bundled primary-text citations are source orientations; translation and textual attributions need independent edition checks.
-- A browser-free, signed debug build does not guarantee flawless behavior on every phone. Test on device.
-
-## Privacy
-
-No advertising, telemetry, account sign-in or internet permission. This is a personal offline application.
+## Limitations
+- Automatic written-answer AI semantic grading and richly animated interactive character rigs are not included. Boss uses a deterministic, four-stage graphical encounter with original portrait art and sound feedback.
+- In-app TTS works with apps which register as Android TextToSpeech engines; ElevenReader may not. Android's Share chooser can send text to reader apps but cannot make ElevenReader speak inside SOPHIA without official provider support.
+- The curated excerpts are historical/public-domain-in-US editions; check rights for your region. Quoted text comes from the original SOPHIA 5 APK's embedded Project Gutenberg editions; avoid mistaking them for modern translations.
+- 3,360 stage-defined encounters still share a structured exercise generator; they are more distinct but not hand authored individually. Repeated concepts appear deliberately as retrieval practice.
