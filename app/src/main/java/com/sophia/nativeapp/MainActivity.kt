@@ -226,7 +226,7 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
                             Text(if(isBoss)"⚔ TRIAL" else tier.label.uppercase(),color=Pine,fontWeight=FontWeight.ExtraBold)
                             Spacer(Modifier.weight(1f));Text("${questionIndex+1} / 8 · $score correct",color=Muted)
                         }
-                        LinearProgressIndicator(progress={(questionIndex+1)/8f,modifier=Modifier.fillMaxWidth(),color=Leaf)
+                        LinearProgressIndicator(progress=(questionIndex+1)/8f,modifier=Modifier.fillMaxWidth(),color=Leaf)
                         Text(exercise.prompt,color=Ink,fontSize=20.sp,lineHeight=28.sp,fontWeight=FontWeight.SemiBold)
                         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)) {
                             exercise.choices.forEach { option ->
