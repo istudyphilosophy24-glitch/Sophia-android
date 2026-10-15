@@ -1,0 +1,125 @@
+{
+  "catalogCount": 588,
+  "typeCount": {
+    "lecture": 330,
+    "seminar": 20,
+    "text-seminar": 238
+  },
+  "typeWords": {
+    "seminar": 3927,
+    "lecture": 138148,
+    "text-seminar": 925770
+  },
+  "totalWords": 1067845,
+  "totalHoursAt125WPM": 142.38,
+  "sourceReadingsWords": 895528,
+  "lecturesPlusAuthoredSeminarsHours": 18.94,
+  "sources": {
+    "1656": {
+      "title": "Apology",
+      "author": "Plato",
+      "translator": "Benjamin Jowett",
+      "sha256_cleaned_source": "3f1a12748ac5479ef09519cc24551a709e9f2a16085cb5af9d90746108d4e7c3",
+      "words": 16191,
+      "sessions": 5
+    },
+    "1497": {
+      "title": "The Republic",
+      "author": "Plato",
+      "translator": "Benjamin Jowett",
+      "sha256_cleaned_source": "837a4aafb7c2e7b6857fef086ff4ca8275deaf88709d02626ec2258b5370968e",
+      "words": 216727,
+      "sessions": 56
+    },
+    "8438": {
+      "title": "Nicomachean Ethics",
+      "author": "Aristotle",
+      "translator": "J. A. Smith edition (translation as bundled)",
+      "sha256_cleaned_source": "72372d36cbcd070c0081eaf3090715ae17d8772d5a99166f2a917053b6d2b3da",
+      "words": 113711,
+      "sessions": 30
+    },
+    "59": {
+      "title": "Discourse on the Method",
+      "author": "René Descartes",
+      "translator": "historical Project Gutenberg English edition",
+      "sha256_cleaned_source": "8cce95c31e4419793f48d21001546b78a8197e527c5c8a168bfe017b751b7764",
+      "words": 23042,
+      "sessions": 6
+    },
+    "9662": {
+      "title": "An Enquiry Concerning Human Understanding",
+      "author": "David Hume",
+      "translator": "1777 text, Selby-Bigge edition",
+      "sha256_cleaned_source": "3df00377e5051a6f27012b61a8f0e0e7a17dff89e36e18ccd5a77744b0f2c2aa",
+      "words": 57882,
+      "sessions": 16
+    },
+    "4280": {
+      "title": "Critique of Pure Reason",
+      "author": "Immanuel Kant",
+      "translator": "J. M. D. Meiklejohn",
+      "sha256_cleaned_source": "02464430004bf462d164e7a1ccdc33d6003b185b90f6e5f87afac977da885b0e",
+      "words": 210388,
+      "sessions": 56
+    },
+    "4363": {
+      "title": "Beyond Good and Evil",
+      "author": "Friedrich Nietzsche",
+      "translator": "Helen Zimmern",
+      "sha256_cleaned_source": "0f41d3873d1efd250c21b13ce14e49329990df9b188ba9b06b905fcb397acf30",
+      "words": 63025,
+      "sessions": 17
+    },
+    "11224": {
+      "title": "Utilitarianism",
+      "author": "John Stuart Mill",
+      "translator": "Original English, 1879 edition",
+      "sha256_cleaned_source": "1d46a9a360e7020c5e7841481b089125f6155aa80aa7d870181017950811c5fa",
+      "words": 27605,
+      "sessions": 7
+    },
+    "5827": {
+      "title": "The Problems of Philosophy",
+      "author": "Bertrand Russell",
+      "translator": "Original English",
+      "sha256_cleaned_source": "45eb38a8575fa0abc6ccd39bbc7811525b0d3e4208be76519d73e6fdf678bc50",
+      "words": 42775,
+      "sessions": 12
+    },
+    "3330": {
+      "title": "The Analects",
+      "author": "Confucius",
+      "translator": "James Legge",
+      "sha256_cleaned_source": "be609bdc8a999cd745aad5266fcf6e0fcaf234ffcff7b289cbb4451b78c94580",
+      "words": 29306,
+      "sessions": 8
+    },
+    "216": {
+      "title": "Tao Te Ching",
+      "author": "Laozi",
+      "translator": "James Legge",
+      "sha256_cleaned_source": "b5e08c14ef78a4742e8b78ed28082e3a9a3b448b23d8951126ad38bcb5b040d2",
+      "words": 10655,
+      "sessions": 3
+    },
+    "2017": {
+      "title": "Dhammapada",
+      "author": "Ancient Buddhist tradition",
+      "translator": "F. Max Müller",
+      "sha256_cleaned_source": "43e9044ff058b4a3477ded28e283d27e6eb6317df37d1b1c5a460ff73029ff80",
+      "words": 12175,
+      "sessions": 3
+    },
+    "2680": {
+      "title": "Meditations",
+      "author": "Marcus Aurelius",
+      "translator": "Historical English translation bundled in SOPHIA 5",
+      "sha256_cleaned_source": "a65002ee97271a5b7bb172db35d8ae000f6339c18d0862107e2657119397b75e",
+      "words": 72046,
+      "sessions": 19
+    }
+  },
+  "timingAssumption": "Estimated TTS duration at 125 spoken words per minute; not prerecorded audio or precise device playback runtime",
+  "method": "Lectures and authored thematic seminars are distinct from lengthy guided historical-source text seminars."
+}

@@ -101,7 +101,7 @@ private fun GrandApp8(courses:List<Course>,books:List<PrimaryBook>,progress:Soph
     var pitch by remember{mutableFloatStateOf(.98f)}
     var passed by remember{mutableStateOf(false)}
     var backupPaste by remember{mutableStateOf("")}
-    var backupStatus by remember{mutableStateOf("")}
+    var backupResult by remember{mutableStateOf("")}
     var totalTick by remember{mutableIntStateOf(0)}
     var lastTab by remember{mutableStateOf(GrandPage8.CAMPUS)}
     val context=androidx.compose.ui.platform.LocalContext.current
@@ -134,7 +134,7 @@ private fun GrandApp8(courses:List<Course>,books:List<PrimaryBook>,progress:Soph
                 IconButton(onClick={back()}){Icon(Icons.Rounded.ArrowBack,null,tint=forest8)}
                 Column(Modifier.weight(1f)){
                     Text("SOPHIA 9",fontSize=11.sp,color=gold8,letterSpacing=3.sp,fontWeight=FontWeight.ExtraBold)
-                    Text(when(page){GrandPage8.COURSE->course.name;GrandPage8.LESSON->unit.name;GrandPage8.READER->books.getOrNull(bookId)?.title?:"Great Library";GrandPage8.RESEARCH->"Research Institute";else->"The Grand Academy"},fontSize=15.sp,color=ink8,maxLines=1)
+                    Text(when(page){GrandPage8.COURSE->course.name;GrandPage8.LESSON->unit.name;GrandPage8.READER->books.getOrNull(bookId)?.title?:"Great Library";GrandPage8.RESEARCH->"Research Institute";else->"The Definitive Academy"},fontSize=15.sp,color=ink8,maxLines=1)
                 }
                 IconButton(onClick={to(GrandPage8.SCHOLAR)}){Icon(Icons.Rounded.AccountCircle,null,tint=forest8)}
             }
@@ -210,24 +210,25 @@ private fun GrandApp8(courses:List<Course>,books:List<PrimaryBook>,progress:Soph
                     Text("Narration studio",fontFamily=FontFamily.Serif,fontSize=29.sp,color=forest8)
                     NarratorSettings(narrator,rate,{rate=it},pitch,{pitch=it})
                     Button(onClick={stop()},modifier=Modifier.fillMaxWidth()){Text("Stop voice")}
-                    Text("SOPHIA 9 plays 100+ hours of measured offline listening text using your installed Android TTS voice. Audio is synthesized while listening, not prerecorded. ElevenReader may receive exported text, but is not a directly controlled internal voice.",fontSize=12.sp,color=smoky8)
+                    Text("SOPHIA 9 uses a selectable installed Android TTS engine. The 100+ hours are actual audio-ready text, not pre-rendered MP3 files. ElevenReader can receive exported excerpts but is not assumed to work as an in-app TTS engine.",fontSize=12.sp,color=smoky8)
                     HorizontalDivider()
-                    Text("Your learning archive",fontFamily=FontFamily.Serif,fontSize=25.sp,color=forest8)
-                    Text("Export your lessons and written notes before you change phones.",color=smoky8,fontSize=13.sp)
-                    OutlinedButton(onClick={share("SOPHIA 9 native learning backup",progress.exportBackup())},modifier=Modifier.fillMaxWidth()){
-                        Icon(Icons.Rounded.UploadFile,null);Text(" Export a progress backup")
+                    Text("Preserve your scholarship",fontFamily=FontFamily.Serif,fontSize=25.sp,color=forest8)
+                    Text("Back up lesson progress and research notes before changing phones or uninstalling. Saved listening location is stored separately by Android.",fontSize=13.sp,color=smoky8)
+                    OutlinedButton(onClick={share("SOPHIA 9 learning progress backup",progress.exportBackup())},modifier=Modifier.fillMaxWidth()){
+                        Icon(Icons.Rounded.UploadFile,null);Text(" Export learning progress")
                     }
-                    OutlinedTextField(value=backupPaste,onValueChange={backupPaste=it},
-                        modifier=Modifier.fillMaxWidth().height(145.dp),label={Text("Paste compatible SOPHIA native backup")})
+                    OutlinedTextField(value=backupPaste,onValueChange={backupPaste=it},modifier=Modifier.fillMaxWidth().height(144.dp),
+                        label={Text("Paste a SOPHIA native backup")})
                     Button(enabled=backupPaste.isNotBlank(),onClick={
-                        backupStatus=if(progress.importBackup(backupPaste)){
-                            totalTick++;"Backup restored. Restart the app to refresh course screens."
-                        }else "Invalid or incompatible backup; nothing was restored."
+                        backupResult=if(progress.importBackup(backupPaste)){
+                            totalTick++
+                            "Imported learning data. Relaunch to refresh all course and mastery screens."
+                        }else "Backup is invalid or incompatible. No existing records were changed."
                     },modifier=Modifier.fillMaxWidth()){
                         Icon(Icons.Rounded.Restore,null);Text(" Restore progress")
                     }
-                    if(backupStatus.isNotBlank())Text(backupStatus,fontSize=12.sp,color=forest8)
-                    Text("The final numbered edition. Future updates should prioritize verified readings, quality, accessibility, and security.",fontSize=12.sp,color=smoky8)
+                    if(backupResult.isNotBlank())Text(backupResult,fontSize=12.sp,color=forest8)
+                    Text("SOPHIA 9 is the final numbered edition. Course corrections and optional content packs can continue without inflating the release number.",fontSize=12.sp,color=smoky8)
                 }
             }
         }

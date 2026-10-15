@@ -49,7 +49,8 @@ class PhilosophyRadioService:Service() {
     private var current:SpokenItem?=null
     private val queue=mutableListOf<SpokenItem>()
     private var mode="alternating";private var scope="all"
-    private var programId="";private var followTheme=false;private var segments=emptyList<String>();private var segmentIndex=0;private var restoreSegment=false
+    private var programId="";private var followTheme=false;private var segments=emptyList<String>();private var segmentIndex=0
+    private var restoreSavedSegment=false
 
     override fun onCreate(){super.onCreate()
         if(Build.VERSION.SDK_INT>=26){
@@ -60,7 +61,8 @@ class PhilosophyRadioService:Service() {
         session=MediaSession(this,"SOPHIA Philosophy Radio")
         session.setCallback(object:MediaSession.Callback(){
             override fun onPlay(){resumeRadio()};override fun onPause(){pauseRadio()}
-            override fun onSkipToNext(){skip()};override fun onSkipToPrevious(){restoreSegment=false;idx=(idx-1).coerceAtLeast(0);speakItem()};override fun onStop(){stopRadio()}
+            override fun onSkipToNext(){skip()};override fun onSkipToPrevious(){restoreSavedSegment=false;idx=(idx-1).coerceAtLeast(0);speakItem()}
+            override fun onStop(){stopRadio()}
         })
         session.isActive=true;updateSession()
     }
@@ -75,11 +77,12 @@ class PhilosophyRadioService:Service() {
                 deadline=if(duration==0)Long.MAX_VALUE else SystemClock.elapsedRealtime()+duration*60_000L
                 sleeper?.let{handler.removeCallbacks(it)};sleeper=null
                 if(duration>0){val task=Runnable{stopRadio()};sleeper=task;handler.postDelayed(task,duration*60_000L)}
-                playing=true;paused=false;ready=false;errors=0;current=null;restoreSegment=true
+                playing=true;paused=false;ready=false;errors=0;current=null
+                restoreSavedSegment=true
                 foreground(note());createQueue();initializeSpeech()
             }
-            NEXT->skip();PREVIOUS->{if(playing){restoreSegment=false;idx=(idx-1).coerceAtLeast(0);speakItem()}}
-            SEEK->{if(playing){restoreSegment=false;idx=intent.getIntExtra("chapter",0).coerceIn(0,(queue.size-1).coerceAtLeast(0));speakItem()}}
+            NEXT->skip();PREVIOUS->{if(playing){restoreSavedSegment=false;idx=(idx-1).coerceAtLeast(0);speakItem()}}
+            SEEK->{if(playing){restoreSavedSegment=false;idx=intent.getIntExtra("chapter",0).coerceIn(0,(queue.size-1).coerceAtLeast(0));speakItem()}}
             PAUSE->pauseRadio();RESUME->resumeRadio();STOP->stopRadio()
         }
         return START_NOT_STICKY
@@ -91,8 +94,12 @@ class PhilosophyRadioService:Service() {
     private fun updateSession(){
         val st=if(!playing)PlaybackState.STATE_STOPPED else if(paused)PlaybackState.STATE_PAUSED else PlaybackState.STATE_PLAYING
         val actions=PlaybackState.ACTION_PLAY or PlaybackState.ACTION_PAUSE or PlaybackState.ACTION_SKIP_TO_NEXT or PlaybackState.ACTION_STOP
-        session.setPlaybackState(PlaybackState.Builder().setActions(actions or PlaybackState.ACTION_SKIP_TO_PREVIOUS).setState(st,0L,1f).build())
-        session.setMetadata(MediaMetadata.Builder().putString(MediaMetadata.METADATA_KEY_TITLE,current?.title?:"SOPHIA 9").putString(MediaMetadata.METADATA_KEY_ARTIST,current?.subtitle?:"The Definitive Academy").build())
+        session.setPlaybackState(PlaybackState.Builder().setActions(actions or PlaybackState.ACTION_SKIP_TO_PREVIOUS)
+            .setState(st,0L,1f).build())
+        session.setMetadata(MediaMetadata.Builder()
+            .putString(MediaMetadata.METADATA_KEY_TITLE,current?.title?:"SOPHIA 9 · Definitive Audio Academy")
+            .putString(MediaMetadata.METADATA_KEY_ARTIST,current?.subtitle?:"The Grand Academy")
+            .build())
     }
     private fun command(action:String,id:Int):PendingIntent{
         val flags=PendingIntent.FLAG_UPDATE_CURRENT or if(Build.VERSION.SDK_INT>=23)PendingIntent.FLAG_IMMUTABLE else 0
@@ -115,7 +122,8 @@ class PhilosophyRadioService:Service() {
     }
     private fun report(state:String,extra:String=""){
         pref.edit().putString("state",state).putString("title",current?.title?:"SOPHIA Radio")
-            .putString("program",programId).putInt("chapter",idx).putInt("segment",segmentIndex).putInt("segments",segments.size)
+            .putString("program",programId).putInt("chapter",idx)
+            .putInt("segment",segmentIndex).putInt("segments",segments.size)
             .putString("detail",extra.ifBlank{current?.subtitle?:""}).apply()
         updateSession()
         if(playing)(getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(NOTIFICATION_ID,note())
@@ -235,32 +243,34 @@ class PhilosophyRadioService:Service() {
             val recent=((pref.getString("recent","")?:"").split('|').filter{it.isNotBlank()}+entry.id.removeSuffix(":q")).takeLast(20)
             pref.edit().putString("recent",recent.joinToString("|")).apply()
         }
-        segments=makeChunks(entry.text)
-        if(segments.isEmpty())segments=listOf("There is no reading in this chapter.")
-        segmentIndex=if(mode=="episode"&&restoreSegment)
-            pref.getInt("segment_"+programId+"_"+idx,0).coerceIn(0,segments.lastIndex) else 0
-        restoreSegment=false
+        segments=speechChunks(entry.text)
+        if(segments.isEmpty())segments=listOf("There is no text in this chapter.")
+        segmentIndex=if(mode=="episode" && restoreSavedSegment)
+            pref.getInt("segment_${programId}_$idx",0).coerceIn(0,segments.lastIndex) else 0
+        restoreSavedSegment=false
         speakSegment()
     }
-    private fun makeChunks(s:String):List<String>{
-        val output=mutableListOf<String>();var pos=0
-        while(pos<s.length){
-            var end=(pos+2100).coerceAtMost(s.length)
-            if(end<s.length){
+    /** Avoid splitting a word or sentence arbitrarily at the Android TTS length limit. */
+    private fun speechChunks(text:String):List<String>{
+        val result=mutableListOf<String>()
+        var i=0
+        while(i<text.length){
+            var end=(i+2200).coerceAtMost(text.length)
+            if(end<text.length){
                 var cut=end
-                while(cut>pos+1000 && s[cut-1] !in charArrayOf('.', '!', '?', ' ', '\n'))cut--
-                if(cut>pos+1000)end=cut
+                while(cut>i+950 && text[cut-1] !in charArrayOf('.', '!', '?', '\n', ' '))cut--
+                if(cut>i+950)end=cut
             }
-            val t=s.substring(pos,end).trim()
-            if(t.isNotEmpty())output.add(t)
-            pos=end
+            val chunk=text.substring(i,end).trim()
+            if(chunk.isNotEmpty())result.add(chunk)
+            i=end
         }
-        return output
+        return result
     }
     private fun speakSegment(){
         if(!playing||paused||!ready)return
-        if(mode=="episode"&&programId.isNotBlank())
-            pref.edit().putInt("segment_"+programId+"_"+idx,segmentIndex).apply()
+        if(mode=="episode" && programId.isNotBlank())
+            pref.edit().putInt("segment_${programId}_$idx",segmentIndex).apply()
         token++
         if(tts?.speak(segments.getOrElse(segmentIndex){""},TextToSpeech.QUEUE_FLUSH,null,"sophia_$token")==TextToSpeech.ERROR){
             report("error","The selected Android TTS engine could not read this passage");pauseRadio()
@@ -268,9 +278,9 @@ class PhilosophyRadioService:Service() {
     }
     private fun skip(){
         if(!playing)return
-        if(mode=="episode"&&programId.isNotBlank())
-            pref.edit().remove("segment_"+programId+"_"+idx).apply()
-        tts?.stop();token++;paused=false;restoreSegment=false;idx++;speakItem()
+        if(mode=="episode" && programId.isNotBlank())
+            pref.edit().remove("segment_${programId}_$idx").apply()
+        tts?.stop();token++;paused=false;restoreSavedSegment=false;idx++;speakItem()
     }
     private fun pauseRadio(){if(!playing)return;tts?.stop();token++;paused=true;report("paused")}
     private fun resumeRadio(){if(!playing)return;paused=false;if(segments.isNotEmpty())speakSegment() else speakItem()}

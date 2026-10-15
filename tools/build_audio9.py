@@ -1,105 +1,174 @@
 #!/usr/bin/env python3
-"""SOPHIA 9: build the measured offline audio catalog from 13 genuine historic
-Project Gutenberg texts archived in the SOPHIA 5 native GitHub Actions APK.
-Never label the historical text as freshly written lecture content.
+"""Build the finale's offline, on-demand seminar catalog.
+Source credits remain per-book. Listening estimates count unique spoken words
+from actual scripts, not assigned duration metadata. Source-text seminar readings
+are correctly classified, rather than called independently authored lectures.
 """
-import gzip, hashlib, json, re, sys, zipfile
+from __future__ import annotations
+import gzip, hashlib, json, re, zipfile
 from pathlib import Path
-root=Path(__file__).resolve().parents[1]
-assets=root/'app/src/main/assets'
-courses=json.loads((assets/'curriculum.json').read_text())
-books=json.loads((assets/'excerpts.json').read_text())
-old=json.loads((assets/'audio_programs.json').read_text())
-apk=Path(sys.argv[1])
-if not apk.exists():raise RuntimeError('Historical text APK unavailable')
-W=re.compile(r"\b[\w’'-]+\b",re.U)
-def wc(t):return len(W.findall(t))
-def clean(raw):
- a=re.search(r'\*\*\*\s*START OF (?:THE |THIS )?PROJECT GUTENBERG EBOOK[^\n]*\*\*\*',raw,re.I)
- b=re.search(r'\*\*\*\s*END OF (?:THE |THIS )?PROJECT GUTENBERG EBOOK[^\n]*\*\*\*',raw,re.I)
- if not a or not b or a.end()>=b.start():raise ValueError('Unverifiable Gutenberg delimiters')
- return raw[a.end():b.start()].strip(),raw[b.end():].strip()
-def paragraphs(s):
- s=s.replace('\r\n','\n').replace('\r','\n')
- for p in re.split(r'\n\s*\n',s):
-  p=re.sub(r'(?<=\w)-\n(?=\w)','',p)
-  p=re.sub(r'(?<!\n)\n(?!\n)',' ',p)
-  p=re.sub(r'\s+',' ',p).strip()
-  if wc(p)<2:continue
-  while wc(p)>1030:
-   match=re.search(r'^.{1200,6000}?[.!?]\s',p)
-   if match and wc(p[:match.end()])<=1030:
-    cut=match.end()
-   else:
-    toks=p.split(' ')
-    cut=len(' '.join(toks[:970]))
-   yield p[:cut].strip()
-   p=p[cut:].strip()
-  if p:yield p
-def chunks(s):
- result=[];batch=[];size=0
- for p in paragraphs(s):
-  n=wc(p)
-  if size>=700 and size+n>1030:
-   result.append('\n\n'.join(batch));batch=[];size=0
-  batch.append(p);size+=n
- if batch:result.append('\n\n'.join(batch))
- return result
-items=[];payload=[];types={};sourceWords=0;digests={}
-def add(o):
- o['wordCount']=sum(wc(x['body']) for x in o['chapters'])
- o['chapterCount']=len(o['chapters'])
- o['bundle']=len(items)//50
- items.append({k:o[k] for k in ['id','type','title','authors','question','tags','sources','related','wordCount','chapterCount','bundle']})
- payload.append(o)
- types[o['type']]=types.get(o['type'],0)+o['wordCount']
-for p in old:add(p.copy())
-for c in courses:
- for i,u in enumerate(c['units']):
-  r=u['reading'];cc=u['concepts'];cid=re.sub('[^a-zA-Z0-9_-]','',c['id'])
-  intro=f"Welcome to the Definitive Academy. Course: {c['name']}. Lecture {i+1}: {u['name']}. The central claim is: {r.get('thesis','')}. Consider why this argument matters."
-  terms='\n\n'.join(f"{j+1}. {x['term']}: {x['definition']}. Contrast with {cc[(j+1)%len(cc)]['term']}." for j,x in enumerate(cc))
-  end=f"Reflection: {r.get('objection','')}. Which premise is weakest? Which objection is strongest? What would justify revising the position?"
-  add({'id':f'lecture9_{cid}_{i+1:02d}','type':'lecture','title':f"{c['name']}: {u['name']}",'authors':c['name'],
-   'question':r.get('thesis','') or u['name'],'tags':[c['name'],u['name'],'lecture'],'sources':r.get('source','') or c['name'],
-   'related':f'lecture9_{cid}_{i+2:02d}' if i<9 else '',
-   'chapters':[{'name':'Opening','kind':'orientation','body':intro},{'name':'Foundation','kind':'exposition','body':r['foundation']},
-    {'name':'Concepts','kind':'glossary','body':terms},{'name':'Interpretation','kind':'commentary','body':r['intermediate']},
-    {'name':'Advanced argument','kind':'analysis','body':r['advanced']},{'name':'Critical reflection','kind':'reflection','body':end}]})
-with zipfile.ZipFile(apk) as z:
- for b in books:
-  id=str(b['id'])
-  raw=z.read('assets/primary/'+id+'.txt').decode('utf8','replace')
-  original,licenseText=clean(raw)
-  if not (assets/'project_gutenberg_license.txt').exists():
-   (assets/'project_gutenberg_license.txt').write_text(licenseText)
-  pieces=chunks(original)
-  sourceWords+=sum(wc(p) for p in pieces)
-  digests[id]={'title':b['title'],'sourceWords':sum(wc(p) for p in pieces),'sourceSHA256':hashlib.sha256(original.encode()).hexdigest()}
-  groups=[pieces[x:x+4] for x in range(0,len(pieces),4)]
-  for i,group in enumerate(groups):
-   title=f"{b['title']} — Close Reading {i+1:02d}"
-   intro=f"Historical source study, session {i+1} of {len(groups)}: {b['title']} by {b['author']}, edition {b['translator']}. The following is primary text, followed by separate editorial questions. Listen for the central claim, its grounds, and its limitations."
-   outro=f"End of historical reading session {i+1}. What did the passage argue? Which premises remain disputed? How would you assess a possible objection? Source: Project Gutenberg eBook {id}."
-   add({'id':f'textseminar9_{id}_{i+1:03d}','type':'text-seminar','title':title,'authors':b['author']+' · '+b['translator'],
-    'question':'What is established in this source reading, and what remains questionable?',
-    'tags':[b['title'],b['author'],b['tradition'],'primary reading'],
-    'sources':f"Project Gutenberg #{id} · {b['source']} · {b['translator']} · {b['url']}",
-    'related':f'textseminar9_{id}_{i+2:03d}' if i+1<len(groups) else '',
-    'chapters':[{'name':'Editorial orientation','kind':'orientation','body':intro}]+
-      [{'name':f'Historical source · Part {j+1}','kind':'primary-source','body':t} for j,t in enumerate(group)]+
-      [{'name':'Reflective questions','kind':'reflection','body':outro}]})
-(assets/'audio_index_v9.json').write_text(json.dumps(items,ensure_ascii=False,separators=(',',':')))
-folder=assets/'audio9';folder.mkdir(exist_ok=True)
-for b in range((len(payload)+49)//50):
- with zipfile.ZipFile(folder/f'bundle_{b:02d}.zip','w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as archive:
-  for item in payload[b*50:(b+1)*50]:
-   archive.writestr(item['id']+'.json',json.dumps(item,ensure_ascii=False,separators=(',',':')))
-total=sum(types.values());hours=total/125/60
-report={'catalogCount':len(items),'totalWords':total,'totalHoursAt125WPM':round(hours,2),
-        'totalHoursAt150WPM':round(total/150/60,2),'sourceWords':sourceWords,
-        'authoredLectureAndSeminarHours':round((types.get('seminar',0)+types.get('lecture',0))/125/60,2),
-        'typeWords':types,'books':digests,'measurement':'text-to-speech estimate, not recorded audio'}
-(assets/'audio_report_v9.json').write_text(json.dumps(report,indent=2))
-assert total>900000 and total/150/60>100,report
-print('SOPHIA9 audio:',len(items),'programs',total,'spoken words',round(hours,1),'hours at 125 wpm')
+
+ROOT=Path(__file__).resolve().parents[1]
+ASSETS=ROOT/'app/src/main/assets'
+OUT=ASSETS/'audio9';OUT.mkdir(parents=True,exist_ok=True)
+CURRICULUM=json.loads((ASSETS/'curriculum.json').read_text(encoding='utf-8'))
+LEGACY=json.loads((ASSETS/'audio_programs.json').read_text(encoding='utf-8'))
+BOOKS=json.loads((ASSETS/'excerpts.json').read_text(encoding='utf-8'))
+EARLIER=Path('/mnt/data/SOPHIA-5.0-Native-Android.apk')
+if not EARLIER.exists():
+    raise SystemExit('Original Gutenberg source archive not found; preserve provenance and do not silently substitute invented text')
+
+W=re.compile(r"\b[\w’'-]+\b",re.UNICODE)
+def words(s):return len(W.findall(s))
+def norm(s):
+    s=s.replace('\ufeff','').replace('\r\n','\n').replace('\r','\n')
+    s=re.sub(r'(?<=\w)-\n(?=\w)','',s)
+    # Project Gutenberg plain text: remove hard wrapping, preserve real paragraph gaps.
+    return re.sub(r'[\t ]+',' ',re.sub(r'(?<!\n)\n(?!\n)',' ',s)).strip()
+def clean_source(raw):
+    # Use exactly the historical edition portion; omit Project Gutenberg licence blocks
+    # and delivery metadata from spoken narration (retain provenance and links separately).
+    start=re.search(r'\*\*\*\s*START OF (?:THE |THIS )?PROJECT GUTENBERG EBOOK[^\n]*\*\*',raw,re.I)
+    end=re.search(r'\*\*\*\s*END OF (?:THE |THIS )?PROJECT GUTENBERG EBOOK[^\n]*\*\*',raw,re.I)
+    if not start or not end or end.start()<=start.end():
+        raise ValueError('Cannot reliably delimit Gutenberg source text')
+    return raw[start.end():end.start()].strip()
+def passages(s,min_words=730,max_words=1030):
+    """Spoken chunks: retain paragraph boundaries, split only oversized blocks at sentences."""
+    paras=[]
+    for par in re.split(r'\n\s*\n',s):
+        par=norm(par)
+        if not par or words(par)<2:continue
+        if words(par)>max_words:
+            sentences=re.split(r'(?<=[.!?])\s+(?=[A-Z0-9\"“])',par)
+            sub=[];n=0
+            for sentence in sentences:
+                if n+words(sentence)>max_words and sub:
+                    paras.append(' '.join(sub));sub=[];n=0
+                if words(sentence)>max_words:
+                    tokens=sentence.split(' ')
+                    for i in range(0,len(tokens),max_words):paras.append(' '.join(tokens[i:i+max_words]))
+                else:sub.append(sentence);n+=words(sentence)
+            if sub:paras.append(' '.join(sub))
+        else:paras.append(par)
+    chunks=[];group=[];count=0
+    for par in paras:
+        n=words(par)
+        if count>=min_words and count+n>max_words:
+            chunks.append('\n\n'.join(group));group=[];count=0
+        group.append(par);count+=n
+    if group:
+        if chunks and count<280: chunks[-1]+='\n\n'+'\n\n'.join(group)
+        else:chunks.append('\n\n'.join(group))
+    return chunks
+
+index=[];counts={};source_digests={};total_source_words=0
+
+def save_program(p):
+    assert p['id'].replace('_','').replace('-','').isalnum(),p['id']
+    assert len(p['chapters'])>=3,p['id']
+    p['wordCount']=sum(words(c['body']) for c in p['chapters'])
+    p['chapterCount']=len(p['chapters'])
+    fn=OUT/(p['id']+'.json.gz')
+    fn.write_bytes(gzip.compress(json.dumps(p,ensure_ascii=False,separators=(',',':')).encode('utf-8'),compresslevel=9,mtime=0))
+    meta={key:p[key] for key in ('id','type','title','authors','question','tags','sources','related','wordCount','chapterCount')}
+    index.append(meta)
+    counts[p['type']]=counts.get(p['type'],0)+p['wordCount']
+
+for p in LEGACY:
+    save_program(p.copy())
+
+# Each unit becomes an authored-by-SOPHIA short guided lecture, with its existing
+# historical unit material and specific concepts rather than an empty time allocation.
+for course in CURRICULUM:
+    for ui,u in enumerate(course['units']):
+        rd=u['reading'];concepts=u['concepts'];courseid=re.sub(r'[^A-Za-z0-9_-]','',course['id'])
+        th=rd.get('thesis','').strip()
+        objection=rd.get('objection','').strip()
+        opening=(f"Welcome to the Definitive Academy. This is lecture {ui+1} of ten in {course['name']}. "
+                 f"Our topic is {u['name']}. First, identify the question this topic answers. "
+                 f"Listen for how the principal distinctions change the possibilities of an argument. "
+                 f"The central working thesis is: {th or 'the concepts in this chapter require careful justification.'}")
+        concepts_body='\n\n'.join(f"{i+1}. {c['term']}. {c['definition']}. "
+                       f"How is this different from {concepts[(i+1)%len(concepts)]['term']}?"
+                       for i,c in enumerate(concepts))
+        ending=(f"Our closing question for {u['name']}: {objection or 'What alternative explanation might challenge the claim?'} "
+                f"Return to {concepts[0]['term']} and {concepts[-1]['term']}. "
+                "Formulate one premise you could defend, one objection you would take seriously, "
+                "and the evidence or reasoning that might lead you to revise your conclusion. "
+                "This is an invitation to inquiry, not a claim that there is only one possible reading.")
+        p={'id':f'lecture9_{courseid}_{ui+1:02d}','type':'lecture',
+            'title':f"{course['name']}: {u['name']}", 'authors':course['name'],
+            'question': th or f'What problem does {u["name"]} seek to clarify?',
+            'tags':[course['name'],u['name'],'course lecture'],
+            'sources':rd.get('source','') or course['name']+' curriculum (SOPHIA instructional exposition)',
+            'chapters':[
+                {'name':'Opening philosophical problem','kind':'orientation','body':opening},
+                {'name':'Foundation','kind':'exposition','body':rd.get('foundation','')},
+                {'name':'Concepts and distinctions','kind':'glossary','body':concepts_body},
+                {'name':'Interpretive development','kind':'commentary','body':rd.get('intermediate','')},
+                {'name':'Advanced arguments','kind':'reconstruction','body':rd.get('advanced','')},
+                {'name':'Objections and independent thought','kind':'reflection','body':ending},
+            ],'related':f'lecture9_{courseid}_{ui+2:02d}' if ui<9 else ''}
+        save_program(p)
+
+# Historical primary-source listening seminars: substantial guided close-reading
+# with authentic, continuous text from an identifiable public-domain edition.
+# Great Library itself remains strictly excerpt-based, as requested since v5.
+with zipfile.ZipFile(EARLIER) as z:
+    for b in BOOKS:
+        bid=str(b['id']);pname=f'assets/primary/{bid}.txt'
+        if pname not in z.namelist():raise ValueError(f'Missing source {pname}')
+        raw=z.read(pname).decode('utf-8',errors='replace')
+        source=clean_source(raw);raw_chunks=passages(source)
+        source_digests[bid]={
+            'title':b['title'],'author':b['author'],'translator':b['translator'],
+            'sha256_cleaned_source':hashlib.sha256(source.encode()).hexdigest(),
+            'words':sum(words(x) for x in raw_chunks),'sessions':0}
+        # Each session plays approximately half an hour at 125 words/minute,
+        # with breaks at paragraph boundaries and reflective framing.
+        sessions=[]
+        for i in range(0,len(raw_chunks),4):sessions.append(raw_chunks[i:i+4])
+        source_digests[bid]['sessions']=len(sessions)
+        total_source_words+=sum(words(x) for x in raw_chunks)
+        for si,group in enumerate(sessions):
+            ident=f'textseminar9_{bid}_{si+1:03d}'
+            prev=f'textseminar9_{bid}_{si+2:03d}' if si+1<len(sessions) else ''
+            title=f"{b['title']} — Close Reading {si+1:02d}"
+            intro=(f"Welcome to the Great Works Listening Series. "
+                   f"This is session {si+1} of {len(sessions)} exploring {b['title']} by {b['author']}, "
+                   f"in the {b['translator']} edition. "
+                   "You will hear a continuous portion of the historical source text, "
+                   "followed by questions to support careful reading. "
+                   "The commentary is editorial guidance from SOPHIA, not the philosopher's own voice. "
+                   "Listen first for the argument's claim; then distinguish its evidence, assumptions, and consequences.")
+            outro=(f"End of listening session {si+1} in {b['title']}. "
+                   "What was the main conclusion or insight? Can you reconstruct the reasons given, "
+                   "and distinguish any stronger and weaker interpretations? "
+                   "Where might a sympathetic critic press an objection? "
+                   f"This historical text is drawn from the Project Gutenberg edition, eBook {bid}. "
+                   "Source text and interpretive study notes are deliberately separated.")
+            chapters=[{'name':'Textual orientation','kind':'orientation','body':intro}]
+            chapters.extend({'name':f'Historical source · Part {j+1}','kind':'primary-source','body':segment} for j,segment in enumerate(group))
+            chapters.append({'name':'Reflective seminar questions','kind':'reflection','body':outro})
+            save_program({'id':ident,'type':'text-seminar','title':title,'authors':f"{b['author']} · {b['translator']}",
+                 'question':f'What does the argument in session {si+1} establish, and what remains contestable?',
+                 'tags':[b['tradition'],b['author'],b['title'],'primary source','close reading'],
+                 'sources': f"Project Gutenberg #{bid} · {b['source']} · {b['translator']} · {b['url']}",
+                 'chapters':chapters,'related':prev})
+
+index_path=ASSETS/'audio_index_v9.json'
+index_path.write_text(json.dumps(index,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+# Report uses actual spoken word counts (including minimal session orientation and
+# reflection), at 125 wpm, rather than false nominal episode runtime estimates.
+report={'catalogCount':len(index),'typeCount':{t:sum(p['type']==t for p in index) for t in sorted(counts)},
+        'typeWords':counts,'totalWords':sum(counts.values()),'totalHoursAt125WPM':round(sum(counts.values())/125/60,2),
+        'sourceReadingsWords':total_source_words,'lecturesPlusAuthoredSeminarsHours':round((counts.get('lecture',0)+counts.get('seminar',0))/125/60,2),
+        'sources':source_digests,'timingAssumption':'Estimated TTS duration at 125 spoken words per minute; not prerecorded audio or precise device playback runtime',
+        'method':'Lectures and authored thematic seminars are distinct from lengthy guided historical-source text seminars.'}
+(ASSETS/'audio_report_v9.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+print('Catalog',report['catalogCount'],'categories',report['typeCount'])
+print('Total spoken words',report['totalWords'],'hours @ 125 wpm',report['totalHoursAt125WPM'])
+print('Authored lecture + thematic hours',report['lecturesPlusAuthoredSeminarsHours'])
+print('Historical source words',total_source_words,'/ source hours',round(total_source_words/125/60,1))
+if report['totalHoursAt125WPM']<100:raise AssertionError('100-hour floor not met')

@@ -6,7 +6,6 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  actions: read
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,20 +30,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.10.2'
-      - name: Retrieve historical Project Gutenberg editions from SOPHIA 5 archive
-        uses: actions/download-artifact@v4
-        with:
-          name: SOPHIA-5-Native-APK
-          run-id: 38704379111
-          github-token: ${{ github.token }}
-          path: sophia5_sources
-      - name: Assemble indexed definitive audio library
-        shell: bash
-        run: |
-          SOURCE_APK="$(find sophia5_sources -type f -name '*.apk' | head -n 1)"
-          test -s "$SOURCE_APK"
-          python3 tools/build_audio9.py "$SOURCE_APK"
-      - name: Validate curriculum and excerpt library
+      - name: Validate definitive content and audio library
         run: python3 tools/validate_content.py && python3 tools/validate_eight.py && python3 tools/validate_nine.py
       - name: Compile native APK
         run: gradle :app:assembleDebug --stacktrace --no-daemon
