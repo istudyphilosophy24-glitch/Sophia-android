@@ -89,7 +89,7 @@ class MainActivity:ComponentActivity(){
     override fun onDestroy(){narration.release();tones?.release();super.onDestroy()}
 }
 
-private enum class Page { HOME, COURSES, COURSE, READ, QUIZ, BOSS, REFLECTION, FINISH, ACADEMY, LIBRARY, PRIMARY_READER, READING_DESK, SEMINAR, ARGUMENT, REVIEW, RESEARCH, MASTERY, PROFILE, BACKUP }
+private enum class Page { HOME, COURSES, COURSE, READ, QUIZ, BOSS, REFLECTION, FINISH, ACADEMY, LIBRARY, PRIMARY_READER, READING_DESK, SEMINAR, ARGUMENT, REVIEW, RESEARCH, MASTERY, PROFILE, BACKUP, RADIO, CONSTELLATION, COMMENTARY_INDEX }
 
 @Composable
 private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progress:SophiaProgress,narrator:NarratorController,onSpeak:(String,Float,Float)->Unit,onStop:()->Unit,onTone:(Boolean)->Unit,onShare:(String)->Unit,onExternalReader:(String,String)->Unit,onOpenSource:(String)->Unit) {
@@ -115,6 +115,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
     var importStatus by remember { mutableStateOf("") }
     var primaryIndex by remember { mutableIntStateOf(0) }
     val haptic=LocalHapticFeedback.current
+    val appContext=androidx.compose.ui.platform.LocalContext.current
     val course=courses[courseIndex]
     val unit=course.units[unitIndex]
     val tier=tierFor(lessonIndex)
@@ -130,6 +131,9 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
             Page.QUIZ,Page.BOSS,Page.REFLECTION->Page.READ
             Page.FINISH->Page.COURSE
             Page.PRIMARY_READER->Page.LIBRARY
+            Page.RADIO->Page.HOME
+            Page.CONSTELLATION->Page.COURSE
+            Page.COMMENTARY_INDEX->Page.ACADEMY
             Page.LIBRARY->Page.ACADEMY
             Page.READING_DESK,Page.SEMINAR,Page.ARGUMENT,Page.REVIEW,Page.MASTERY->Page.ACADEMY
             Page.BACKUP->Page.PROFILE
@@ -164,12 +168,25 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                     }
                     DailyQuestBoard(progress.completed.size,progress.streak,progress.xp)
                     Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
-                        Pill("📚 28 courses")
-                        Pill("🧠 1,680 concepts")
+                        Pill("📚 30 courses")
+                        Pill("🧠 1,800 concepts")
                     }
                     MenuCard("🗺️","The Odyssey","Worlds, course paths and mastery trials","Explore") {page=Page.COURSES}
                     MenuCard("📚","The Academy","Reading library, seminars and logic arena","Study") {page=Page.ACADEMY}
                     MenuCard("🧪","Research Institute","Defend and revise your own philosophical theories","Investigate") {page=Page.RESEARCH}
+                    MenuCard("🎧","Philosophical Radio","Hands-free excerpt and commentary listening","Listen") {page=Page.RADIO}
+                    if(primaryBooks.isNotEmpty()) {
+                        val day=java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_YEAR)
+                        val b=primaryBooks[day%primaryBooks.size]
+                        val exIndex=day%b.excerpts.size
+                        TitleLine("📜 Daily philosophical discovery")
+                        MenuCard("✦",b.excerpts[exIndex].title,b.author+" · " + b.title,"Read today's excerpt") {
+                            primaryIndex=day%primaryBooks.size
+                            appContext.getSharedPreferences("sophia_primary_v5_excerpts",android.content.Context.MODE_PRIVATE).edit()
+                                .putInt("excerpt_"+b.id,exIndex).apply()
+                            page=Page.PRIMARY_READER
+                        }
+                    }
                     if(due.isNotEmpty()) {
                         TitleLine("🔁 Your review queue")
                         Text("${due.size} concepts need another encounter. Review past ideas before they fade.",color=Muted)
@@ -178,11 +195,12 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                     Text("Native Compose edition · offline by design · no advertisements",fontSize=12.sp,color=Muted)
                 }
                 Page.COURSES->ScrollFrame {
-                    Headline("🗺️ Philosophical worlds","Twenty-eight adventures await")
+                    Headline("🗺️ Philosophical worlds","Thirty adventures await")
                     courses.forEachIndexed {i,c->IllustratedCourseTile(c,i,progress.completed.count{it.startsWith("${c.id}:")}){courseIndex=i;page=Page.COURSE}}
                 }
                 Page.COURSE->ScrollFrame {
                     CourseWorldHeader(course,courseIndex,progress.completed.count{it.startsWith("${course.id}:")})
+                    OutlinedButton(onClick={page=Page.CONSTELLATION},modifier=Modifier.fillMaxWidth()) {Text("✧ Explore this course's concept constellation")}
                     Text(course.description,color=Muted,lineHeight=22.sp)
                     course.units.forEachIndexed{ui,u->
                         IllustratedUnitPath(u,course,ui,
@@ -297,34 +315,39 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                 Page.ACADEMY->ScrollFrame {
                     Headline("📚 The Academy","Read, reconstruct, criticize and remember")
                     IllustratedHomeBanner(onExplore={page=Page.COURSES})
-                    MenuCard("📜","Great Library","39 original source excerpts with questions and glossaries","Read excerpts") {page=Page.LIBRARY}
-                    MenuCard("📑","Course Commentary","Deep readings across the 280 units","Study") {page=Page.READING_DESK}
+                    MenuCard("📜","Great Library","420 primary-source excerpts with interpretive commentary","Read excerpts") {page=Page.LIBRARY}
+                    MenuCard("📑","Scholarly Commentaries","300 chapter analyses, objections and interpretive controversies","Study") {page=Page.COMMENTARY_INDEX}
                     MenuCard("🎙️","Socratic Seminar","Four-stage reflection with a transparent rubric","Enter") {seminarStep=0;seminarText=progress.seminarResponse(course.id,unitIndex,0);page=Page.SEMINAR}
                     MenuCard("🧩","Argument Architect","Classify inferences and examine counterexamples","Practice") {page=Page.ARGUMENT}
                     MenuCard("🔁","Spaced Review","Revisit concepts scheduled from past performance","Review") {page=Page.REVIEW}
                     MenuCard("📊","Mastery Dashboard","Track six dimensions of your learning","Examine") {page=Page.MASTERY}
+                    MenuCard("🎧","Philosophical Radio","Listen continuously to the Great Library","Play") {page=Page.RADIO}
+                    MenuCard("✧","Concept Constellations","Discover conceptual relationships in the course","Explore") {page=Page.CONSTELLATION}
                     Text("For source-based study, prefer annotated texts and check primary editions. The app does not certify contested interpretations.",color=Muted,fontSize=12.sp)
                 }
                 Page.LIBRARY->PrimaryLibraryIndex(primaryBooks,onOpen={primaryIndex=it;page=Page.PRIMARY_READER},onSource=onOpenSource)
                 Page.PRIMARY_READER->PrimaryReader(primaryBooks[primaryIndex],onSpeak={onSpeak(it,speakingSpeed,speakingPitch)},onStop=onStop,onShare=onExternalReader,onSource=onOpenSource)
-                Page.READING_DESK->ScrollFrame {
-                    Headline("📚 ${unit.name}",course.name)
-                    val opts=listOf("Foundation","Intermediate","Advanced")
-                    SingleChoiceSegmentedButtonRow(modifier=Modifier.fillMaxWidth()) {
-                        opts.forEachIndexed { i,txt->
-                            SegmentedButton(selected=depth==i,onClick={depth=i},shape=SegmentedButtonDefaults.itemShape(i,opts.size)) {Text(txt,fontSize=12.sp)}
+                Page.COMMENTARY_INDEX->ScrollFrame {
+                    Headline("📑 Scholarly commentaries","Choose one of the 300 interpretive chapters")
+                    courses.forEachIndexed {ci,c->
+                        Text("${c.icon} ${c.name}",color=Pine,fontWeight=FontWeight.Bold,fontSize=17.sp)
+                        c.units.forEachIndexed {ui,u ->
+                            OutlinedButton(onClick={courseIndex=ci;unitIndex=ui;page=Page.READING_DESK},modifier=Modifier.fillMaxWidth()) {
+                                Text("${ui+1}. ${u.name}",fontSize=13.sp)
+                            }
                         }
                     }
-                    val body=when(depth){0->unit.reading.foundation;1->unit.reading.intermediate;else->unit.reading.advanced}
-                    Text(body,color=Ink,lineHeight=26.sp)
-                    if(unit.reading.thesis.isNotBlank())ConceptTile(Concept("Thesis",unit.reading.thesis))
-                    if(unit.reading.source.isNotBlank())Text("Source orientation: ${unit.reading.source}",color=Muted,fontSize=12.sp)
-                    TitleLine("📌 Reading annotations")
-                    var notes by remember(courseIndex,unitIndex){mutableStateOf(progress.annotation(course.id,unitIndex))}
-                    OutlinedTextField(value=notes,onValueChange={notes=it;progress.saveAnnotation(course.id,unitIndex,it)},modifier=Modifier.fillMaxWidth().height(155.dp),label={Text("Your notes and objections")})
-                    Button(onClick={onSpeak(body,speakingSpeed,speakingPitch)},modifier=Modifier.fillMaxWidth()) {Text("🔊 Read this commentary")}
-                    Text("Passages here are instructional expositions, not necessarily verbatim quotations from philosophers.",fontSize=12.sp,color=Muted)
                 }
+                Page.READING_DESK->AcademicCommentaryScreen(course,unit,progress,
+                    onSpeak={text->onSpeak(text,speakingSpeed,speakingPitch)},
+                    onLibrary={page=Page.LIBRARY},onRadio={page=Page.RADIO})
+                Page.CONSTELLATION->ScrollFrame {
+                    Headline("✧ Concept Constellation",course.name)
+                    OutlinedButton(onClick={page=Page.COURSE}){Text("Choose a different chapter")}
+                    ConceptConstellation(course,unitIndex)
+                    Text("A connection marks a relationship for inquiry, not a proof of entailment.",color=Muted)
+                }
+                Page.RADIO->PhilosophicalRadioScreen(onBack={page=Page.HOME})
                 Page.SEMINAR->ScrollFrame {
                     Headline("🎙️ Socratic Seminar","${course.name} · ${unit.name}")
                     val stages=listOf("Define the thesis","Reconstruct the argument","State a serious objection","Revise and defend")
@@ -403,7 +426,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                 }
             }
         }
-        if(page in listOf(Page.HOME,Page.COURSES,Page.ACADEMY,Page.RESEARCH,Page.PROFILE)) {
+        if(page in listOf(Page.HOME,Page.COURSES,Page.ACADEMY,Page.RESEARCH,Page.PROFILE,Page.RADIO)) {
             HorizontalDivider(color=Border)
             NavigationBar(containerColor=Color.White) {
                 listOf(Triple("🏠","Home",Page.HOME),Triple("🗺️","Odyssey",Page.COURSES),Triple("📚","Academy",Page.ACADEMY),Triple("🧪","Research",Page.RESEARCH),Triple("👤","Profile",Page.PROFILE)).forEach { (icon,label,destination) ->

@@ -1,4 +1,4 @@
-name: Build SOPHIA 5 Illustrated
+name: Build SOPHIA 6 Living Academy
 on:
   push:
     branches: [main]
@@ -37,6 +37,6 @@ jobs:
       - name: Publish sideloadable debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: SOPHIA-5-Illustrated-APK
+          name: SOPHIA-6-Living-Academy-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error

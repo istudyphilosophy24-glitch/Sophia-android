@@ -7,11 +7,11 @@ android {
     namespace = "com.sophia.nativeapp"
     compileSdk = 35
     defaultConfig {
-        applicationId = "com.sophia.philosophy.odyssey5"
+        applicationId = "com.sophia.philosophy.odyssey6"
         minSdk = 24
         targetSdk = 35
-        versionCode = 5
-        versionName = "5.0-corrected"
+        versionCode = 6
+        versionName = "6.0"
     }
     buildTypes { release { isMinifyEnabled = false } }
     compileOptions {

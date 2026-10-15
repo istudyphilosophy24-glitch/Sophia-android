@@ -13,7 +13,10 @@ import kotlin.random.Random
 
 /** A faithful migration of the 28-course, 280-unit SOPHIA 4 curriculum. */
 data class Concept(val term:String, val definition:String)
-data class Reading(val foundation:String, val intermediate:String, val advanced:String, val thesis:String, val objection:String, val source:String)
+data class ScholarlyNotes(val orientation:String,val closeReading:String,val argument:String,
+    val philology:String,val controversy:String,val assessment:String,val editorialNote:String)
+data class Reading(val foundation:String,val intermediate:String,val advanced:String,val thesis:String,
+    val objection:String,val source:String,val notes:ScholarlyNotes)
 data class UnitLesson(val name:String, val lecture:String, val concepts:List<Concept>, val reading:Reading)
 data class Course(val id:String, val name:String, val icon:String, val color:String, val description:String, val units:List<UnitLesson>)
 
@@ -46,7 +49,12 @@ fun loadCourses(context:Context):List<Course> {
                 val intermediate=r.optString("intermediate").ifBlank { "Distinguish ${concepts[0].term} from ${concepts[1].term}. Explain what philosophical problem the distinction addresses and whether the ideas are compatible." }
                 val advanced=r.optString("advanced").ifBlank { "Reconstruct the unit's position as explicit premises and a conclusion. Challenge its weakest premise with a relevant counterexample." }
                 val lecture=u.optString("lecture").ifBlank { "$foundation $intermediate $advanced" }
-                val reading=Reading(foundation,intermediate,advanced,r.optString("thesis"),r.optString("objection"),r.optString("source"))
+                val n=r.optJSONObject("commentary") ?: JSONObject()
+                val notes=ScholarlyNotes(n.optString("orientation",foundation),n.optString("closeReading",intermediate),
+                    n.optString("argument",advanced),n.optString("philology","Verify translation and edition."),
+                    n.optString("controversy",r.optString("objection")),n.optString("assessment","Test the weakest inferential step."),
+                    n.optString("editorialNote","Structured study reconstruction, not a verified quotation."))
+                val reading=Reading(foundation,intermediate,advanced,r.optString("thesis"),r.optString("objection"),r.optString("source"),notes)
                 UnitLesson(u.getString("name"),lecture,concepts,reading)
             })
     }

@@ -1,23 +1,41 @@
-# SOPHIA 5.0 — The Illustrated Academy (corrected build)
+# SOPHIA 6.0 — The Living Academy
 
-A genuinely native Kotlin + Jetpack Compose Android game, created from the SOPHIA 4.0 curriculum and the 5.0 Android project. No WebView.
+A **native Kotlin + Jetpack Compose** offline philosophy-learning Android app. This release expands the educational content while retaining the 5.0 illustrated game world and boss arena.
 
-## Repaired in this build
-- 28 courses, 280 units, 3,360 meaningful *stage-defined* lesson paths. Each 12-stage unit focuses on six successive concepts before building comparisons, arguments, criticism, applications and spiral review. These paths are algorithmically scaffolded, **not 3,360 individually written textbook chapters**.
-- Eight multi-style exercises per ordinary lesson: concept recognition, explanation, contrast, application, logic validity, criticism, spaced recall and premise analysis. The upper tier requires a written reflection.
-- Illustrated 4-phase boss arena with animated portrait, scene background, health meters, collectible premise sequence, critical shield and conditional victory. Not an ordinary Q&A screen.
-- A 39-excerpt Great Library with genuine wording from historical Project Gutenberg editions in 13 works, metadata, translation credits, annotations, study prompts, glossary and TTS. Full texts are not bundled.
-- A proper in-app Android TTS engine and voice selector, playback-speed and pitch sliders, preview and persistent preferences. ElevenReader is NOT assumed to be an Android TTS service. Text-file handoff allows import into a compatible reader, or copy/paste into ElevenReader.
-- Bright rendered academy background, painterly philosopher portrait gallery, full graphic course cards, winding nodes, daily quests, XP, badges, streaks and animated rewards.
+## What's new
+
+- **Exactly 30 courses** (Positivism and Schopenhauerian Philosophy are new), ten units per course, six defined concepts per unit, and twelve learning stages per unit (3,600 lesson checkpoints).
+- **300 structured chapter commentaries** distinguishing textual orientation, close reading, argument reconstruction, philological concerns, interpretive controversy and critical evaluation. Editorial study notes are not misrepresented as verbatim quotations or peer-reviewed scholarship. The two new courses contain chapter-specific expositions and carefully delineated objections.
+- **420 primary-source excerpts across 13 historical works**, including 381 additional selections from previously acquired Project Gutenberg editions. Passages are derived from complete source paragraphs, with source identifiers and declared translation credits. Do not regard a source-paragraph ordinal as a printed edition’s section or page number. Individual selections other than Nietzsche Part I §1 have not been hand-checked against printed critical editions.
+- **Nietzsche repair:** *Beyond Good and Evil*, excerpt 1 now contains Part I §1, “The Will to Truth”, instead of an awkward fragment assembled from later §212.
+- **Philosophical Radio:** true hands-free shuffled TTS, automatic item advance, excerpt/commentary alternation, study selection, favorite selections, 15/30/60 minute sleep timer or endless listening, and media notification/lockscreen controls. Runs as a foreground audio service independent of the activity UI.
+- **Saved Anthology:** bookmark source excerpts, search the Great Library, and listen to your saved selections.
+- **Concept constellations:** interactive six-node concept diagrams per chapter.
+- **Dialectical Duels 2.0:** the illustrated four-phase boss arena now shuffles substantive alternative philosophical moves and preserves correct-answer identity.
+- **Daily Discovery:** highlights a different primary excerpt each day.
+- **Scholar's Notebook:** existing research desk and on-device annotations remain available, along with comparative commentary views.
+- **Narrator choices:** choose Android TTS engine/voice within the app; ElevenReader can receive exported text, but cannot be treated as a native engine unless installed as an Android TTS service.
+
+## Sources and editorial integrity
+
+The excerpt data was assembled **offline** from 13 Project Gutenberg eBook texts that had already been bundled in the earlier SOPHIA 5.0 APK (see `tools/build_excerpts.py`). Project Gutenberg is not being scraped at runtime. Bibliographic catalog URLs remain in each work's record.
+
+The primary passages are source text; the automatically assembled guided analyses are original SOPHIA content and **have not all been independently peer-reviewed**. The passage source hash and source paragraph ordinal are recorded so material can be editorially audited. For countries outside the USA, check public-domain status of the relevant editions/translations independently.
+
+The course content includes earlier structured texts and explicitly authored new Positivism/Schopenhauer units. **3,600 lesson checkpoints** does not mean 3,600 unique authored textbook chapters or 3,600 independently evaluated essays.
+
+## Android implementation
+
+- Kotlin and Jetpack Compose, Android 7.0+ (minSdk 24), target SDK 35.
+- Service `PhilosophyRadioService` with Android MediaSession notification controls, foreground type `mediaPlayback`, and Android TextToSpeech utterance callbacks.
+- `POST_NOTIFICATIONS` requested on supported Android versions when starting radio; playback is still possible without permission but lockscreen controls may be less visible.
+- No network permission, analytics, ads or account required. **No proprietary neural voice model** bundled; naturalness depends on the installed Android voices.
+- Package `com.sophia.philosophy.odyssey6` installs separately from SOPHIA 5.0 to avoid debug-signing conflicts and preserve the older installation. **Progress is not transferred automatically.** You can manually export/import a compatible progress backup from within the app.
 
 ## Build
-`.github/workflows/android.yml` builds `app-debug.apk`. Requires Android SDK 35, JDK17, Gradle8.10.2. No network permission used by the application. It will need a compatible Android system TTS service to speak locally.
 
-## App ID and progress safety
-Package is `com.sophia.philosophy.odyssey5`, intentionally different from prior debug-signed releases so installing will not destroy or conflict with your existing SOPHIA installation. Progress is stored separately. The production application ID and release signing should be stabilized before a later public release.
+GitHub Actions workflow `.github/workflows/android.yml`: validates content and builds `:app:assembleDebug`, then uploads a sideloadable debug APK artifact. Build is debug-signed for personal testing, not a Play Store distribution.
 
-## Limitations
-- Automatic written-answer AI semantic grading and richly animated interactive character rigs are not included. Boss uses a deterministic, four-stage graphical encounter with original portrait art and sound feedback.
-- In-app TTS works with apps which register as Android TextToSpeech engines; ElevenReader may not. Android's Share chooser can send text to reader apps but cannot make ElevenReader speak inside SOPHIA without official provider support.
-- The curated excerpts are historical/public-domain-in-US editions; check rights for your region. Quoted text comes from the original SOPHIA 5 APK's embedded Project Gutenberg editions; avoid mistaking them for modern translations.
-- 3,360 stage-defined encounters still share a structured exercise generator; they are more distinct but not hand authored individually. Repeated concepts appear deliberately as retrieval practice.
+## Remaining limitations
+
+SOPHIA Radio background audio is based on the chosen Android TTS engine and has not been hardware-tested on every device, OEM battery-management implementation or voice provider. The automatic commentary pipeline is text-sensitive but **not equivalent to an academic critical edition with human-reviewed commentary on each of 420 excerpts**. Advanced natural-language examination still relies on user reflection instead of independent AI grading.

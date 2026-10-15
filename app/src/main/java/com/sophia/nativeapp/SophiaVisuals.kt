@@ -171,3 +171,56 @@ private val courseColors=listOf(0xFF217B7A,0xFF8166AC,0xFF527FAC,0xFFAD844B,0xFF
         }
     }
 }
+
+/** Visual control surface for the hands-free philosophical station. */
+@Composable fun RadioBanner() {
+    Box(Modifier.fillMaxWidth().height(195.dp).clip(RoundedCornerShape(23.dp))){
+        androidx.compose.foundation.Image(
+            painter=painterResource(R.drawable.academy_world),contentDescription="Illustrated Academy",
+            modifier=Modifier.fillMaxSize(),contentScale=ContentScale.Crop)
+        Box(Modifier.fillMaxSize().background(Brush.horizontalGradient(listOf(Color(0xEF102D28),Color(0x99192B40),Color(0x330D2B24)))))
+        Column(Modifier.align(Alignment.CenterStart).padding(17.dp),verticalArrangement=Arrangement.spacedBy(6.dp)){
+            Text("✦ SOPHIA RADIO",color=Color(0xFFF0D290),fontWeight=FontWeight.Bold,fontSize=11.sp)
+            Text("Wisdom on the move",color=Color.White,fontSize=23.sp,fontWeight=FontWeight.ExtraBold)
+            Text("Lectures · Excerpts · Commentary",color=Color.White,fontSize=13.sp)
+            Text("🎧  Shuffle endlessly  •  hands free",color=Color(0xFFE4ECD9),fontSize=12.sp)
+        }
+    }
+}
+
+/** Concept constellation visualizes conceptual neighbors, and exposes an explanatory selected node. */
+@Composable fun ConceptConstellation(course:Course,unitIndex:Int) {
+    val unit=course.units[unitIndex]
+    var selected by remember(course.id,unitIndex){mutableIntStateOf(0)}
+    val selectedConcept=unit.concepts[selected]
+    ElevatedCard(shape=RoundedCornerShape(23.dp),colors=CardDefaults.elevatedCardColors(containerColor=Color(0xFF132C36))){
+        Column(Modifier.padding(15.dp),verticalArrangement=Arrangement.spacedBy(9.dp)) {
+            Text("✧ CONCEPT CONSTELLATION",color=Color(0xFFF9DEA3),fontSize=11.sp,fontWeight=FontWeight.Bold)
+            Text(unit.name,color=Color.White,fontSize=20.sp,fontWeight=FontWeight.ExtraBold)
+            Canvas(Modifier.fillMaxWidth().height(205.dp)){
+                val cx=size.width*.50f;val cy=size.height*.5f
+                val coords=unit.concepts.indices.map { i ->
+                    val a=(i.toFloat()/6f)*Math.PI*2.0-Math.PI/2
+                    Offset(cx+size.width*.35f*kotlin.math.cos(a).toFloat(),cy+size.height*.33f*kotlin.math.sin(a).toFloat())
+                }
+                for(i in coords.indices){
+                    drawLine(Color(0xFF507F81),Offset(cx,cy),coords[i],strokeWidth=2.dp.toPx())
+                    drawLine(Color(0xFF426C79),coords[i],coords[(i+1)%6],strokeWidth=1.dp.toPx())
+                }
+                drawCircle(Color(0xFFECCF7D),radius=24.dp.toPx(),center=Offset(cx,cy))
+                for(i in coords.indices){
+                    drawCircle(if(i==selected)Color(0xFFFFC75F) else Color(0xFF70C6B4),radius=(if(i==selected)17 else 12).dp.toPx(),center=coords[i])
+                    drawCircle(Color(0xFF172F38),radius=4.dp.toPx(),center=coords[i])
+                }
+            }
+            Row(Modifier.fillMaxWidth(),horizontalArrangement=Arrangement.spacedBy(5.dp)) {
+                (0..5).forEach{i->
+                    FilterChip(selected=selected==i,onClick={selected=i},label={Text("${i+1}",fontSize=11.sp)})
+                }
+            }
+            Text(selectedConcept.term,color=Color(0xFFF4E0AA),fontSize=17.sp,fontWeight=FontWeight.Bold)
+            Text(selectedConcept.definition,color=Color(0xFFE1F0E7),fontSize=13.sp,lineHeight=20.sp)
+            Text("Connect this idea with the other five. A line means a study relationship, not automatically logical entailment.",color=Color(0xFFB0C9C1),fontSize=11.sp)
+        }
+    }
+}

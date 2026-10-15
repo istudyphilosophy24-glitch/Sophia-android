@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlin.random.Random
 
 /** Native, illustrated four-phase challenge; no generic quiz screen is reused. */
 @Composable fun BossArena(unit:UnitLesson,course:Course,courseIndex:Int,
@@ -34,28 +35,34 @@ import androidx.compose.ui.unit.sp
     val phaseNames=listOf("The Claim","The Argument","The Objection","The Revision")
     val attacks=listOf("DISCERNMENT","ARGUMENT FORGE","CRITICAL SHIELD","DIALECTICAL TURN")
     val titles=listOf("Find the strongest thesis","Assemble the premises","Block the weak attacks","Revise without retreating")
+    val thesis=unit.reading.thesis.ifBlank{"The chapter investigates how ${cc[0].term} and ${cc[1].term} are related."}
+    val challenge=unit.reading.objection.ifBlank{"Could a counterexample disprove this interpretation?"}
     val claims=listOf(
-        "The chapter studies ${cc[0].term} and how it relates to ${cc[1].term}.",
-        "These concepts have the same meaning and require no distinction.",
-        "This question is unanswerable because it involves philosophy."
+        thesis to true,
+        "${cc[0].term} and ${cc[1].term} must have exactly the same explanatory role." to false,
+        "The existence of ${cc[0].term} alone logically entails every claim in this chapter." to false
     )
     val premises=listOf(
-        "P1 · ${cc[1].term}: ${cc[1].definition}",
-        "P2 · ${cc[2].term}: ${cc[2].definition}",
-        "P3 · Popularity alone makes an argument valid.",
-        "P4 · We may assume our conclusion without reasons."
+        "P1 · ${cc[1].term}: ${cc[1].definition}" to true,
+        "P2 · ${cc[2].term}: ${cc[2].definition}" to true,
+        "P3 · ${cc[2].term}: ${cc[1].definition}" to false,
+        "P4 · ${cc[1].term} is true merely because the thinker is famous." to false
     )
     val objections=listOf(
-        "Test this objection: ${unit.reading.objection.ifBlank { "Another explanation might fit the evidence." }}",
-        "Criticize the thinker personally rather than the premises.",
-        "Ignore the thesis and repeat a different conclusion."
+        "Test the specific challenge: $challenge" to true,
+        "Reject the thesis because the thinker had historical opponents." to false,
+        "Assume that every alternative explanation is equally well supported." to false
     )
     val revisions=listOf(
-        "Retain the thesis provisionally, clarify its premises, and address the strongest objection.",
-        "Insist the original conclusion must be true, no matter the evidence.",
-        "Abandon all reasoning because more than one interpretation is possible."
+        "Clarify the premise about ${cc[0].term}, qualify the thesis where needed, and answer the objection." to true,
+        "Keep the conclusion unchanged even if its decisive premise fails." to false,
+        "Reject all argumentation because disagreement is possible." to false
     )
-    val choices=when(phase){0->claims;1->premises;2->objections;else->revisions}
+    val choices=remember(phase,course.id,unit.name){
+        when(phase){0->claims;1->premises;2->objections;else->revisions}
+            .shuffled(Random(31001+course.id.hashCode()+unit.name.hashCode()+phase))
+    }
+    var chosenSingle by remember(course.id,unit.name){mutableIntStateOf(-1)}
     val transition=rememberInfiniteTransition(label="boss")
     val float by transition.animateFloat(0f,1f,infiniteRepeatable(tween(1450),RepeatMode.Reverse),label="opponent")
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(13.dp),verticalArrangement=Arrangement.spacedBy(12.dp)){
@@ -100,27 +107,28 @@ import androidx.compose.ui.unit.sp
                 repeat(2){i->Surface(color=if(picked.size>i)Color(0xFF5DBC85) else Color(0xFFDDE7DF),shape=CircleShape){Text(if(picked.size>i)"✓" else "◇",modifier=Modifier.padding(horizontal=17.dp,vertical=6.dp),fontWeight=FontWeight.Bold)}}
             }
         }
-        choices.forEachIndexed { idx,choice ->
-            val selected=if(phase==1)idx in picked else locked && (idx==0 || (good && idx==0))
-            val color=when { selected && idx==0->Color(0xFFD8F5DF);selected->Color(0xFFFCE4DB);else->Color.White }
+        choices.forEachIndexed { idx,entry ->
+            val choice=entry.first
+            val selected=if(phase==1)idx in picked else locked && chosenSingle==idx
+            val color=when { selected && entry.second->Color(0xFFD8F5DF);selected->Color(0xFFFCE4DB);else->Color.White }
             OutlinedCard(
                 onClick={
                     if(!locked){
                         if(phase==1){
                             picked=picked+idx
                             if(picked.size==2){
-                                good=picked==setOf(0,1);locked=true
+                                good=picked.count{choices[it].second}==2;locked=true
                                 if(good){score+=2;opponentHp=(opponentHp-25).coerceAtLeast(0)}
                                 else heroHp=(heroHp-25).coerceAtLeast(0)
                             }
                         }else{
-                            good=idx==0;locked=true
+                            chosenSingle=idx;good=entry.second;locked=true
                             if(good){score+=2;opponentHp=(opponentHp-25).coerceAtLeast(0)}
                             else heroHp=(heroHp-25).coerceAtLeast(0)
                         }
                     }
                 },modifier=Modifier.fillMaxWidth(),colors=CardDefaults.outlinedCardColors(containerColor=color),
-                shape=RoundedCornerShape(16.dp),border=BorderStroke(2.dp,if(idx in picked||locked&&idx==0) Color(0xFF68B98B) else Color(0xFFE1E7DF))
+                shape=RoundedCornerShape(16.dp),border=BorderStroke(2.dp,if((idx in picked||chosenSingle==idx)&&entry.second) Color(0xFF68B98B) else Color(0xFFE1E7DF))
             ){
                 Row(Modifier.padding(15.dp),verticalAlignment=Alignment.CenterVertically){
                     Text(if(idx in picked)"✦" else "◇",color=forest,fontSize=24.sp);Spacer(Modifier.width(10.dp))
@@ -134,7 +142,7 @@ import androidx.compose.ui.unit.sp
             }
             Button(onClick={
                 if(phase==3 || heroHp<=0){onFinish(score,score>=6 && heroHp>0)}
-                else {phase++;locked=false;good=false;picked=emptySet()}
+                else {phase++;locked=false;good=false;picked=emptySet();chosenSingle=-1}
             },modifier=Modifier.fillMaxWidth()) {Text(if(phase==3 || heroHp<=0)"Complete encounter" else "⚔ Continue to ${phaseNames[phase+1]}")}
         }
         Text("Gameplay tests philosophical fidelity and inferential care; it does not decide which disputed theory is universally true.",fontSize=11.sp,color=Color.Gray)
