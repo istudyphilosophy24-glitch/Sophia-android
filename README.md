@@ -1,22 +1,29 @@
-# SOPHIA — Native Android Preview
+# SOPHIA 4.0 — Native Jetpack Compose Migration
 
-This repository now contains **actual Kotlin + Jetpack Compose Android source**, no WebView. It is a **compilable preview candidate**, not the full SOPHIA 4.0 port. It contains 28 philosophy disciplines with a small, hand-authored introductory concept bank; the much larger SOPHIA 4 curriculum is not yet copied into this repository.
+**Native Kotlin UI, no Android WebView.** This repository migrates SOPHIA 4.0's complete **28-course, 280-unit, 1,680-concept** curriculum (including historical readings) into an offline Android app. Twelve lesson paths per unit provide 3,360 checkpoints.
 
-## Native preview features
+## Implemented
 
-- Bright gamified Android interface, 28 philosophical traditions, 12 practice checkpoints per discipline.
-- Guided reading, eight-question recognition exercises, explanations, XP, coins, streaks, local completion records.
-- Android system text-to-speech and a research notes journal.
-- Offline, no internet permission or tracking. No premium neural voice included.
+- Three connected areas: Odyssey (courses and unit paths), Academy (three reading depths, annotations, Socratic seminar, logic arena, mastery dashboard, spaced review), and Research Institute (persistent writing and audit rubric).
+- Eight assessed questions per lesson across identification, comprehension, transfer, formal inference, philosophical criticism and earlier-content recall; a written reflection at upper tiers.
+- Mastery trials require 6 correct answers out of 8; ordinary practice has unlimited retries. Streaks, XP, Wisdom Coins and badges are device-local.
+- Six skill signals (recognition, comprehension, reconstruction, criticism, synthesis, retention) and a simple review schedule.
+- Android TextToSpeech with speed and pitch controls, haptic response and synthesized feedback tones. No bundled high-quality neural audio.
+- Native backup export through Android Sharesheet and paste-based restore of **native** progress and saved research/annotations.
 
-## Build a sideloadable APK
+## Build
 
-Use **Actions → Build SOPHIA Android**. On a successful run, open **Artifacts → SOPHIA-Native-Debug-APK**, download the artifact ZIP, unzip and install `app-debug.apk`.
+GitHub Actions automatically runs the debug Android build. Download artifact `SOPHIA-4-Native-Migrated-APK`, extract `app-debug.apk`, sideload on an Android 7+ device. Uses Gradle 8.10.2, Android SDK 35, Kotlin 2.1.20 and Compose BOM 2025.04.01.
 
-For local builds use Android Studio (Java 17, Android SDK 35, Gradle 8.10.2). This repository intentionally relies on GitHub's Gradle setup action rather than checking in a binary wrapper JAR.
+## Important limitations
 
-## Limitations / migration
+- The complete *curriculum* is migrated, but exercises are still algorithmic variants of 1,680 concepts—not 26,880 hand-written scholarly questions. The 4.0 source often uses simplified expositions; some older units have less detailed advanced readings.
+- The Socratic seminar is a guided writing exercise, **not** an LLM examiner. No AI-based grading, premium neural speech, or valid proof-of-truth certification. The finite formal logic arena uses four patterns.
+- This app is intentionally a separate native app ID (`com.sophia.philosophy.nativepreview`), updating the previous Compose *preview* only. It does **not** automatically read progress from WebView SOPHIA 4.0 (`com.sophia.philosophy`). The backup export/import format is native-specific.
+- GitHub Actions APKs are debug-signed. For stable long-term releases, configure a controlled release keystore outside the repository.
+- The bundled primary-text citations are source orientations; translation and textual attributions need independent edition checks.
+- A browser-free, signed debug build does not guarantee flawless behavior on every phone. Test on device.
 
-This is a minimal initial GitHub version to validate a true native build. Advanced argumentative exercises, adaptive long-term mastery, AI Socratic dialogue, boss battles, the full 1,680-concept curriculum and reviewed primary texts are **not yet implemented in this branch**. The separate SOPHIA 4.0 WebView edition remains the fuller gameplay version.
+## Privacy
 
-App ID: `com.sophia.philosophy.nativepreview`; it **does not overwrite** an existing SOPHIA 4 installation. GitHub Actions creates a debug-signed testing APK (not a stable production signing identity). Do not commit release signing keys.
+No advertising, telemetry, account sign-in or internet permission. This is a personal offline application.

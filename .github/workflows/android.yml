@@ -1,4 +1,4 @@
-name: Build SOPHIA Android
+name: Build SOPHIA 4 Native
 on:
   push:
     branches: [main]
@@ -16,10 +16,9 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Install Android SDK 35
+      - name: Install SDK 35
         shell: bash
         run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
           SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
           if [ ! -x "$SDKMANAGER" ]; then
             SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)"
@@ -31,11 +30,11 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.10.2'
-      - name: Assemble debug APK
+      - name: Compile native APK
         run: gradle :app:assembleDebug --stacktrace --no-daemon
-      - name: Upload debug APK
+      - name: Publish sideloadable debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: SOPHIA-Native-Debug-APK
+          name: SOPHIA-4-Native-Migrated-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
