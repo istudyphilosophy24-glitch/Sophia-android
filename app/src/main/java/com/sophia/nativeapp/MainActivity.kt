@@ -1,6 +1,11 @@
 package com.sophia.nativeapp
 
 import android.content.Intent
+import android.content.ClipData
+import android.net.Uri
+import androidx.core.content.FileProvider
+import java.io.File
+
 import android.os.Bundle
 import android.media.AudioManager
 import android.media.ToneGenerator
@@ -41,14 +46,17 @@ class MainActivity:ComponentActivity() {
         voice=TextToSpeech(this) { status -> if(status==TextToSpeech.SUCCESS)voice?.language=Locale.UK }
         tones=try { ToneGenerator(AudioManager.STREAM_MUSIC,35) } catch (_:Exception) { null }
         val courses=loadCourses(this)
+        val primaryBooks=loadPrimaryBooks(this)
         val progress=SophiaProgress(this)
         setContent {
             MaterialTheme(colorScheme=lightColorScheme(primary=Pine,onPrimary=Color.White,background=Cream,surface=Color.White,onSurface=Ink)) {
-                SophiaApp(courses,progress,
+                SophiaApp(courses,primaryBooks,progress,
                     onSpeak={s,rate,pitch -> speak(s,rate,pitch)},
                     onStop={voice?.stop()},
                     onTone={yes -> tones?.startTone(if(yes)ToneGenerator.TONE_PROP_ACK else ToneGenerator.TONE_PROP_NACK,110)},
-                    onShare={data-> shareBackup(data)})
+                    onShare={data->shareBackup(data)},
+                    onExternalReader={title,body->shareToReader(title,body)},
+                    onOpenSource={url->openSource(url)})
             }
         }
     }
@@ -70,13 +78,33 @@ class MainActivity:ComponentActivity() {
         }
         startActivity(Intent.createChooser(intent,"Export SOPHIA backup"))
     }
+    private fun shareToReader(title:String,body:String){
+        try{
+            val folder=File(cacheDir,"reader_shares").apply{mkdirs()}
+            val filename=title.replace(Regex("[^A-Za-z0-9_-]"),"_").take(58)
+            val file=File(folder,filename+".txt")
+            file.writeText(body,Charsets.UTF_8)
+            val uri=FileProvider.getUriForFile(this,packageName+".files",file)
+            val intent=Intent(Intent.ACTION_SEND).apply{
+                type="text/plain"
+                putExtra(Intent.EXTRA_STREAM,uri)
+                putExtra(Intent.EXTRA_SUBJECT,title)
+                clipData=ClipData.newUri(contentResolver,title,uri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+            startActivity(Intent.createChooser(intent,"Choose reading app or ElevenReader"))
+        }catch(_:Exception){}
+    }
+    private fun openSource(url:String){
+        try{startActivity(Intent(Intent.ACTION_VIEW,Uri.parse(url)))}catch(_:Exception){}
+    }
     override fun onDestroy(){voice?.stop();voice?.shutdown();tones?.release();super.onDestroy()}
 }
 
-private enum class Page { HOME, COURSES, COURSE, READ, QUIZ, REFLECTION, FINISH, ACADEMY, LIBRARY, READING_DESK, SEMINAR, ARGUMENT, REVIEW, RESEARCH, MASTERY, PROFILE, BACKUP }
+private enum class Page { HOME, COURSES, COURSE, READ, QUIZ, REFLECTION, FINISH, ACADEMY, LIBRARY, COMMENTARY, PRIMARY_READER, READING_DESK, SEMINAR, ARGUMENT, REVIEW, RESEARCH, MASTERY, PROFILE, BACKUP }
 
 @Composable
-private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(String,Float,Float)->Unit,onStop:()->Unit,onTone:(Boolean)->Unit,onShare:(String)->Unit) {
+private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progress:SophiaProgress,onSpeak:(String,Float,Float)->Unit,onStop:()->Unit,onTone:(Boolean)->Unit,onShare:(String)->Unit,onExternalReader:(String,String)->Unit,onOpenSource:(String)->Unit) {
     var page by remember { mutableStateOf(Page.HOME) }
     var courseIndex by remember { mutableIntStateOf(0) }
     var unitIndex by remember { mutableIntStateOf(0) }
@@ -97,6 +125,7 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
     var tick by remember { mutableIntStateOf(0) }
     var backupText by remember { mutableStateOf("") }
     var importStatus by remember { mutableStateOf("") }
+    var primaryIndex by remember { mutableIntStateOf(0) }
     val haptic=LocalHapticFeedback.current
     val course=courses[courseIndex]
     val unit=course.units[unitIndex]
@@ -111,7 +140,8 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
             Page.READ->Page.COURSE
             Page.QUIZ,Page.REFLECTION->Page.READ
             Page.FINISH->Page.COURSE
-            Page.READING_DESK,Page.SEMINAR,Page.ARGUMENT,Page.REVIEW,Page.MASTERY->Page.ACADEMY
+            Page.READING_DESK,Page.COMMENTARY,Page.LIBRARY,Page.SEMINAR,Page.ARGUMENT,Page.REVIEW,Page.MASTERY->Page.ACADEMY
+            Page.PRIMARY_READER->Page.LIBRARY
             Page.BACKUP->Page.PROFILE
             else->Page.HOME
         }
@@ -135,7 +165,8 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
         Box(Modifier.weight(1f)) {
             when(page) {
                 Page.HOME->ScrollFrame {
-                    Headline("The Academy of Reason","Philosophical thinking, made playable")
+                    IllustratedHomeBanner(onExplore={page=Page.COURSES})
+                    Headline("The Illustrated Academy","Philosophical thinking, made playable")
                     Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         SmallStat("⚡","${progress.xp}","XP",Modifier.weight(1f))
                         SmallStat("🪙","${progress.coins}","Coins",Modifier.weight(1f))
@@ -153,43 +184,26 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
                         Text("${due.size} concepts need another encounter. Review past ideas before they fade.",color=Muted)
                         OutlinedButton(onClick={page=Page.REVIEW}) { Text("Review now") }
                     }
-                    Text("Native Compose edition · offline by design · no advertisements",fontSize=12.sp,color=Muted)
+                    Text("Illustrated Odyssey · Primary Texts · Philosophy without ads",fontSize=12.sp,color=Muted)
                 }
                 Page.COURSES->ScrollFrame {
                     Headline("🗺️ Philosophical worlds","Select one of 28 traditions")
                     courses.forEachIndexed { i,c ->
                         val done=progress.completed.count { it.startsWith("${c.id}:") }
-                        MenuCard(c.icon,c.name,"${c.units.size} units · ${c.units.sumOf {it.concepts.size}} concepts · $done / 120 lessons", "Enter world") {courseIndex=i;page=Page.COURSE}
+                        IllustratedCourseTile(c,i,done) {courseIndex=i;page=Page.COURSE}
                     }
                 }
                 Page.COURSE->ScrollFrame {
-                    Headline("${course.icon} ${course.name}",course.description)
+                    CourseWorldHeader(course,courseIndex,progress.completed.count{it.startsWith("${course.id}:")})
+                    Text(course.description,color=Muted,lineHeight=21.sp)
                     for((ui,u) in course.units.withIndex()) {
-                        ElevatedCard(colors=CardDefaults.elevatedCardColors(containerColor=Color.White),shape=RoundedCornerShape(18.dp)) {
-                            Column(Modifier.padding(15.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                                Text("UNIT ${ui+1} · ${u.name}",color=Pine,fontWeight=FontWeight.ExtraBold,fontSize=17.sp)
-                                Text(u.concepts.joinToString(" · ") {it.term},color=Muted,fontSize=12.sp)
-                                for(r in 0..2) {
-                                    Row(horizontalArrangement=Arrangement.spacedBy(7.dp)) {
-                                        for(j in 0..3) {
-                                            val li=r*4+j
-                                            val done=progress.isCompleted(unitKey(course.id,ui,li))
-                                            val typ=tierFor(li)
-                                            OutlinedButton(
-                                                onClick={unitIndex=ui;lessonIndex=li;page=Page.READ},
-                                                contentPadding=PaddingValues(0.dp),
-                                                modifier=Modifier.weight(1f).height(43.dp),
-                                                colors=ButtonDefaults.outlinedButtonColors(containerColor=if(done)Sky else if(li==11)Color(0xFFFFF2D8) else Color.White)
-                                            ) {Text(if(done)"✓" else if(li==11)"⚔" else "${li+1}",fontSize=14.sp)}
-                                        }
-                                    }
-                                }
-                                Text("Recognition → Comprehension → Reconstruction → Criticism → Synthesis → Boss",color=Muted,fontSize=11.sp)
-                            }
-                        }
+                        IllustratedUnitPath(u,course,ui,
+                            isDone={li->progress.isCompleted(unitKey(course.id,ui,li))},
+                            onEnter={li->unitIndex=ui;lessonIndex=li;page=Page.READ})
                     }
                 }
                 Page.READ->ScrollFrame {
+                    CourseWorldHeader(course,courseIndex,progress.completed.count{it.startsWith("${course.id}:")})
                     Headline("📖 ${unit.name}","${course.name} · Lesson ${lessonIndex+1}/12 · ${tier.label}")
                     Pill(if(isBoss)"⚔ Unit Mastery Trial" else "📚 Read before practice")
                     if(unit.reading.thesis.isNotBlank()) {
@@ -215,7 +229,8 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
                         TitleLine("🔁 Previously encountered")
                         ConceptTile(course.units[unitIndex-1].concepts[(lessonIndex+unitIndex)%6])
                     }
-                    OutlinedButton(onClick={onSpeak(unit.lecture,speakingSpeed,speakingPitch)},modifier=Modifier.fillMaxWidth()) { Text("🔊 Narrate reading using Android voice") }
+                    OutlinedButton(onClick={onSpeak(unit.lecture,speakingSpeed,speakingPitch)},modifier=Modifier.fillMaxWidth()) { Text("🔊 Android narration") }
+                    Button(onClick={onExternalReader(course.name+" — "+unit.name,unit.lecture)},modifier=Modifier.fillMaxWidth()){Text("🎧 Choose narrator app / ElevenReader")}
                     OutlinedButton(onClick={onStop()},modifier=Modifier.fillMaxWidth()) {Text("■ Stop narration")}
                     Button(onClick={questionIndex=0;selected=null;score=0;writing="";page=Page.QUIZ},modifier=Modifier.fillMaxWidth()) {Text(if(isBoss)"⚔ Begin mastery trial" else "Begin 8-question practice")}
                 }
@@ -268,8 +283,8 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
                     Button(enabled=writing.trim().length>=25,onClick={progress.recordReflection(unit.concepts.first().term);endLesson()},modifier=Modifier.fillMaxWidth()) {Text("Record reflection")}
                 }
                 Page.FINISH->ScrollFrame {
-                    Spacer(Modifier.height(40.dp))
-                    Text(if(score>=6)"🏆" else "📚",fontSize=76.sp,textAlign=TextAlign.Center,modifier=Modifier.fillMaxWidth())
+                    Spacer(Modifier.height(10.dp))
+                    RewardCelebration(if(isBoss||tier==Tier.SYNTHESIS)score>=6 else true,score)
                     val passed= if(isBoss||tier==Tier.SYNTHESIS)score>=6 else true
                     Headline(if(passed)"Lesson completed!" else "More preparation needed", "$score / 8 questions correct")
                     if(!passed)Text("Mastery trials require at least six correct answers. Review the reading and try again; no XP or unlock is awarded yet.",color=Ink)
@@ -279,15 +294,18 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
                 }
                 Page.ACADEMY->ScrollFrame {
                     Headline("📚 The Academy","Read, reconstruct, criticize and remember")
-                    MenuCard("📖","Great Library","Three reading depths across all 280 units","Browse") {page=Page.LIBRARY}
+                    MenuCard("📜","Great Library","Complete original books, not only instructional summaries","Read originals") {page=Page.LIBRARY}
+                    MenuCard("📑","Course commentary","Foundation, intermediate and advanced explanations","Read commentary"){page=Page.COMMENTARY}
                     MenuCard("🎙️","Socratic Seminar","Four-stage reflection with a transparent rubric","Enter") {seminarStep=0;seminarText=progress.seminarResponse(course.id,unitIndex,0);page=Page.SEMINAR}
                     MenuCard("🧩","Argument Architect","Classify inferences and examine counterexamples","Practice") {page=Page.ARGUMENT}
                     MenuCard("🔁","Spaced Review","Revisit concepts scheduled from past performance","Review") {page=Page.REVIEW}
                     MenuCard("📊","Mastery Dashboard","Track six dimensions of your learning","Examine") {page=Page.MASTERY}
                     Text("For source-based study, prefer annotated texts and check primary editions. The app does not certify contested interpretations.",color=Muted,fontSize=12.sp)
                 }
-                Page.LIBRARY->ScrollFrame {
-                    Headline("📜 Great Library","Choose a course and chapter")
+                Page.LIBRARY->PrimaryLibraryIndex(primaryBooks,onOpen={primaryIndex=it;page=Page.PRIMARY_READER},onSource=onOpenSource)
+                Page.PRIMARY_READER->PrimaryReader(primaryBooks[primaryIndex],onSpeak={onSpeak(it,speakingSpeed,speakingPitch)},onStop=onStop,onShare=onExternalReader,onSource=onOpenSource)
+                Page.COMMENTARY->ScrollFrame {
+                    Headline("📑 Course commentary","Choose a course and unit")
                     courses.forEachIndexed { ci,c ->
                         Text("${c.icon} ${c.name}",fontWeight=FontWeight.Bold,color=Pine)
                         Row(Modifier.horizontalScroll(rememberScrollState()),horizontalArrangement=Arrangement.spacedBy(6.dp)) {
@@ -298,7 +316,7 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
                     }
                 }
                 Page.READING_DESK->ScrollFrame {
-                    Headline("📚 ${unit.name}",course.name)
+                    Headline("📑 ${unit.name}",course.name+" · SOPHIA commentary, not original text")
                     val opts=listOf("Foundation","Intermediate","Advanced")
                     SingleChoiceSegmentedButtonRow(modifier=Modifier.fillMaxWidth()) {
                         opts.forEachIndexed { i,txt->
@@ -312,7 +330,9 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
                     TitleLine("📌 Reading annotations")
                     var notes by remember(courseIndex,unitIndex){mutableStateOf(progress.annotation(course.id,unitIndex))}
                     OutlinedTextField(value=notes,onValueChange={notes=it;progress.saveAnnotation(course.id,unitIndex,it)},modifier=Modifier.fillMaxWidth().height(155.dp),label={Text("Your notes and objections")})
-                    Button(onClick={onSpeak(body,speakingSpeed,speakingPitch)},modifier=Modifier.fillMaxWidth()) {Text("🔊 Read this commentary")}
+                    Button(onClick={onSpeak(body,speakingSpeed,speakingPitch)},modifier=Modifier.fillMaxWidth()) {Text("🔊 Android narration")}
+                    OutlinedButton(onClick={onExternalReader(course.name+" — "+unit.name,body)},modifier=Modifier.fillMaxWidth()) {Text("🎧 Choose narrator app / ElevenReader")}
+                    OutlinedButton(onClick={page=Page.LIBRARY},modifier=Modifier.fillMaxWidth()) {Text("📜 Open historical primary texts")}
                     Text("Passages here are instructional expositions, not necessarily verbatim quotations from philosophers.",fontSize=12.sp,color=Muted)
                 }
                 Page.SEMINAR->ScrollFrame {
@@ -383,7 +403,7 @@ private fun SophiaApp(courses:List<Course>,progress:SophiaProgress,onSpeak:(Stri
                     Text("Pitch: ${"%.2f".format(speakingPitch)}",color=Ink)
                     Slider(value=speakingPitch,onValueChange={speakingPitch=it},valueRange=0.7f..1.25f)
                     Row(verticalAlignment=Alignment.CenterVertically) {Switch(checked=soundOn,onCheckedChange={soundOn=it});Spacer(Modifier.width(10.dp));Text("Quiz feedback sounds",color=Ink)}
-                    Text("Voice quality depends on the installed Android TTS engine and voices; this version contains no neural recordings.",fontSize=12.sp,color=Muted)
+                    Text("In any reading, choose an external narrator app. ElevenReader runs audio in its own player. If it is absent from the chooser, save or copy the text and import it directly inside ElevenReader.",fontSize=12.sp,color=Muted)
                     MenuCard("💾","Back up progress","Share or restore all native progress and notes","Manage") {page=Page.BACKUP}
                 }
                 Page.BACKUP->ScrollFrame {
