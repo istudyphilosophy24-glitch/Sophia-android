@@ -1,4 +1,4 @@
-name: Build SOPHIA 4 Native
+name: Build SOPHIA 5 Native
 on:
   push:
     branches: [main]
@@ -30,11 +30,29 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.10.2'
+      - name: Bundle full public-domain primary works
+        shell: bash
+        run: |
+          mkdir -p app/src/main/assets/primary
+          good=0
+          for id in 1656 1497 8438 59 9662 4280 4363 11224 5827 3330 216 2017 2680; do
+            file="app/src/main/assets/primary/$id.txt"
+            echo "Fetching Gutenberg edition $id"
+            if curl --fail -L -sS --retry 2 --connect-timeout 15 --max-time 100 \
+               -A "SOPHIA/5.0 (non-commercial public domain reading app)" \
+               "https://www.gutenberg.org/cache/epub/$id/pg$id.txt" -o "$file"; then
+              if grep -qi "Project Gutenberg" "$file"; then good=$((good+1)); else rm -f "$file"; fi
+            else
+              rm -f "$file"
+            fi
+          done
+          echo "Complete verified works bundled: $good"
+          if [ "$good" -lt 5 ]; then echo "Primary text download insufficient" >&2; exit 1; fi
       - name: Compile native APK
         run: gradle :app:assembleDebug --stacktrace --no-daemon
       - name: Publish sideloadable debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: SOPHIA-4-Native-Migrated-APK
+          name: SOPHIA-5-Native-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
