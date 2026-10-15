@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.sp
     var locked by remember(course.id,unit.name){mutableStateOf(false)}
     var good by remember(course.id,unit.name){mutableStateOf(false)}
     var picked by remember(course.id,unit.name){mutableStateOf(setOf<Int>())}
-    var selectedIndex by remember(course.id,unit.name){mutableIntStateOf(-1)}
     val phaseNames=listOf("The Claim","The Argument","The Objection","The Revision")
     val attacks=listOf("DISCERNMENT","ARGUMENT FORGE","CRITICAL SHIELD","DIALECTICAL TURN")
     val titles=listOf("Find the strongest thesis","Assemble the premises","Block the weak attacks","Revise without retreating")
@@ -102,8 +101,8 @@ import androidx.compose.ui.unit.sp
             }
         }
         choices.forEachIndexed { idx,choice ->
-            val selected=if(phase==1)idx in picked else locked && idx==selectedIndex
-            val color=when { selected && good->Color(0xFFD8F5DF);selected->Color(0xFFFCE4DB);locked&&idx==0->Color(0xFFD8F5DF);else->Color.White }
+            val selected=if(phase==1)idx in picked else locked && (idx==0 || (good && idx==0))
+            val color=when { selected && idx==0->Color(0xFFD8F5DF);selected->Color(0xFFFCE4DB);else->Color.White }
             OutlinedCard(
                 onClick={
                     if(!locked){
@@ -115,7 +114,7 @@ import androidx.compose.ui.unit.sp
                                 else heroHp=(heroHp-25).coerceAtLeast(0)
                             }
                         }else{
-                            selectedIndex=idx;good=idx==0;locked=true
+                            good=idx==0;locked=true
                             if(good){score+=2;opponentHp=(opponentHp-25).coerceAtLeast(0)}
                             else heroHp=(heroHp-25).coerceAtLeast(0)
                         }
@@ -135,7 +134,7 @@ import androidx.compose.ui.unit.sp
             }
             Button(onClick={
                 if(phase==3 || heroHp<=0){onFinish(score,score>=6 && heroHp>0)}
-                else {phase++;locked=false;good=false;picked=emptySet();selectedIndex=-1}
+                else {phase++;locked=false;good=false;picked=emptySet()}
             },modifier=Modifier.fillMaxWidth()) {Text(if(phase==3 || heroHp<=0)"Complete encounter" else "⚔ Continue to ${phaseNames[phase+1]}")}
         }
         Text("Gameplay tests philosophical fidelity and inferential care; it does not decide which disputed theory is universally true.",fontSize=11.sp,color=Color.Gray)

@@ -173,7 +173,6 @@ class SophiaProgress(context:Context) {
     val coins get()=prefs.getInt("coins",0)
     val streak get()=prefs.getInt("streak",0)
     val completed:Set<String> get()=prefs.getStringSet("completed", emptySet())?.toSet()?:emptySet()
-    val todayLessons:Int get()=if(prefs.getString("dailyDate","")==SimpleDateFormat("yyyy-MM-dd",Locale.US).format(Date()))prefs.getInt("dailyLessons",0) else 0
     val badges:Set<String> get()=prefs.getStringSet("badges", emptySet())?.toSet()?:emptySet()
     fun isCompleted(key:String)=key in completed
     fun research():String=prefs.getString("research","")?:""
@@ -216,8 +215,6 @@ class SophiaProgress(context:Context) {
         val yesterday=Calendar.getInstance().apply {add(Calendar.DATE,-1)}
         val nextStreak=if(last==today)streak else if(last==fmt.format(yesterday.time))streak+1 else 1
         val finished=completed+key
-        val priorDaily=if(prefs.getString("dailyDate","")==today)prefs.getInt("dailyLessons",0) else 0
-        val daily=priorDaily+(if(already)0 else 1)
         val earned=if(already)score*2 else score*10+30
         val rewards=if(already)0 else 5+score*2
         val badgeSet=badges.toMutableSet()
@@ -227,8 +224,7 @@ class SophiaProgress(context:Context) {
         if(finished.size>=500)badgeSet.add("Philosopher")
         prefs.edit().putStringSet("completed",finished).putStringSet("badges",badgeSet)
             .putInt("xp",xp+earned).putInt("coins",coins+rewards)
-            .putInt("streak",nextStreak).putString("lastDay",today)
-            .putString("dailyDate",today).putInt("dailyLessons",daily).apply()
+            .putInt("streak",nextStreak).putString("lastDay",today).apply()
         return true
     }
     fun exportBackup():String {

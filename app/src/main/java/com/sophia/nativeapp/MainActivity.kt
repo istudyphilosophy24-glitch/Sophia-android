@@ -162,7 +162,7 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                         SmallStat("🪙","${progress.coins}","Coins",Modifier.weight(1f))
                         SmallStat("🏅","${progress.completed.size}","Lessons",Modifier.weight(1f))
                     }
-                    DailyQuestBoard(progress.todayLessons,progress.streak,progress.xp)
+                    DailyQuestBoard(progress.completed.size,progress.streak,progress.xp)
                     Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
                         Pill("📚 28 courses")
                         Pill("🧠 1,680 concepts")
@@ -247,16 +247,22 @@ private fun SophiaApp(courses:List<Course>,primaryBooks:List<PrimaryBook>,progre
                         LinearProgressIndicator(progress=(questionIndex+1)/8f,modifier=Modifier.fillMaxWidth(),color=Leaf)
                         Text(exercise.prompt,color=Ink,fontSize=20.sp,lineHeight=28.sp,fontWeight=FontWeight.SemiBold)
                         Column(Modifier.weight(1f).verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(8.dp)) {
-                            ExerciseGame(exercise,selected,{ option->
-                                if(selected==null){
-                                    selected=option
-                                    val ok=option==exercise.answer
-                                    if(ok)score++
-                                    progress.recordAnswer(exercise,ok)
-                                    haptic.performHapticFeedback(if(ok)HapticFeedbackType.LongPress else HapticFeedbackType.TextHandleMove)
-                                    if(soundOn)onTone(ok)
+                            exercise.choices.forEach { option ->
+                                val hasSelection=selected!=null
+                                val state=when {hasSelection&&option==exercise.answer->Color(0xFFE3F8E9);selected==option->Color(0xFFFFE9E5);else->Color.White}
+                                OutlinedCard(onClick={
+                                    if(selected==null){
+                                        selected=option
+                                        val ok=option==exercise.answer
+                                        if(ok)score++
+                                        progress.recordAnswer(exercise,ok)
+                                        haptic.performHapticFeedback(if(ok)HapticFeedbackType.LongPress else HapticFeedbackType.TextHandleMove)
+                                        if(soundOn)onTone(ok)
+                                    }
+                                },colors=CardDefaults.outlinedCardColors(containerColor=state),modifier=Modifier.fillMaxWidth()) {
+                                    Text(option,modifier=Modifier.fillMaxWidth().padding(15.dp),color=Ink)
                                 }
-                            })
+                            }
                             if(selected!=null) {
                                 Text(if(selected==exercise.answer)"✅ Well reasoned" else "📘 Corrective explanation",color=Pine,fontWeight=FontWeight.Bold)
                                 Text(exercise.feedback,color=Ink,lineHeight=22.sp)
